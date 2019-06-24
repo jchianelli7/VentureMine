@@ -35,6 +35,12 @@ export class AuctionGraphComponent implements OnInit {
       }],
     }
   }
+  chartColors = [
+    {
+      backgroundColor: '#28a745',
+      pointBackgroundColor: '#28a745'
+    }
+  ]
   constructor() { }
 
   ngOnInit() {

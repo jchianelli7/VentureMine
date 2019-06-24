@@ -25,7 +25,9 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   placeBid(numShares: number, pricePerShare: number) {
-    this.auction.graphDataSets[0].data.push({x: 500, y: 2});
+    console.log("# Shares: " + numShares);
+    console.log("PPS: " + pricePerShare);
+    this.auction.graphDataSets[0].data.push({x: numShares, y: pricePerShare});
     this.auction.currentBids++;
     this.bidPlaced.emit(this.auction);
   }

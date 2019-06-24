@@ -13,8 +13,8 @@
 </div>
 
 <div class="action">
-    <input type="text" id="auctionPPS" placeholder="Price per share">
-    <input type="text" id="auctionNumShares" placeholder="# of shares">
-    <button class="btn btn-default btn-primary" type="button" (click)="placeBid()">Place Bid</button>
+    <input type="text" id="auctionPPS" placeholder="Price per share" [(ngModel)]="pps">
+    <input type="text" id="auctionNumShares" placeholder="# of shares" [(ngModel)]="numShares">
+    <button class="btn btn-default btn-primary" type="button" (click)="placeBid(pps, numShares)">Place Bid</button>
     
   </div>
