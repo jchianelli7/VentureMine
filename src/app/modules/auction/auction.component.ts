@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { Auction } from 'src/app/models/Auction';
+import { AuctionService } from 'src/app/services/auction-service.service';
 
 @Component({
   selector: 'app-auction',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuctionComponent implements OnInit {
 
-  constructor() { }
+ auction: Auction;
+
+  constructor(private auctionService: AuctionService) { }
 
   ngOnInit() {
+    this.auction = this.auctionService.getAuction(1);
+  }
+
+  bidPlaced(){
+    console.log("In Parent Component - Auction");
   }
 
 }

@@ -8,6 +8,7 @@ import { UserDashboardModule } from './modules/user-dashboard/user-dashboard.mod
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuctionModule } from './modules/auction/auction.module';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { AuctionModule } from './modules/auction/auction.module';
     UserDashboardModule,    // Feature Module
     AuctionModule,          // Feature Module
     HttpClientModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, 
+    ReactiveFormsModule, 
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

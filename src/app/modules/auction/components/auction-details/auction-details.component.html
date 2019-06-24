@@ -1,0 +1,20 @@
+<div class="container">
+  <h3 class="product-title">The Centrax</h3>
+  <hr>
+  <h5 class="price">Current Strike Price: <span>{{auction.currentStrikePrice}}</span></h5>
+  
+  <div class="statistics">
+   <span> <b>Current Bids: </b>{{auction.currentBids}} ---<b> Unique Bidders: </b>{{auction.uniqueBidders}}</span>
+ 
+  </div>
+  <p class="product-description">{{auction.description}}</p>
+  
+
+</div>
+
+<div class="action">
+    <input type="text" id="auctionPPS" placeholder="Price per share">
+    <input type="text" id="auctionNumShares" placeholder="# of shares">
+    <button class="btn btn-default btn-primary" type="button" (click)="placeBid()">Place Bid</button>
+    
+  </div>
