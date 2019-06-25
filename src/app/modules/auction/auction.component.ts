@@ -22,8 +22,9 @@ export class AuctionComponent implements OnInit {
     });
   }
 
-  bidPlaced() {
+  bidPlaced(auction: Auction) {
     console.log('In Parent Component - Auction');
+    this.auction = auction;
   }
 
 }

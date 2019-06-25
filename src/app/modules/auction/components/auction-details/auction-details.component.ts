@@ -29,9 +29,10 @@ export class AuctionDetailsComponent implements OnInit {
     // this.auction.graphDataSets[0].data.push({x: numShares, y: pricePerShare});
     // this.auction.currentBids++;
     // this.bidPlaced.emit(this.auction);
-    this.auctionService.placeBid('5d11416d1c9d44000055b5e9', numShares, pricePerShare).subscribe((auctionData => {
-      // this.auction.graphDataSets[0].data =
-      console.log(auctionData);
+    this.auctionService.placeBid('5d11416d1c9d44000055b5e9', numShares, pricePerShare).subscribe((auction => {
+      this.auction = auction;
+      this.bidPlaced.emit(auction);
+      console.log(auction);
     }));
   }
 

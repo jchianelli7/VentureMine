@@ -25,8 +25,8 @@ export class AuctionService {
     ));
   }
 
-  placeBid(id: string, numShares: number, ppc: number) {
-    return this.http.post('http://localhost:3000/auctions/' + id, {numShares, ppc}).pipe(map(
+  placeBid(id: string, numShares: number, pps: number) {
+    return this.http.post<Auction>('http://localhost:3000/auctions/' + id, {numShares, pps}).pipe(map(
       auction => {
         if (auction) {
           console.log('Bid Placed, Auction Returned');
