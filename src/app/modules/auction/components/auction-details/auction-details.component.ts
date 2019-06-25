@@ -21,12 +21,12 @@ export class AuctionDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    
   }
 
   placeBid(numShares: number, pricePerShare: number) {
-    console.log("# Shares: " + numShares);
-    console.log("PPS: " + pricePerShare);
+    console.log('# Shares: ' + numShares);
+    console.log('PPS: ' + pricePerShare);
+    // @ts-ignore
     this.auction.graphDataSets[0].data.push({x: numShares, y: pricePerShare});
     this.auction.currentBids++;
     this.bidPlaced.emit(this.auction);
