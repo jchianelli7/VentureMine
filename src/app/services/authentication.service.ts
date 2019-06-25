@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../models/User';
-import { USERS } from '../USERS';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {User} from '../models/User';
+import {USERS} from '../USERS';
+import {catchError, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,16 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    for(let x = 0; x < USERS.length; x++){
-      if (USERS[x].username === username && USERS[x].password === password) {
-        localStorage.setItem('currentUser', JSON.stringify(USERS[x]));
-        this.currentUserSubject.next(USERS[x]);
-        return USERS[x];
+    return this.http.post<User>('http://localhost:3000/login', {username, password}).pipe(map(user => {
+        console.log(user);
+        if (user) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+        }
+        return user;
       }
-    }
+      )
+    );
   }
 
   public get currentUserValue(): User {

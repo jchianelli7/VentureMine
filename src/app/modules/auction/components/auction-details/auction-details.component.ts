@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Auction } from 'src/app/models/Auction';
-import { AuctionService } from 'src/app/services/auction-service.service';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Auction} from 'src/app/models/Auction';
+import {AuctionService} from 'src/app/services/auction-service.service';
 
 @Component({
   selector: 'app-auction-details',
@@ -8,9 +8,8 @@ import { AuctionService } from 'src/app/services/auction-service.service';
   styleUrls: ['./auction-details.component.css']
 })
 export class AuctionDetailsComponent implements OnInit {
-  
   @Input() auction: Auction;
-  @Output() bidPlaced = new EventEmitter(); 
+  @Output() bidPlaced = new EventEmitter();
   // currentStrikePrice: number;
   // currentBids: number;
   // uniqueBidders: number;
@@ -18,7 +17,7 @@ export class AuctionDetailsComponent implements OnInit {
   // displayReserve: boolean;
 
   constructor(private auctionService: AuctionService) {
-   }
+  }
 
   ngOnInit() {
   }
@@ -27,9 +26,13 @@ export class AuctionDetailsComponent implements OnInit {
     console.log('# Shares: ' + numShares);
     console.log('PPS: ' + pricePerShare);
     // @ts-ignore
-    this.auction.graphDataSets[0].data.push({x: numShares, y: pricePerShare});
-    this.auction.currentBids++;
-    this.bidPlaced.emit(this.auction);
+    // this.auction.graphDataSets[0].data.push({x: numShares, y: pricePerShare});
+    // this.auction.currentBids++;
+    // this.bidPlaced.emit(this.auction);
+    this.auctionService.placeBid('5d11416d1c9d44000055b5e9', numShares, pricePerShare).subscribe((auctionData => {
+      // this.auction.graphDataSets[0].data =
+      console.log(auctionData);
+    }));
   }
 
 }

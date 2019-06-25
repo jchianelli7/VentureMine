@@ -1,6 +1,6 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { Auction } from 'src/app/models/Auction';
-import { AuctionService } from 'src/app/services/auction-service.service';
+import {Component, OnInit, Output} from '@angular/core';
+import {Auction} from 'src/app/models/Auction';
+import {AuctionService} from 'src/app/services/auction-service.service';
 
 @Component({
   selector: 'app-auction',
@@ -9,16 +9,21 @@ import { AuctionService } from 'src/app/services/auction-service.service';
 })
 export class AuctionComponent implements OnInit {
 
- auction: Auction;
+  auction: Auction;
 
-  constructor(private auctionService: AuctionService) { }
-
-  ngOnInit() {
-    this.auction = this.auctionService.getAuction(1);
+  constructor(private auctionService: AuctionService) {
   }
 
-  bidPlaced(){
-    console.log("In Parent Component - Auction");
+  ngOnInit() {
+    // TODO: Remove hardcoded auctionID when auction addition is enabled
+    this.auctionService.getAuction('5d11416d1c9d44000055b5e9').subscribe((auction: Auction) => {
+      console.log('In Auction Service');
+      this.auction = auction;
+    });
+  }
+
+  bidPlaced() {
+    console.log('In Parent Component - Auction');
   }
 
 }

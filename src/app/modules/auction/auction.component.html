@@ -3,7 +3,7 @@
     <div class="container-fliud">
       <div class="wrapper row">
         <div class="preview col-md-6">
-        <app-auction-graph [auction]="auction" [graphDataSets]="auction.graphDataSets"></app-auction-graph>
+        <app-auction-graph *ngIf="auction" [auction]="auction" [graphDataSets]="auction.graphDataSets"></app-auction-graph>
         </div>
         <div class="details col-md-6">
           <app-auction-details [auction]="auction" (bidPlaced)="bidPlaced($event)"></app-auction-details>  
