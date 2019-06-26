@@ -1,0 +1,7 @@
+<div class="container-fluid">
+  <ul>
+    <li *ngFor="let auction of auctions">
+      <a [routerLink]="['/auction', auction._id]">{{auction._id}}</a>
+    </li>
+  </ul>
+</div>
