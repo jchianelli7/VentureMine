@@ -27,7 +27,7 @@ export class AuctionService {
     ));
   }
 
-  placeBid(auctionId, pps: number, numShares: number) {
+  placeBid(auctionId: number, pps: number, numShares: number) {
     this.socket.emit('bidPlaced', {auctionId, pps, numShares});
   }
 

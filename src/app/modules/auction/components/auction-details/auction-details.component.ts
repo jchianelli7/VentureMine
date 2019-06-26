@@ -1,7 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Auction} from 'src/app/models/Auction';
 import {AuctionService} from 'src/app/services/auction-service.service';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
+import {ChartDataSets} from 'chart.js';
 
 @Component({
   selector: 'app-auction-details',
@@ -13,12 +14,17 @@ export class AuctionDetailsComponent implements OnInit {
   private auctionSub: Subscription;
 
   constructor(private auctionService: AuctionService) {
-    this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
-      this.auction = auction;
-    });
   }
 
   ngOnInit() {
+    // this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
+    //   this.auction = auction;
+    // });
+    this.auctionService.getAuction('5d11416d1c9d44000055b5e9').subscribe(auction => {
+      this.auction = auction;
+    });
+    console.log('Initializing Auction Details');
+    console.log(this.auction);
   }
 
   placeBid(numShares: number, pricePerShare: number) {
@@ -29,8 +35,8 @@ export class AuctionDetailsComponent implements OnInit {
     //   console.log(auction);
     // }));
     console.log('Auction?');
-    console.log(this.auction.id);
-    this.auctionService.placeBid(this.auction.id, pricePerShare, numShares);
+    console.log(this.auction._id);
+    this.auctionService.placeBid(this.auction._id, pricePerShare, numShares);
   }
 
 }

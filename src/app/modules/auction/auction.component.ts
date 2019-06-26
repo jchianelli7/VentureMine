@@ -12,15 +12,18 @@ export class AuctionComponent implements OnInit {
 
   auction: Auction;
 
+  private auctionSub: Subscription;
 
   constructor(private auctionService: AuctionService) {
   }
 
   ngOnInit() {
-
-    this.auctionService.getAuction('5d11416d1c9d44000055b5e9').subscribe(auction => {
+    this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
       this.auction = auction;
     });
+    // this.auctionService.getAuction('5d11416d1c9d44000055b5e9').subscribe(auction => {
+    //   this.auction = auction;
+    // });
   }
 
   bidPlaced(auction: Auction) {
