@@ -1,7 +1,8 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Auction} from 'src/app/models/Auction';
 import {AuctionService} from 'src/app/services/auction-service.service';
 import {Subscription} from 'rxjs';
+
 
 @Component({
   selector: 'app-auction',
@@ -18,12 +19,13 @@ export class AuctionComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('initializIng parent comp');
     this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
       this.auction = auction;
     });
-    // this.auctionService.getAuction('5d11416d1c9d44000055b5e9').subscribe(auction => {
-    //   this.auction = auction;
-    // });
+    this.auctionService.getAuction('5d11416d1c9d44000055b5e9').subscribe(auction => {
+      this.auction = auction;
+    });
   }
 
   bidPlaced(auction: Auction) {

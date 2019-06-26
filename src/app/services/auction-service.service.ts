@@ -31,6 +31,16 @@ export class AuctionService {
     this.socket.emit('bidPlaced', {auctionId, pps, numShares});
   }
 
+  getAuctions(): Observable<Auction[]> {
+    return this.http.get<Auction[]>('http://localhost:3000/auctions', {}).pipe(map(auctions => {
+      if (auctions) {
+        return auctions;
+      } else {
+        console.log('Error Getting Auctions');
+      }
+    }));
+  }
+
   // placeBid(id: string, numShares: number, pps: number) {
   //   return this.http.post<Auction>('http://localhost:3000/auctions/' + id, {numShares, pps}).pipe(map(
   //     auction => {
