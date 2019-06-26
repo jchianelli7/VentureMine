@@ -7,6 +7,7 @@ import { ChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import { AuctionListComponent } from './components/auction-list/auction-list.component';
+import {RouterModule} from "@angular/router";
 
 const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
@@ -16,7 +17,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
     CommonModule,
     ChartsModule,
     FormsModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    RouterModule
   ]
 })
 export class AuctionModule {

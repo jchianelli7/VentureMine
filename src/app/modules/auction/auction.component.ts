@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Auction} from 'src/app/models/Auction';
 import {AuctionService} from 'src/app/services/auction-service.service';
 import {Subscription} from 'rxjs';
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -15,15 +16,18 @@ export class AuctionComponent implements OnInit {
 
   private auctionSub: Subscription;
 
-  constructor(private auctionService: AuctionService) {
+  constructor(private auctionService: AuctionService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      console.log(this.route.snapshot.params.id);
+      this.auctionService.getAuction(this.route.snapshot.params.id).subscribe(auction => {
+        this.auction = auction;
+      });
+    });
     console.log('initializIng parent comp');
     this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
-      this.auction = auction;
-    });
-    this.auctionService.getAuction('5d11416d1c9d44000055b5e9').subscribe(auction => {
       this.auction = auction;
     });
   }
