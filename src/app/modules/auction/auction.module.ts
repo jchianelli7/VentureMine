@@ -8,11 +8,13 @@ import { FormsModule } from '@angular/forms';
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import { AuctionListComponent } from './components/auction-list/auction-list.component';
 import {RouterModule} from "@angular/router";
+import { AuctionBidListComponent } from './components/auction-bid-list/auction-bid-list.component';
+
 
 const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
-  declarations: [AuctionComponent, AuctionDetailsComponent, AuctionGraphComponent, AuctionListComponent],
+  declarations: [AuctionComponent, AuctionDetailsComponent, AuctionGraphComponent, AuctionListComponent, AuctionBidListComponent],
   imports: [
     CommonModule,
     ChartsModule,

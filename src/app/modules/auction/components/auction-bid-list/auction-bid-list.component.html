@@ -1,0 +1,19 @@
+<div class="table-responsive" id="bidList">
+
+    <table class="table table-fixed">
+        <thead>
+            <tr>
+                <th scope="col">Time</th>
+                <th scope="col">PPS</th>
+                <th scope="col"># Shares</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bid of auctionData[0].data.slice().reverse()">
+                <td>Coming soon</td>
+                <td>{{bid.y}}</td>
+                <td>{{bid.x}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

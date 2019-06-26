@@ -52,6 +52,7 @@ body {
               animation-duration: .3s; }
   
   .card {
+    margin: 100px;
     margin-top: 50px;
     background: #eee;
     padding: 3em;
@@ -164,4 +165,12 @@ body {
 
 #auctionPPS {
   margin-right: 10px;
+}
+
+.auctionRow {
+  margin: 30px;
+}
+
+#bidList {
+  margin-left: 0px;
 }

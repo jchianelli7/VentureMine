@@ -17,6 +17,7 @@ export class Auction {
   reserveMet: boolean;
   uniqueBidders: number;
   graphDataSets: ChartDataSets[];
+  // _id: any;
 }
 
 // TODO: Graph variables? Or unique object for this

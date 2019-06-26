@@ -35,7 +35,7 @@ export class AuctionDetailsComponent implements OnInit { // , OnChanges{
     //   console.log(auction);
     // }));
     console.log('Auction?');
-    console.log(this.auction._id);
+    // @ts_ignoreconsole.log(this.auction._id);
     this.auctionService.placeBid(this.auction._id, pricePerShare, numShares);
   }
   //
