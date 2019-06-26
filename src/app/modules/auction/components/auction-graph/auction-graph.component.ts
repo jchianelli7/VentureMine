@@ -63,7 +63,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
   constructor(private auctionService: AuctionService) {
   }
 
-  
 
   ngOnInit() {
     this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
@@ -101,9 +100,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
   this.mainChart.chart.update();
   console.log("Annotatgion: ");
   console.log(this.mainChart.chart.config.options.annotation);
-    // this.mainChart.chart.config.options.annotations[0]
-
-    
   }
 
 }
