@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { UserDashboardComponent } from './modules/user-dashboard/user-dashboard/user-dashboard.component';
 import { AuctionComponent } from './modules/auction/auction.component';
+import {AuctionListComponent} from './modules/auction/components/auction-list/auction-list.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: UserDashboardComponent},
-  {path: 'auction', component: AuctionComponent}
+  {path: 'auction', component: AuctionComponent},
+  {path: 'auctions', component: AuctionListComponent}
 ];
 
 @NgModule({

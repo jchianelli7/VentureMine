@@ -31,7 +31,7 @@ export class AuctionService {
     this.socket.emit('bidPlaced', {auctionId, pps, numShares});
   }
 
-  getAuctions(): Observable<Auction[]> {
+  getAuctions() {
     return this.http.get<Auction[]>('http://localhost:3000/auctions', {}).pipe(map(auctions => {
       if (auctions) {
         return auctions;
