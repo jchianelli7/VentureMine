@@ -44,7 +44,8 @@ export class AuctionGraphComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.graphDataSets);
+    // console.log(this.graphDataSets);
+    console.log('Initializing Auction Graph Component');
   }
 
 }

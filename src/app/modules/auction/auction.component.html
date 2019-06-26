@@ -6,7 +6,7 @@
         <app-auction-graph *ngIf="auction" [auction]="auction" [graphDataSets]="auction.graphDataSets"></app-auction-graph>
         </div>
         <div class="details col-md-6">
-          <app-auction-details [auction]="auction" (bidPlaced)="bidPlaced($event)"></app-auction-details>  
+          <app-auction-details [auction]="auction" ></app-auction-details>
         </div>
       </div>
     </div>

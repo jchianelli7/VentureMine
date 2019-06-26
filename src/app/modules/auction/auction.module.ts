@@ -5,15 +5,18 @@ import { AuctionDetailsComponent } from './components/auction-details/auction-de
 import { AuctionGraphComponent } from './components/auction-graph/auction-graph.component';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
+import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
   declarations: [AuctionComponent, AuctionDetailsComponent, AuctionGraphComponent],
   imports: [
     CommonModule,
     ChartsModule,
-    FormsModule
+    FormsModule,
+    SocketIoModule.forRoot(config)
   ]
 })
-export class AuctionModule { 
-  
+export class AuctionModule {
 }

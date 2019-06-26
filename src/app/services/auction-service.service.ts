@@ -5,13 +5,15 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {pipe} from 'rxjs/internal/util/pipe';
+import {Socket} from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuctionService {
+  currentAuction = this.socket.fromEvent<Auction>('auction');
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private socket: Socket) {
   }
 
   getAuction(id: string): Observable<Auction> {
@@ -25,15 +27,19 @@ export class AuctionService {
     ));
   }
 
-  placeBid(id: string, numShares: number, pps: number) {
-    return this.http.post<Auction>('http://localhost:3000/auctions/' + id, {numShares, pps}).pipe(map(
-      auction => {
-        if (auction) {
-          console.log('Bid Placed, Auction Returned');
-          console.log(auction);
-          return auction;
-        }
-      }
-    ));
+  placeBid(auctionId, pps: number, numShares: number) {
+    this.socket.emit('bidPlaced', {auctionId, pps, numShares});
   }
+
+  // placeBid(id: string, numShares: number, pps: number) {
+  //   return this.http.post<Auction>('http://localhost:3000/auctions/' + id, {numShares, pps}).pipe(map(
+  //     auction => {
+  //       if (auction) {
+  //         console.log('Bid Placed, Auction Returned');
+  //         console.log(auction);
+  //         return auction;
+  //       }
+  //     }
+  //   ));
+  // }
 }

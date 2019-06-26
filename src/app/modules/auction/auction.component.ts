@@ -1,6 +1,7 @@
 import {Component, OnInit, Output} from '@angular/core';
 import {Auction} from 'src/app/models/Auction';
 import {AuctionService} from 'src/app/services/auction-service.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-auction',
@@ -11,13 +12,13 @@ export class AuctionComponent implements OnInit {
 
   auction: Auction;
 
+
   constructor(private auctionService: AuctionService) {
   }
 
   ngOnInit() {
-    // TODO: Remove hardcoded auctionID when auction addition is enabled
-    this.auctionService.getAuction('5d11416d1c9d44000055b5e9').subscribe((auction: Auction) => {
-      console.log('In Auction Service');
+
+    this.auctionService.getAuction('5d11416d1c9d44000055b5e9').subscribe(auction => {
       this.auction = auction;
     });
   }
