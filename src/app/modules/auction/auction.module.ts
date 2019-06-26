@@ -16,11 +16,11 @@ const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 @NgModule({
   declarations: [AuctionComponent, AuctionDetailsComponent, AuctionGraphComponent, AuctionListComponent, AuctionBidListComponent],
   imports: [
-    CommonModule,
+    CommonModule ,
     ChartsModule,
     FormsModule,
     SocketIoModule.forRoot(config),
-    RouterModule
+    RouterModule,
   ]
 })
 export class AuctionModule {

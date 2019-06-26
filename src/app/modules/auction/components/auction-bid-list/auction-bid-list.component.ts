@@ -16,8 +16,6 @@ export class AuctionBidListComponent implements OnInit {
   constructor(private auctionService: AuctionService) { }
 
   ngOnInit() {
-    console.log("****** INITIALIZING BID LIST ******")
-    console.log(this.auctionData);
     this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
       this.auction = auction;
     });

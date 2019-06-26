@@ -1,10 +1,11 @@
-<div *ngIf="auction" class="container">
-  <canvas baseChart
+<div *ngIf="auction && strikePrice" class="container">
+  <canvas #mainChart="base-chart" baseChart
           [datasets]="graphDataSets"
           [labels]="chartLabels"
           [options]="chartOptions"
           [legend]="chartLegend"
           [chartType]="chartType"
+          [plugins]="lineChartPlugins"
           [colors]="chartColors">
   </canvas>
  
