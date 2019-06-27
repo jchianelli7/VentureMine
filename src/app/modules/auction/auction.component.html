@@ -1,27 +1,19 @@
-<div class="container-fluid" id="auctionContainer" *ngIf="auction">
+<div class="container-fluid" id="auctionContainer">
   <div class="card">
     <div class="container-fliud">
       <div class="wrapper row auctionRow">
         <div class="preview col-md-12">
 
-          <app-auction-details *ngIf="isDataReady" [auction]="auction" (bidPlaced)="bidPlaced($event)">
+          <app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="bidPlaced($event)">
           </app-auction-details>
 
         </div>
       </div>
-      <div class="wrapper row auctionRow">
+      <div class="wrapper row auctionRow" >
           <div class="details col-md-6" *ngIf="auction">
-              <canvas #mainChart="base-chart" baseChart
-              [datasets]="graphDataSets"
-              [labels]="chartLabels"
-              [options]="chartOptions"
-              [legend]="chartLegend"
-              [chartType]="chartType"
-              [plugins]="lineChartPlugins"
-              [colors]="chartColors">
-      </canvas>
-        <!-- <app-auction-graph *ngIf="isDataReady" [strikePrice]="auction.strikePrice" [auction]="auction" [graphDataSets]="auction.graphDataSets">
-        </app-auction-graph> -->
+              
+        <app-auction-graph *ngIf="auction && strikePriceAnnotation && strikePrice && graphDataSets" [strikePriceAnnotation]="strikePriceAnnotation" [auction]="auction" [graphData]="graphDataSets" [strikePrice]="strikePrice">
+        </app-auction-graph>
         </div>
         <div class="details col-md-6" id="bidList">
             <app-auction-bid-list *ngIf="auction" [auction]="auction" [auctionData]="auction.graphDataSets" ></app-auction-bid-list>
