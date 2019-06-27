@@ -1,12 +1,11 @@
-import {Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges} from '@angular/core';
-import {ViewChild} from '@angular/core';
-import {ChartType, ChartOptions, ChartDataSets} from 'chart.js';
-import {Auction} from 'src/app/models/Auction';
-import {BaseChartDirective} from 'ng2-charts';
-import {Subscription} from 'rxjs';
-import {AuctionService} from '../../../../services/auction-service.service';
+import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { AuctionService } from 'src/app/services/auction-service.service';
+import { Auction } from 'src/app/models/Auction';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
-
 
 @Component({
   selector: 'app-auction-graph',
@@ -14,19 +13,19 @@ import * as pluginAnnotations from 'chartjs-plugin-annotation';
   styleUrls: ['./auction-graph.component.css']
 })
 export class AuctionGraphComponent implements OnInit, OnChanges {
-  
+
+  @ViewChild('mainChart', { static: false }) mainChart: BaseChartDirective;
+
   private auctionSub: Subscription;
-  lineChartPlugins = [pluginAnnotations];
 
-  @Input() auction: Auction;
-  @Input() graphDataSets: ChartDataSets[];
   @Input() strikePrice: number;
- 
+  @Input() auction: Auction;
+  @Input() graphData: ChartDataSets[];
+  @Input() strikePriceAnnotation: any;
 
-  @ViewChild('mainChart', {static: false}) mainChart: BaseChartDirective;
-
+  lineChartPlugins = [pluginAnnotations];
   chartType: ChartType = 'scatter';
-  chartOptions: (ChartOptions & {annotation: any}) = {
+  chartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {
       xAxes: [{
@@ -50,9 +49,11 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
     },
     annotation: {
       annotations: [
-    ]
-    }
+        this.strikePriceAnnotation
+      ],
+    },
   };
+
   chartColors = [
     {
       backgroundColor: '#28a745',
@@ -60,50 +61,47 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
     }
   ];
 
-  constructor(private auctionService: AuctionService) {
+  constructor(private auctionService: AuctionService, private route: ActivatedRoute) {
+    console.log("Graph Constructed");
+
   }
 
-  
-
   ngOnInit() {
+    console.log("Graph Initialized");
+    const me = this;
+    // console.log(this.mainChart);
     this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
+      console.log("sub 2");
       this.auction = auction;
-      this.strikePrice = auction.currentStrikePrice;
-    });
-    // console.log(this.graphDataSets);
-    console.log('Initializing Auction Graph Component');
-    
+      this.graphData = this.auction.graphDataSets;
+      this.strikePrice = this.auction.currentStrikePrice;
+      // this.mainChart.chart.config.options.annotation.annotations[0] = {
+
+      //   type: 'line',
+      //   mode: 'horizontal',
+      //   scaleID: 'y-axis-0',
+      //   // value: this.auction.currentStrikePrice,
+      //   value: me.strikePrice,
+      //   borderColor: 'orange',
+      //   borderWidth: 1,
+      //   label: {
+      //     enabled: true,
+      //     fontColor: 'black',
+      //     content: 'Strike Price'
+
+      //   }
+      // };
+    }, (err) => console.log("Error subbing"),
+    );
+
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("Graph Component - Change Detected: ");
-    // console.log(changes.auc);
+    console.log("Change Detected In Graph: ");
+    console.log(this.mainChart);
     console.log(changes);
-    console.log("*********************************");
-    this.mainChart.chart.update();
-    // @ts-ignore
-    this.mainChart.chart.config.options.annotation.annotations[0] = {
-        
-      type: 'line',
-      mode: 'horizontal',
-      scaleID: 'y-axis-0',
-      // value: this.auction.currentStrikePrice,
-      value: this.strikePrice,
-      borderColor: 'orange',
-      borderWidth: 3,
-      label: {
-        enabled: true,
-        fontColor: 'black',
-        content: 'Strike Price'
-      
-    }
-  };
-  this.mainChart.chart.update();
-  console.log("Annotatgion: ");
-  console.log(this.mainChart.chart.config.options.annotation);
-    // this.mainChart.chart.config.options.annotations[0]
-
-    
   }
+
 
 }
