@@ -40,7 +40,7 @@ export class AuctionComponent implements OnInit {
               borderWidth: 1.5,
               label: {
                 enabled: true,
-                fontColor: 'black',
+                fontColor: 'white',
                 content: 'Strike Price'
               }
             }
@@ -69,7 +69,7 @@ export class AuctionComponent implements OnInit {
       borderWidth: 1.5,
       label: {
         enabled: true,
-        fontColor: 'black',
+        fontColor: 'white',
         content: 'Strike Price'
       }
     }

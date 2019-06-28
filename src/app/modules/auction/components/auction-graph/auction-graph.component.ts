@@ -46,17 +46,17 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
     this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
       this.auction = auction;
       this.graphData = auction.graphDataSets;
-      this.strikePrice = auction.currentStrikePrice / 2;
+      // this.strikePrice = auction.currentStrikePrice / 2;
       this.strikePriceAnnotation = {
         type: 'line',
         mode: 'horizontal',
         scaleID: 'y-axis-0',
         value: this.strikePrice,
-        borderColor: 'orange',
-        borderWidth: 3,
+        borderColor: 'red',
+        borderWidth: 1.5,
         label: {
           enabled: true,
-          fontColor: 'black',
+          fontColor: 'white',
           content: 'Strike Price'
         }
       }
@@ -101,6 +101,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     console.log("Change Detected In Graph: ");
     if(this.mainChart){
+      console.log()
       this.mainChart.chart.options.annotation.annotations[0] = changes.strikePriceAnnotation.currentValue;
       this.mainChart.chart.update();
     }
