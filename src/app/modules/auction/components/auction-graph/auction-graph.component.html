@@ -1,6 +1,4 @@
 <div class="container-fluid">
-
-    <div class="details col-md-12"  >
         <canvas  *ngIf="chartOptions !== null" #mainChart="base-chart" baseChart
         [datasets]="graphData"
         [labels]="chartLabels"
@@ -10,7 +8,4 @@
         [plugins]="lineChartPlugins"
         [colors]="chartColors">
         </canvas>
-    </div>
 </div>
-
-<!-- [legend]="chartLegend" -->
