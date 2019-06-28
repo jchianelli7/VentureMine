@@ -179,3 +179,7 @@ body {
   margin: auto;
   text-align: center;
 }
+
+div#auctionDetails{
+  background-color: slategray;
+}
