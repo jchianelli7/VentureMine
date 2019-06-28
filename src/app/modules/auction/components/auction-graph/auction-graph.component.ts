@@ -68,6 +68,9 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
       responsive: true,
       scales: {
         xAxes: [{
+          ticks: {
+            beginAtZero: true
+          },
           id: 'x-axis-0',
           type: 'linear',
           position: 'bottom',
@@ -77,6 +80,9 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
           }
         }],
         yAxes: [{
+          ticks: {
+            beginAtZero: true
+          },
           id: 'y-axis-0',
           type: 'linear',
           position: 'left',

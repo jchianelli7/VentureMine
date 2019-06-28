@@ -174,3 +174,8 @@ body {
 #bidList {
   margin-left: 0px;
 }
+
+#graphContainer {
+  margin: auto;
+  text-align: center;
+}
