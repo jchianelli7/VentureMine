@@ -12,15 +12,15 @@ import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
   templateUrl: './auction.component.html',
   styleUrls: ['./auction.component.css']
 })
+
+
+
 export class AuctionComponent implements OnInit {
   auction: Auction;
   strikePrice: number;
   graphDataSets: ChartDataSets[];
   strikePriceAnnotation: any;
   isReady: boolean = false;
-
-  
-
 
   private auctionSub: Subscription;
 
@@ -32,11 +32,9 @@ export class AuctionComponent implements OnInit {
           this.strikePrice = this.auction.currentStrikePrice;
           this.graphDataSets = this.auction.graphDataSets;
           this.strikePriceAnnotation = {
-
               type: 'line',
               mode: 'horizontal',
               scaleID: 'y-axis-0',
-              // value: this.auction.currentStrikePrice,
               value: this.strikePrice,
               borderColor: 'orange',
               borderWidth: 3,
@@ -44,16 +42,15 @@ export class AuctionComponent implements OnInit {
                 enabled: true,
                 fontColor: 'black',
                 content: 'Strike Price'
-  
               }
             }
-          this.isReady = true;
           
         },
         (err) => console.log("Error subbing"),
         () => {
           this.isReady = true;
           console.log("SUB COMPLETE - #1");
+          console.log(this.strikePriceAnnotation);
         }
       );
 

@@ -30,6 +30,10 @@ export class AuctionService {
     this.socket.emit('bidPlaced', {auctionId, pps, numShares});
   }
 
+  disconnect(auctionId: number){
+    this.socket.emit('close', auctionId);
+  }
+
   getAuctions() {
     return this.http.get<Auction[]>('http://localhost:3000/auctions', {}).pipe(map(auctions => {
       if (auctions) {

@@ -4,8 +4,9 @@ import { Auction } from 'src/app/models/Auction';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
+
 
 @Component({
   selector: 'app-auction-graph',
@@ -22,37 +23,14 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
   @Input() auction: Auction;
   @Input() graphData: ChartDataSets[];
   @Input() strikePriceAnnotation: any;
+  initialData: ChartDataSets[] = [{ data: [] }];
+  isReady: boolean = false;
+  
 
   lineChartPlugins = [pluginAnnotations];
   chartType: ChartType = 'scatter';
-  chartOptions: (ChartOptions & { annotation: any }) = {
-    responsive: true,
-    scales: {
-      xAxes: [{
-        id: 'x-axis-0',
-        type: 'linear',
-        position: 'bottom',
-        scaleLabel: {
-          display: true,
-          labelString: '# of shares'
-        }
-      }],
-      yAxes: [{
-        id: 'y-axis-0',
-        type: 'linear',
-        position: 'left',
-        scaleLabel: {
-          display: true,
-          labelString: 'PPS'
-        }
-      }],
-    },
-    annotation: {
-      annotations: [
-        this.strikePriceAnnotation
-      ],
-    },
-  };
+  chartLabels: Label[] = ['Test 1', 'Test 2'];
+  chartOptions: (ChartOptions & { annotation: any }) = null;
 
   chartColors = [
     {
@@ -63,42 +41,67 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
 
   constructor(private auctionService: AuctionService, private route: ActivatedRoute) {
     console.log("Graph Constructed");
-
+    console.log(this.auction);
   }
 
   ngOnInit() {
-    console.log("Graph Initialized");
-    const me = this;
-    // console.log(this.mainChart);
+    console.log("*(***************)");
     this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
       console.log("sub 2");
       this.auction = auction;
-      this.graphData = this.auction.graphDataSets;
-      this.strikePrice = this.auction.currentStrikePrice;
-      // this.mainChart.chart.config.options.annotation.annotations[0] = {
-
-      //   type: 'line',
-      //   mode: 'horizontal',
-      //   scaleID: 'y-axis-0',
-      //   // value: this.auction.currentStrikePrice,
-      //   value: me.strikePrice,
-      //   borderColor: 'orange',
-      //   borderWidth: 1,
-      //   label: {
-      //     enabled: true,
-      //     fontColor: 'black',
-      //     content: 'Strike Price'
-
-      //   }
-      // };
+      this.graphData = auction.graphDataSets;
+      this.strikePrice = auction.currentStrikePrice / 2;
+      this.strikePriceAnnotation = {
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: this.strikePrice,
+        borderColor: 'orange',
+        borderWidth: 3,
+        label: {
+          enabled: true,
+          fontColor: 'black',
+          content: 'Strike Price'
+        }
+      }
+      this.mainChart.chart.update();
+      // this.strikePriceAnnotation = 
     }, (err) => console.log("Error subbing"),
     );
+    this.chartOptions = {
+      responsive: true,
+      scales: {
+        xAxes: [{
+          id: 'x-axis-0',
+          type: 'linear',
+          position: 'bottom',
+          scaleLabel: {
+            display: true,
+            labelString: '# of shares'
+          }
+        }],
+        yAxes: [{
+          id: 'y-axis-0',
+          type: 'linear',
+          position: 'left',
+          scaleLabel: {
+            display: true,
+            labelString: 'PPS'
+          }
+        }],
+      },
+      annotation: {
+        annotations: [
+          this.strikePriceAnnotation
+        ],
+      },
+    };
 
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("Change Detected In Graph: ");
+    console.log("Change Detec ted In Graph: ");
     console.log(this.mainChart);
     console.log(changes);
   }

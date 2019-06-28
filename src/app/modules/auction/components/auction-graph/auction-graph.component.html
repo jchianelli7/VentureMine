@@ -1,14 +1,15 @@
 <div class="container-fluid">
 
-    <div class="details col-md-12" >
-        <canvas *ngIf="auction && graphData && strikePriceAnnotation && strikePrice" #mainChart="base-chart" baseChart
+    <div class="details col-md-12"  >
+        <canvas  *ngIf="chartOptions !== null" #mainChart="base-chart" baseChart
         [datasets]="graphData"
         [labels]="chartLabels"
         [options]="chartOptions"
-        [legend]="chartLegend"
         [chartType]="chartType"
         [plugins]="lineChartPlugins"
         [colors]="chartColors">
         </canvas>
     </div>
 </div>
+
+<!-- [legend]="chartLegend" -->
