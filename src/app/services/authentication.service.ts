@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../models/User';
-import {USERS} from '../USERS';
 import {catchError, map} from 'rxjs/operators';
 
 @Injectable({

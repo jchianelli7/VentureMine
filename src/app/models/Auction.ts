@@ -1,5 +1,6 @@
 import {User} from './User';
 import {ChartDataSets} from 'chart.js';
+import { Bid } from './Bid';
 
 export class Auction {
   id: number;
@@ -17,6 +18,8 @@ export class Auction {
   reserveMet: boolean;
   uniqueBidders: number;
   graphDataSets: ChartDataSets[];
+  time: Date;
+  bids: Bid[];
   // _id: any;
 }
 

@@ -31,7 +31,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
   chartType: ChartType = 'scatter';
   chartLabels: Label[] = ['Test 1', 'Test 2'];
   chartOptions: (ChartOptions & { annotation: any }) = null;
-
   chartColors = [
     {
       backgroundColor: '#28a745',
@@ -41,26 +40,23 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
 
   constructor(private auctionService: AuctionService, private route: ActivatedRoute) {
     console.log("Graph Constructed");
-    console.log(this.auction);
   }
 
   ngOnInit() {
-    console.log("*(***************)");
     this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
-      console.log("sub 2");
       this.auction = auction;
       this.graphData = auction.graphDataSets;
-      this.strikePrice = auction.currentStrikePrice / 2;
+      // this.strikePrice = auction.currentStrikePrice / 2;
       this.strikePriceAnnotation = {
         type: 'line',
         mode: 'horizontal',
         scaleID: 'y-axis-0',
         value: this.strikePrice,
-        borderColor: 'orange',
-        borderWidth: 3,
+        borderColor: 'red',
+        borderWidth: 1.5,
         label: {
           enabled: true,
-          fontColor: 'black',
+          fontColor: 'white',
           content: 'Strike Price'
         }
       }
@@ -97,11 +93,18 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
       },
     };
 
+    console.log("Chart Initiated - Child");
+
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("Change Detec ted In Graph: ");
+    console.log("Change Detected In Graph: ");
+    if(this.mainChart){
+      console.log()
+      this.mainChart.chart.options.annotation.annotations[0] = changes.strikePriceAnnotation.currentValue;
+      this.mainChart.chart.update();
+    }
     console.log(this.mainChart);
     console.log(changes);
   }

@@ -4,7 +4,7 @@
       <div class="wrapper row auctionRow">
         <div class="preview col-md-12">
 
-          <app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="bidPlaced($event)">
+          <app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">
           </app-auction-details>
 
         </div>
@@ -16,7 +16,7 @@
         </app-auction-graph>
         </div>
         <div class="details col-md-6" id="bidList">
-            <app-auction-bid-list *ngIf="auction" [auction]="auction" [auctionData]="auction.graphDataSets" ></app-auction-bid-list>
+            <app-auction-bid-list *ngIf="auction" [auction]="auction" [bids]="auction.bids" ></app-auction-bid-list>
           </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 export class AuctionBidListComponent implements OnInit {
 
   @Input() auction;
-  @Input() auctionData;
+  @Input() bids;
   private auctionSub: Subscription;
 
   constructor(private auctionService: AuctionService) { }

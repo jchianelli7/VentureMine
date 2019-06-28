@@ -9,10 +9,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let bid of auctionData[0].data.slice().reverse()">
-                <td>Coming soon</td>
-                <td>{{bid.y}}</td>
-                <td>{{bid.x}}</td>
+            <tr *ngFor="let bid of bids.slice().reverse()">
+                <td>{{bid.date | date: 'M/d/yy, h:mm:ss a'}}</td>
+                <td>{{bid.pps}}</td>
+                <td>{{bid.numShares}}</td>
             </tr>
         </tbody>
     </table>

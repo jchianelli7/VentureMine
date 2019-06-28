@@ -36,11 +36,11 @@ export class AuctionComponent implements OnInit {
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               value: this.strikePrice,
-              borderColor: 'orange',
-              borderWidth: 3,
+              borderColor: 'red',
+              borderWidth: 1.5,
               label: {
                 enabled: true,
-                fontColor: 'black',
+                fontColor: 'white',
                 content: 'Strike Price'
               }
             }
@@ -48,14 +48,31 @@ export class AuctionComponent implements OnInit {
         },
         (err) => console.log("Error subbing"),
         () => {
-          this.isReady = true;
-          console.log("SUB COMPLETE - #1");
-          console.log(this.strikePriceAnnotation);
         }
       );
 
     });
     
+  }
+
+  auctionUpdated(auction: Auction){
+    console.log("auction updated - Parent");
+    this.auction = auction;
+    this.strikePrice = auction.currentStrikePrice;
+    this.graphDataSets = auction.graphDataSets;
+    this.strikePriceAnnotation = {
+      type: 'line',
+      mode: 'horizontal',
+      scaleID: 'y-axis-0',
+      value: this.strikePrice,
+      borderColor: 'red',
+      borderWidth: 1.5,
+      label: {
+        enabled: true,
+        fontColor: 'white',
+        content: 'Strike Price'
+      }
+    }
   }
 
   ngOnInit() {
