@@ -79,5 +79,12 @@ export class AuctionComponent implements OnInit {
     console.log('initializIng parent comp');
   }
 
+  resetBids(id: string){
+    console.log("Resetting Bids");
+    this.auctionService.resetBids(this.auction._id).subscribe(auction => {
+      this.auction = auction;
+    });
+  }
+
 
 }

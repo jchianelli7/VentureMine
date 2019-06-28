@@ -52,4 +52,12 @@ export class AuctionService {
       }
     }));
   }
+
+  resetBids(auctionId: string): Observable<Auction> {
+    return this.http.post<Auction>('http://localhost:3000/auctions/' + auctionId + '/clear', {auctionId}).pipe(map(auction => {
+      if(auction){
+        return auction;
+      }
+    }))
+  }
 }
