@@ -12,7 +12,7 @@
       <div class="wrapper row auctionRow" >
           <div class="details col-md-6" *ngIf="auction">
               
-        <app-auction-graph *ngIf="auction && strikePriceAnnotation && strikePrice && graphDataSets" [strikePriceAnnotation]="strikePriceAnnotation" [auction]="auction" [graphData]="graphDataSets" [strikePrice]="strikePrice">
+        <app-auction-graph *ngIf="auction" [strikePriceAnnotation]="strikePriceAnnotation" [auction]="auction" [graphData]="graphDataSets" [strikePrice]="strikePrice">
         </app-auction-graph>
         </div>
         <div class="details col-md-6" id="bidList">
