@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {AUCTIONS} from '../AUCTIONS';
-import {Auction} from '../models/Auction';
-import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {pipe} from 'rxjs/internal/util/pipe';
-import {Socket} from 'ngx-socket-io';
+import { Injectable } from '@angular/core';
+import { Auction } from '../models/Auction';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { pipe } from 'rxjs/internal/util/pipe';
+import { Socket } from 'ngx-socket-io';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ import {Socket} from 'ngx-socket-io';
 export class AuctionService {
   currentAuction = this.socket.fromEvent<Auction>('auction');
 
-  constructor(private http: HttpClient, private socket: Socket) {
+  constructor(private http: HttpClient, private socket: Socket, private authService: AuthenticationService) {
   }
 
   getAuction(id: string): Observable<Auction> {
@@ -26,13 +26,22 @@ export class AuctionService {
     ));
   }
 
-  placeBid(auctionId: number, pps: number, numShares: number) {
-    this.socket.emit('bidPlaced', {auctionId, pps, numShares});
+  placeBid(auctionId: number, pps: number, numShares: number): Observable<Auction> {
+    let userId = this.authService.currentUserValue._id;
+    return this.http.post<Auction>('http://localhost:3000/auctions/' + auctionId, { userId, auctionId, pps, numShares }).pipe(map(auction => {
+      if (auction) {
+        return auction;
+      }
+    }))
   }
 
-  disconnect(auctionId: number){
-    this.socket.emit('close', auctionId);
-  }
+  // placeBid(auctionId: number, pps: number, numShares: number) {
+  //   this.socket.emit('bidPlaced', {auctionId, pps, numShares});
+  // }
+
+  // disconnect(auctionId: number){
+  //   this.socket.emit('close', auctionId);
+  // }
 
   getAuctions() {
     return this.http.get<Auction[]>('http://localhost:3000/auctions', {}).pipe(map(auctions => {
