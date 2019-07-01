@@ -10,7 +10,7 @@ div#bidList {
   .table-fixed tbody {
     display: block;
   }
-
+  
   thead, tbody tr {
       display: table;
       width: 100%;
@@ -25,7 +25,7 @@ div#bidList {
   } */
 
   thead{
-      background-color: #343a40 !important;
+      background-color: #486A8C !important;
   }
 
   tbody {
@@ -33,10 +33,10 @@ div#bidList {
   }
 
   th {
-      color: white;
+      color: black;
   }
 
 .my-bid {
   background-color: green;
-  color: white;
+  color: black;
 }
