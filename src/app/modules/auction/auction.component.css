@@ -181,5 +181,6 @@ body {
 }
 
 div#auctionDetails{
-  background-color: slategray;
+  background-color: #343a40;
+  /* color:white; */
 }

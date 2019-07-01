@@ -19,10 +19,9 @@ export class AuctionBidListComponent implements OnInit {
   constructor(private auctionService: AuctionService, private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
-      this.auction = auction;
-    });
-    console.log("Current User: ");
+    // this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
+    //   this.auction = auction;
+    // });
     if(this.authService.currentUserValue){
       this.currentUser = this.authService.currentUserValue
     }
