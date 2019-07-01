@@ -1,32 +1,5 @@
-<!-- <div class="container-fluid" id="auctionContainer">
-  <div class="card">
-    <div class="container-fliud">
-      <div class="wrapper row auctionRow">
-          <div class="wrapper row auctionRow">
-          <div class="details col-md-8">
-              
-                  <div class="details col-md-6" *ngIf="auction">
-                    <app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">
-                    </app-auction-details>
-                </div>
-              </div>
-              <div class="wrapper row auctionRow">
-                <div class="details col-md-6" id="bidList">
-                    <app-auction-bid-list *ngIf="auction" [auction]="auction" [bids]="auction.bids" ></app-auction-bid-list>
-                  </div>
-              </div>
-              </div>
-        <div class="preview col-md-8" id="graphContainer"> 
-          <h2 *ngIf="auction">{{auction.title}}</h2><br>
-          <app-auction-graph *ngIf="auction" [strikePriceAnnotation]="strikePriceAnnotation" [auction]="auction" [graphData]="graphDataSets" [strikePrice]="strikePrice">
-          </app-auction-graph>
-        </div>
-    </div>
-  </div>
-</div> -->
-
 <div class="container-fluid" id="auctionContainer">
-   
+   <button class="btn btn-primary" (click)="resetBids(auction._id)">Clear Bids</button>
       <div class="col-lg-12">
         <div class="col-lg-6">
            

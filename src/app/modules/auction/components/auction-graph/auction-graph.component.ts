@@ -60,8 +60,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
           content: 'Strike Price'
         }
       }
-      this.mainChart.chart.update();
-      // this.strikePriceAnnotation = 
     }, (err) => console.log("Error subbing"),
     );
     this.chartOptions = {
@@ -106,8 +104,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("Change Detected In Graph: ");
-    if(this.mainChart){
-      console.log()
+    if(this.mainChart && changes.strikePriceAnnotation){
       this.mainChart.chart.options.annotation.annotations[0] = changes.strikePriceAnnotation.currentValue;
       this.mainChart.chart.update();
     }

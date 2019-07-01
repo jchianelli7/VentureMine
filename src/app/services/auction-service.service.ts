@@ -11,7 +11,7 @@ import { AuthenticationService } from './authentication.service';
   providedIn: 'root'
 })
 export class AuctionService {
-  currentAuction = this.socket.fromEvent<Auction>('auction');
+  currentAuction = this.socket.fromEvent<Auction>('auctionUpdated');
 
   constructor(private http: HttpClient, private socket: Socket, private authService: AuthenticationService) {
   }
@@ -26,18 +26,18 @@ export class AuctionService {
     ));
   }
 
-  placeBid(auctionId: number, pps: number, numShares: number): Observable<Auction> {
-    let userId = this.authService.currentUserValue._id;
-    return this.http.post<Auction>('http://localhost:3000/auctions/' + auctionId, { userId, auctionId, pps, numShares }).pipe(map(auction => {
-      if (auction) {
-        return auction;
-      }
-    }))
-  }
-
-  // placeBid(auctionId: number, pps: number, numShares: number) {
-  //   this.socket.emit('bidPlaced', {auctionId, pps, numShares});
+  // placeBid(auctionId: number, pps: number, numShares: number): Observable<Auction> {
+  //   let userId = this.authService.currentUserValue._id;
+  //   return this.http.post<Auction>('http://localhost:3000/auctions/' + auctionId, { userId, auctionId, pps, numShares }).pipe(map(auction => {
+  //     if (auction) {
+  //       return auction;
+  //     }
+  //   }))
   // }
+
+  placeBid(auctionId: number, ownerId: number,  pps: number, numShares: number) {
+    this.socket.emit('bidPlaced', {auctionId, ownerId, pps, numShares});
+  }
 
   // disconnect(auctionId: number){
   //   this.socket.emit('close', auctionId);

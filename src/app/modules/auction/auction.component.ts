@@ -52,15 +52,19 @@ export class AuctionComponent implements OnInit {
       );
 
     });
-    
-  }
 
-  auctionUpdated(auction: Auction){
-    console.log("auction updated - Parent");
-    this.auction = auction;
-    this.strikePrice = auction.currentStrikePrice;
-    this.graphDataSets = auction.graphDataSets;
-    this.strikePriceAnnotation = {
+    this.auctionService.currentAuction.subscribe(auction => {
+      console.log("Got Updated Auction - Parent - Post-Bid");
+      if(auction._id === this.auction._id){
+        console.log("UPDATING GRAPH WITH SAME ID: " + auction._id);
+        this.auction = auction;
+      }else{
+        console.log("DIFFERENT AUCTION ID'S DETECTED: " + auction._id);
+      }
+      
+      this.strikePrice = auction.currentStrikePrice;
+      this.graphDataSets = auction.graphDataSets;
+      this.strikePriceAnnotation = {
       type: 'line',
       mode: 'horizontal',
       scaleID: 'y-axis-0',
@@ -73,7 +77,28 @@ export class AuctionComponent implements OnInit {
         content: 'Strike Price'
       }
     }
+    })
   }
+
+  // auctionUpdated(auction: Auction){
+  //   console.log("auction updated - Parent");
+  //   this.auction = auction;
+  //   this.strikePrice = auction.currentStrikePrice;
+  //   this.graphDataSets = auction.graphDataSets;
+  //   this.strikePriceAnnotation = {
+  //     type: 'line',
+  //     mode: 'horizontal',
+  //     scaleID: 'y-axis-0',
+  //     value: this.strikePrice,
+  //     borderColor: 'red',
+  //     borderWidth: 1.5,
+  //     label: {
+  //       enabled: true,
+  //       fontColor: 'white',
+  //       content: 'Strike Price'
+  //     }
+  //   }
+  // }
 
   ngOnInit() {
     console.log('initializIng parent comp');
