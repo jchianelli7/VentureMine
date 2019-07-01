@@ -16,7 +16,7 @@
                   </div>
               </div>
               </div>
-        <div class="preview col-md-8" id="graphContainer">
+        <div class="preview col-md-8" id="graphContainer"> 
           <h2 *ngIf="auction">{{auction.title}}</h2><br>
           <app-auction-graph *ngIf="auction" [strikePriceAnnotation]="strikePriceAnnotation" [auction]="auction" [graphData]="graphDataSets" [strikePrice]="strikePrice">
           </app-auction-graph>
