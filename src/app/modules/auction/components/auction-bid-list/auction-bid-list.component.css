@@ -35,3 +35,8 @@ div#bidList {
   th {
       color: white;
   }
+
+.my-bid {
+  background-color: green;
+  color: white;
+}
