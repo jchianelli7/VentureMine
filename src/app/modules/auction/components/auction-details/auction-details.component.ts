@@ -22,7 +22,7 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
+    // this.auctionSub = this.auctionService.getBids(this.auction._id).subscribe(auction => {
     //   this.auction = auction;
     // });
     if (this.authService.currentUserValue) {

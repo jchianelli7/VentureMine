@@ -43,25 +43,26 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
-      this.auction = auction;
-      this.graphData = auction.graphDataSets;
-      // this.strikePrice = auction.currentStrikePrice / 2;
-      this.strikePriceAnnotation = {
-        type: 'line',
-        mode: 'horizontal',
-        scaleID: 'y-axis-0',
-        value: this.strikePrice,
-        borderColor: 'red',
-        borderWidth: 1.5,
-        label: {
-          enabled: true,
-          fontColor: 'white',
-          content: 'Strike Price'
-        }
-      }
-    }, (err) => console.log("Error subbing"),
-    );
+    // this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
+    //   this.auction = auction;
+    //   this.graphData = auction.graphDataSets;
+    //   // this.strikePrice = auction.currentStrikePrice / 2;
+    //   this.strikePriceAnnotation = {
+    //     type: 'line',
+    //     mode: 'horizontal',
+    //     scaleID: 'y-axis-0',
+    //     value: this.strikePrice,
+    //     borderColor: 'red',
+    //     borderWidth: 1.5,
+    //     label: {
+    //       enabled: true,
+    //       fontColor: 'white',
+    //       content: 'Strike Price'
+    //     }
+    //   }
+    // }, (err) => console.log("Error subbing"),
+    // );
+
     this.chartOptions = {
       responsive: true,
       scales: {
@@ -96,7 +97,9 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
         ],
       },
     };
-
+    // this.auctionService.getBids(this.auction._id).subscribe(auction => {
+    //   this.auction = auction;
+    // })
     console.log("Chart Initiated - Child");
 
 
