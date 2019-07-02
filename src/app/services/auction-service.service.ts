@@ -56,22 +56,9 @@ export class AuctionService {
     return observable;
   }
 
-  // placeBid(auctionId: number, pps: number, numShares: number): Observable<Auction> {
-  //   let userId = this.authService.currentUserValue._id;
-  //   return this.http.post<Auction>('http://localhost:3000/auctions/' + auctionId, { userId, auctionId, pps, numShares }).pipe(map(auction => {
-  //     if (auction) {
-  //       return auction;
-  //     }
-  //   }))
-  // }
-
   placeBid(auctionId: number, ownerId: number, pps: number, numShares: number) {
     this.socket.emit('placeBid', {auctionId, ownerId, pps, numShares});
   }
-
-  // disconnect(auctionId: number){
-  //   this.socket.emit('close', auctionId);
-  // }
 
   getAuctions() {
     return this.http.get<Auction[]>('http://localhost:3000/auctions', {}).pipe(map(auctions => {

@@ -31,11 +31,6 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   placeBid(numShares: number, pricePerShare: number) {
-    // this.auctionService.placeBid(this.auction._id, pricePerShare, numShares).subscribe(auction => {
-    //   this.auction = auction;
-    //   console.log("Placed Bid");
-    //   this.bidPlaced.emit(auction);
-    // });
     this.auctionService.placeBid(this.auction._id, this.currentUser._id, pricePerShare, numShares);
   }
 

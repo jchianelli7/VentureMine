@@ -43,39 +43,20 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
-    //   this.auction = auction;
-    //   this.graphData = auction.graphDataSets;
-    //   // this.strikePrice = auction.currentStrikePrice / 2;
-    //   this.strikePriceAnnotation = {
-    //     type: 'line',
-    //     mode: 'horizontal',
-    //     scaleID: 'y-axis-0',
-    //     value: this.strikePrice,
-    //     borderColor: 'red',
-    //     borderWidth: 1.5,
-    //     label: {
-    //       enabled: true,
-    //       fontColor: 'white',
-    //       content: 'Strike Price'
-    //     }
-    //   }
-    // }, (err) => console.log("Error subbing"),
-    // );
-
     this.chartOptions = {
       responsive: true,
       scales: {
         xAxes: [{
           ticks: {
-            beginAtZero: true
+            beginAtZero: true,
+            reverse: true
           },
           id: 'x-axis-0',
           type: 'linear',
           position: 'bottom',
           scaleLabel: {
             display: true,
-            labelString: '# of shares'
+            labelString: 'Price Per Share (PPS)'
           }
         }],
         yAxes: [{
@@ -87,7 +68,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
           position: 'left',
           scaleLabel: {
             display: true,
-            labelString: 'PPS'
+            labelString: '# of shares'
           }
         }],
       },
@@ -102,13 +83,12 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
     // })
     console.log("Chart Initiated - Child");
 
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("Change Detected In Graph: ");
     if(this.mainChart && changes.strikePriceAnnotation){
-      this.mainChart.chart.options.annotation.annotations[0] = changes.strikePriceAnnotation.currentValue;
+      this.mainChart.chart.options.annotation.annotations[0]  = changes.strikePriceAnnotation.currentValue;
       this.mainChart.chart.update();
     }
     console.log(this.mainChart);
