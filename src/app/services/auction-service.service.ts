@@ -18,7 +18,7 @@ export class AuctionService {
   constructor(private http: HttpClient, private authService: AuthenticationService) {
 
   }
-
+ 
   getAuction(id: string) {
     return this.http.get<Auction>('http://localhost:3000/auctions/' + id, {}).pipe(map(
       auction => {

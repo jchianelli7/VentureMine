@@ -78,6 +78,21 @@ export class AuctionComponent implements OnInit, OnDestroy {
     console.log("Resetting Bids");
     this.auctionService.resetBids(this.auction._id).subscribe(auction => {
       this.auction = auction;
+      this.strikePrice = this.auction.currentStrikePrice;
+      this.graphDataSets = this.auction.graphDataSets;
+      this.strikePriceAnnotation = {
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: this.strikePrice,
+        borderColor: 'red',
+        borderWidth: 1.5,
+        label: {
+          enabled: true,
+          fontColor: 'white',
+          content: 'Strike Price'
+        }
+      }
     });
   }
 

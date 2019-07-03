@@ -87,8 +87,12 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("Change Detected In Graph: ");
-    if(this.mainChart && changes.strikePriceAnnotation){
+    if(this.mainChart && changes.strikePriceAnnotation.currentValue && changes.graphData.currentValue){
+      console.log(this.mainChart);
+    console.log(changes);
       this.mainChart.chart.options.annotation.annotations[0]  = changes.strikePriceAnnotation.currentValue;
+      // this.mainChart.chart.data = changes.auction.currentValue.graphDataSets[0];
+      console.log(this.mainChart);
       this.mainChart.chart.update();
     }
     console.log(this.mainChart);
