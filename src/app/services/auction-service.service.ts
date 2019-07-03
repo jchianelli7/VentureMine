@@ -27,18 +27,6 @@ export class AuctionService {
         }
       }
     ));
-    //   let observable = new Observable<Auction>(observer => {
-    //     this.socket = io('http://localhost:4000');
-    //     this.socket.on('auctionUpdated', (auction) => {
-    //       observer.next(auction);
-    //     });
-    //     return () => {
-    //       this.socket.disconnect();
-    //     };
-    //   })
-    //   return observable;
-    // }
-    // this.socket.emit('getBids', {id});
   }
 
   getBids(id: string): Observable<Auction> {
