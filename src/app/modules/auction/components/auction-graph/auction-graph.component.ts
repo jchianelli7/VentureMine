@@ -91,7 +91,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges {
       console.log(this.mainChart);
     console.log(changes);
       this.mainChart.chart.options.annotation.annotations[0]  = changes.strikePriceAnnotation.currentValue;
-      // this.mainChart.chart.data = changes.auction.currentValue.graphDataSets[0];
       console.log(this.mainChart);
       this.mainChart.chart.update();
     }
