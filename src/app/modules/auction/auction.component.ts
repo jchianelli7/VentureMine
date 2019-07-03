@@ -46,26 +46,6 @@ export class AuctionComponent implements OnInit, OnDestroy {
     });
   }
 
-  // auctionUpdated(auction: Auction){
-  //   console.log("auction updated - Parent");
-  //   this.auction = auction;
-  //   this.strikePrice = auction.currentStrikePrice;
-  //   this.graphDataSets = auction.graphDataSets;
-  //   this.strikePriceAnnotation = {
-  //     type: 'line',
-  //     mode: 'horizontal',
-  //     scaleID: 'y-axis-0',
-  //     value: this.strikePrice,
-  //     borderColor: 'red',
-  //     borderWidth: 1.5,
-  //     label: {
-  //       enabled: true,
-  //       fontColor: 'white',
-  //       content: 'Strike Price'
-  //     }
-  //   }
-  // }
-
   ngOnInit() {
     console.log('initializIng parent comp');
     this.connection = this.auctionService.getBids(this.route.snapshot.params.id).subscribe(auction => {
@@ -98,6 +78,21 @@ export class AuctionComponent implements OnInit, OnDestroy {
     console.log("Resetting Bids");
     this.auctionService.resetBids(this.auction._id).subscribe(auction => {
       this.auction = auction;
+      this.strikePrice = this.auction.currentStrikePrice;
+      this.graphDataSets = this.auction.graphDataSets;
+      this.strikePriceAnnotation = {
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: this.strikePrice,
+        borderColor: 'red',
+        borderWidth: 1.5,
+        label: {
+          enabled: true,
+          fontColor: 'white',
+          content: 'Strike Price'
+        }
+      }
     });
   }
 
