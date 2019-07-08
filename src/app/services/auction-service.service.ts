@@ -45,6 +45,12 @@ export class AuctionService {
   }
 
   placeBid(auctionId: number, ownerId: number, pps: number, numShares: number) {
+    console.log("Placing Bid: ");
+    console.log("auctionID: ", auctionId);
+    console.log("OwnerID: ", ownerId);
+    console.log("PPS: ", pps);
+    console.log("# Shares: ", numShares);
+    console.log("************************");
     this.socket.emit('placeBid', {auctionId, ownerId, pps, numShares});
   } 
 

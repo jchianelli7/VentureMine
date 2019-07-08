@@ -56,7 +56,10 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       
     }));
   
-    this.chartProps.y.domain([0, d3.max(this.bids, function (d) { return Math.max(d.pps, d.numShares); })]);
+    this.chartProps.y.domain(d3.extent(this.bids, function(d){
+      return d.numShares;
+    }));
+    // this.chartProps.y.domain([0, d3.max(this.bids, function (d) { return Math.max(d.pps, d.numShares); })]);
   
     // Select the section we want to apply our changes to
     this.chartProps.svg.transition();
@@ -73,6 +76,23 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
   
     this.chartProps.svg.select('.y.axis') // update y axis
       .call(this.chartProps.yAxis);
+
+      this.chartProps.svg.append("g")
+      .attr("stroke-width", 1.5)
+      .attr("font-family", "sans-serif")
+      .attr("font-size", 10)
+    .selectAll("g")
+    .data(this.bids)
+  .join("g")
+    .attr("transform", d => `translate(${this.chartProps.x(d.pps)},${this.chartProps.y(d.numShares)})`)
+    .call(g => g.append("circle")
+        .attr("stroke", "steelblue")
+        .attr("fill", "none")
+        .attr("r", 3))
+    .call(g => g.append("text")
+        .attr("dy", "0.35em")
+        .attr("x", 7)
+        .text(d => "PPS: " + d.pps + " # Shares: " + d.numShares));
   }
 
 
@@ -121,9 +141,13 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       d3.extent(_this.bids, function (d) {
         return d.pps;
       }));
-    this.chartProps.y.domain([0, d3.max(this.bids, function (d) {
-      return Math.max(d.pps, d.numShares);
-    })]);
+
+      this.chartProps.y.domain(d3.extent(this.bids, function(d){
+        return d.numShares;
+      }));
+    // this.chartProps.y.domain([0, d3.max(this.bids, function (d) {
+    //   return Math.max(d.pps, d.numShares);
+    // })]);
 
     // // Add the valueline2 path.
     // svg.append('path')
@@ -138,12 +162,13 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('stroke', 'black')
       .style('fill', 'none')
       .attr('d', strikePriceLine(_this.bids));
+
     svg.append("g")
-    .attr("stroke-width", 1.5)
-    .attr("font-family", "sans-serif")
-    .attr("font-size", 10)
-  .selectAll("g")
-  .data(this.bids)
+      .attr("stroke-width", 1.5)
+      .attr("font-family", "sans-serif")
+      .attr("font-size", 10)
+    .selectAll("g")
+    .data(this.bids)
   .join("g")
     .attr("transform", d => `translate(${this.chartProps.x(d.pps)},${this.chartProps.y(d.numShares)})`)
     .call(g => g.append("circle")
@@ -153,7 +178,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     .call(g => g.append("text")
         .attr("dy", "0.35em")
         .attr("x", 7)
-        .text(d => d.pps));
+        .text(d => "PPS: " + d.pps + " # Shares: " + d.numShares));
 
     // Add the X Axis
     svg.append('g')
@@ -183,11 +208,13 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style("text-anchor", "middle")
       .text("# of Shares");
 
-      svg.append("text")             
-      .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (height + margin.top + 20) + ")")
-      .style("text-anchor", "middle")
+
+      
+      svg.append("text")
+      .attr("class", "x label")
+      .attr("text-anchor", "end")
+      .attr("x", width)
+      .attr("y", height - 6)
       .text("Price Per Share");
 
 
