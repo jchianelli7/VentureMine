@@ -27,18 +27,6 @@ export class AuctionService {
         }
       }
     ));
-    //   let observable = new Observable<Auction>(observer => {
-    //     this.socket = io('http://localhost:4000');
-    //     this.socket.on('auctionUpdated', (auction) => {
-    //       observer.next(auction);
-    //     });
-    //     return () => {
-    //       this.socket.disconnect();
-    //     };
-    //   })
-    //   return observable;
-    // }
-    // this.socket.emit('getBids', {id});
   }
 
   getBids(id: string): Observable<Auction> {
@@ -57,8 +45,14 @@ export class AuctionService {
   }
 
   placeBid(auctionId: number, ownerId: number, pps: number, numShares: number) {
+    console.log("Placing Bid: ");
+    console.log("auctionID: ", auctionId);
+    console.log("OwnerID: ", ownerId);
+    console.log("PPS: ", pps);
+    console.log("# Shares: ", numShares);
+    console.log("************************");
     this.socket.emit('placeBid', {auctionId, ownerId, pps, numShares});
-  }
+  } 
 
   getAuctions() {
     return this.http.get<Auction[]>('http://localhost:3000/auctions', {}).pipe(map(auctions => {

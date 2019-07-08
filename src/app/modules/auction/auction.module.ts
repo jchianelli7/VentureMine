@@ -9,8 +9,10 @@ import { AuctionListComponent } from './components/auction-list/auction-list.com
 import {RouterModule} from "@angular/router";
 import { AuctionBidListComponent } from './components/auction-bid-list/auction-bid-list.component';
 import { AuctionGraphComponent } from './components/auction-graph/auction-graph.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
+ 
 const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
@@ -21,6 +23,7 @@ const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
     FormsModule,
     SocketIoModule.forRoot(config),
     RouterModule,
+    NgxChartsModule,
   ]
 })
 export class AuctionModule {

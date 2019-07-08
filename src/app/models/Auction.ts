@@ -17,7 +17,6 @@ export class Auction {
   reservePrice: number;               // Minimum PPS for auction to be valid
   reserveMet: boolean;
   uniqueBidders: number;
-  graphDataSets: ChartDataSets[];
   time: Date;
   bids: Bid[];
   // _id: any;

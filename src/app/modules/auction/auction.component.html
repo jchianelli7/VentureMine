@@ -3,8 +3,8 @@
       <div class="col-lg-12">
         <div class="col-lg-6">
            
-            <app-auction-graph *ngIf="auction" [strikePriceAnnotation]="strikePriceAnnotation" [auction]="auction" [graphData]="graphDataSets" [strikePrice]="strikePrice">
-            </app-auction-graph>
+<app-auction-graph *ngIf="auction" [(auction)]="auction" [bids]="auction.bids"></app-auction-graph>
+
         </div>
         <div class="col-lg-6" id="auctionDetails">
             <h2 style="text-align:center; color:white; padding-top:30px;" *ngIf="auction">{{auction.title}}</h2><br>
