@@ -6,6 +6,7 @@ import { ActivatedRoute } from "@angular/router";
 import { BaseChartDirective } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
+import { Bid } from 'src/app/models/Bid';
 
 @Component({
   selector: 'app-auction',
@@ -17,10 +18,8 @@ import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 
 export class AuctionComponent implements OnInit, OnDestroy {
   auction: Auction;
+  bids: Bid[];
   strikePrice: number;
-  graphDataSets: ChartDataSets[];
-  strikePriceAnnotation: any;
-  isReady: boolean = false;
   connection;
 
   private auctionSub: Subscription;
@@ -29,20 +28,10 @@ export class AuctionComponent implements OnInit, OnDestroy {
     this.auctionService.getAuction(this.route.snapshot.params.id).subscribe(auction => {
       this.auction = auction;
       this.strikePrice = this.auction.currentStrikePrice;
-      this.graphDataSets = this.auction.graphDataSets;
-      this.strikePriceAnnotation = {
-        type: 'line',
-        mode: 'horizontal',
-        scaleID: 'y-axis-0',
-        value: this.strikePrice,
-        borderColor: 'red',
-        borderWidth: 1.5,
-        label: {
-          enabled: true,
-          fontColor: 'white',
-          content: 'Strike Price'
-        }
-      };
+      // this.bids = this.auction.bids;
+      this.bids = this.auction.bids.sort(function(a,b){
+        return b.pps - a.pps; //to reverse b.date-a.date
+     });
     });
   }
 
@@ -51,20 +40,9 @@ export class AuctionComponent implements OnInit, OnDestroy {
     this.connection = this.auctionService.getBids(this.route.snapshot.params.id).subscribe(auction => {
       this.auction = auction;
       this.strikePrice = this.auction.currentStrikePrice;
-      this.graphDataSets = this.auction.graphDataSets;
-      this.strikePriceAnnotation = {
-        type: 'line',
-        mode: 'horizontal',
-        scaleID: 'y-axis-0',
-        value: this.strikePrice,
-        borderColor: 'red',
-        borderWidth: 1.5,
-        label: {
-          enabled: true,
-          fontColor: 'white',
-          content: 'Strike Price'
-        }
-      }
+      this.bids = this.auction.bids.sort(function(a,b){
+      return a.pps - b.pps; //to reverse b.date-a.date
+   });
     });
       console.log("Got New Bids AKA Initializing Connection to socket - GetBids");
   }
@@ -79,20 +57,7 @@ export class AuctionComponent implements OnInit, OnDestroy {
     this.auctionService.resetBids(this.auction._id).subscribe(auction => {
       this.auction = auction;
       this.strikePrice = this.auction.currentStrikePrice;
-      this.graphDataSets = this.auction.graphDataSets;
-      this.strikePriceAnnotation = {
-        type: 'line',
-        mode: 'horizontal',
-        scaleID: 'y-axis-0',
-        value: this.strikePrice,
-        borderColor: 'red',
-        borderWidth: 1.5,
-        label: {
-          enabled: true,
-          fontColor: 'white',
-          content: 'Strike Price'
-        }
-      }
+      this.bids = this.auction.bids;
     });
   }
 

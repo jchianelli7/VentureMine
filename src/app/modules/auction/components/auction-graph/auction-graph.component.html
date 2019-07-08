@@ -1,12 +1,1 @@
-<div class="container-fluid">
-        <canvas  *ngIf="chartOptions !== null" #mainChart="base-chart" baseChart
-        [datasets]="graphData"
-        [labels]="chartLabels"
-        [options]="chartOptions"
-        [legend]="true"
-        [chartType]="chartType"
-        [plugins]="lineChartPlugins"
-        [colors]="chartColors">
-        </canvas>
-</div>
- 
+<div #chart></div>

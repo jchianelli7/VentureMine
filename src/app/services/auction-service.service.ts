@@ -46,7 +46,7 @@ export class AuctionService {
 
   placeBid(auctionId: number, ownerId: number, pps: number, numShares: number) {
     this.socket.emit('placeBid', {auctionId, ownerId, pps, numShares});
-  }
+  } 
 
   getAuctions() {
     return this.http.get<Auction[]>('http://localhost:3000/auctions', {}).pipe(map(auctions => {
