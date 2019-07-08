@@ -32,7 +32,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     console.log(changes);
     if (this.bids &&  this.chartProps) {
       this.updateChart();
-    } else if (this.bids) {
+    } else if (this.bids && this.chartElement) {
       this.buildChart();
     }
   }
