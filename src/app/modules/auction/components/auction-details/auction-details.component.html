@@ -3,7 +3,7 @@
 </head>
 <div class="container">
   <h5 class="price">Current Strike Price: <span>{{auction.currentStrikePrice}}</span></h5>
-  <p>Envelope icon: <span class="glyphicon glyphicon-ok"></span></p> 
+  <p>Auction Reserve Met: <span *ngIf="auction.reserveMet" class="glyphicon glyphicon-ok"></span><span *ngIf="!auction.reserveMet" class="glyphicon glyphicon-remove"></span></p> 
 
   <div class="statistics">
    <span> <b>Current Bids: </b>{{auction.graphDataSets[0].data.length}} ---<b> Unique Bidders: </b>{{auction.uniqueBidders}}</span>

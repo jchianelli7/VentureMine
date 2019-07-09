@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnChanges, SimpleChange, Input, V
 import * as d3 from 'd3';
 import { Auction } from 'src/app/models/Auction';
 import { Bid } from 'src/app/models/Bid';
+import { AuctionService } from 'src/app/services/auction-service.service';
 
 @Component({
   selector: 'app-auction-graph',
@@ -19,7 +20,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
   private svgElement: HTMLElement;
   private chartProps: any;
 
-  constructor() {
+  constructor(private auctionService: AuctionService) {
 
   }
 
@@ -30,10 +31,12 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
     console.log("Change Detected In Graph Component: ");
     console.log(changes);
-    if (this.bids &&  this.chartProps) {
+    if (this.bids && this.chartProps) {
       this.updateChart();
+      console.log("UPDATING CHART");
     } else if (this.bids && this.chartElement) {
       this.buildChart();
+      console.log("ELSE - BUILDING CHART");
     }
   }
 
@@ -177,7 +180,7 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
       svg.selectAll("dot")
      .data(this.bids)
    .enter().append("circle")
-     .attr("r", 5)
+     .attr("r", 3)
      .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
      .attr("cy", function(d) { return _this.chartProps.y(d.numShares); })
      .on("mouseover", function(d) {
