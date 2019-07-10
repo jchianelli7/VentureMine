@@ -32,11 +32,7 @@ export class AuctionComponent implements OnInit, OnDestroy {
       this.bids = this.auction.bids.sort(function(a,b){
         return a.pps - b.pps; //to reverse b.date-a.date
      });
-    //15,20
-    // 21, 300
 
-    // 14, 125
-    // 15, 20
     });
   }
 
