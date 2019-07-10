@@ -53,12 +53,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
   
     // Scale the range of the data again
-    // this.chartProps.x.domain(d3.extent(this.bids, function (d) {
-      
-    //     return d.pps;
-      
-    // }));
-
     var xExtent = d3.extent(this.bids, function(b) { return b.pps; }),
   xRange = xExtent[1] - xExtent[0],
   yExtent = d3.extent(this.bids, function(b) { return b.numShares; }),
@@ -67,11 +61,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 // set domain to be extent +- 5%
 this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
 this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
-  
-    // this.chartProps.y.domain(d3.extent(this.bids, function(d){
-    //   return d.numShares;
-    // }));
-    // this.chartProps.y.domain([0, d3.max(this.bids, function (d) { return Math.max(d.pps, d.numShares); })]);
   
     // Select the section we want to apply our changes to
     this.chartProps.svg.transition();
@@ -89,27 +78,55 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
     this.chartProps.svg.select('.y.axis') // update y axis
       .call(this.chartProps.yAxis);
 
-      this.chartProps.svg.selectAll("dot")
-      .data(this.bids)
-    .enter().append("circle")
-      .attr("r", 5)
-      .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
-      .attr("cy", function(d) { return _this.chartProps.y(d.numShares); })
-      .on("mouseover", function(d) {
-        div.transition()
-          .duration(200)
-          .style("opacity", .9)
-          .style("width", "auto")
-          .style("height", "auto");
-        div.html("PPS: $" + d.pps + "<br/> # Shares: " + d.numShares)
-          .style("left", (d3.event.pageX) + "px")
-          .style("top", (d3.event.pageY - 28) + "px");
-        })
-      .on("mouseout", function(d) {
-        div.transition()
-          .duration(500)
-          .style("opacity", 0);
-        });
+
+
+    var points = this.chartProps.svg.selectAll("circle").data(this.bids);
+    console.log(points);
+    console.log("^^^^^^^^^ POINTS");
+  points.enter().append("circle");  // create a new circle for each value
+
+  points  
+  .attr("r", 3)
+  .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
+  .attr("cy", function(d) { return _this.chartProps.y(d.numShares); }).on("mouseover", function(d) {
+    div.transition()
+      .duration(200)
+      .style("opacity", .9)
+      .style("width", "auto")
+      .style("height", "auto");
+    div.html("PPS: $" + d.pps + "<br/> # Shares: " + d.numShares)
+      .style("left", (d3.event.pageX) + "px")
+      .style("top", (d3.event.pageY - 28) + "px");
+    })
+  .on("mouseout", function(d) {
+    div.transition()
+      .duration(500)
+      .style("opacity", 0);
+    });
+
+  points.exit().remove();
+
+    //   this.chartProps.svg.selectAll("dot")
+    //   .data(this.bids)
+    // .enter().append("circle")
+    //   .attr("r", 5)
+    //   .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
+    //   .attr("cy", function(d) { return _this.chartProps.y(d.numShares); })
+    //   .on("mouseover", function(d) {
+    //     div.transition()
+    //       .duration(200)
+    //       .style("opacity", .9)
+    //       .style("width", "auto")
+    //       .style("height", "auto");
+    //     div.html("PPS: $" + d.pps + "<br/> # Shares: " + d.numShares)
+    //       .style("left", (d3.event.pageX) + "px")
+    //       .style("top", (d3.event.pageY - 28) + "px");
+    //     })
+    //   .on("mouseout", function(d) {
+    //     div.transition()
+    //       .duration(500)
+    //       .style("opacity", 0);
+    //     });
   }
 
 
