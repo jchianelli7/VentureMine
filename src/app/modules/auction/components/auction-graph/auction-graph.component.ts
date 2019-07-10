@@ -105,28 +105,6 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
     });
 
   points.exit().remove();
-
-    //   this.chartProps.svg.selectAll("dot")
-    //   .data(this.bids)
-    // .enter().append("circle")
-    //   .attr("r", 5)
-    //   .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
-    //   .attr("cy", function(d) { return _this.chartProps.y(d.numShares); })
-    //   .on("mouseover", function(d) {
-    //     div.transition()
-    //       .duration(200)
-    //       .style("opacity", .9)
-    //       .style("width", "auto")
-    //       .style("height", "auto");
-    //     div.html("PPS: $" + d.pps + "<br/> # Shares: " + d.numShares)
-    //       .style("left", (d3.event.pageX) + "px")
-    //       .style("top", (d3.event.pageY - 28) + "px");
-    //     })
-    //   .on("mouseout", function(d) {
-    //     div.transition()
-    //       .duration(500)
-    //       .style("opacity", 0);
-    //     });
   }
 
 
