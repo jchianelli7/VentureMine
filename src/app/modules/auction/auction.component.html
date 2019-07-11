@@ -1,16 +1,13 @@
 <div class="container-fluid" id="auctionContainer">
    <button class="btn btn-primary" (click)="resetBids(auction._id)">Clear Bids</button>
-      <div class="col-lg-12">
-        <div class="col-lg-6">
-           
-<app-auction-graph *ngIf="auction" [(auction)]="auction" [bids]="auction.bids"></app-auction-graph>
-
-        </div>
+      <div class="row">
+        <app-auction-graph *ngIf="auction" [(auction)]="auction" [bids]="auction.bids"></app-auction-graph>
+      </div>
+      <div class="row">
         <div class="col-lg-6" id="auctionDetails">
             <h2 style="text-align:center; color:white; padding-top:30px;" *ngIf="auction">{{auction.title}}</h2><br>
               <app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)"></app-auction-details>
               <app-auction-bid-list *ngIf="auction" [auction]="auction" [bids]="auction.bids" ></app-auction-bid-list>
         </div>
       </div>
-  
 </div>

@@ -69,24 +69,22 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
     // this.chartProps.svg.select('.line.strikePriceLine') // update the line
     //   .attr('d', this.chartProps.strikePriceLine(this.bids));
   
-    var div = d3.select("body").append("div")
+  var div = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
-    this.chartProps.svg.select('.x.axis') // update x axis
+  this.chartProps.svg.select('.x.axis') // update x axis
       .call(this.chartProps.xAxis);
   
-    this.chartProps.svg.select('.y.axis') // update y axis
+  this.chartProps.svg.select('.y.axis') // update y axis
       .call(this.chartProps.yAxis);
 
 
 
-    var points = this.chartProps.svg.selectAll("circle").data(this.bids);
-    console.log(points);
-    console.log("^^^^^^^^^ POINTS");
+  var points = this.chartProps.svg.selectAll("circle").data(this.bids);
   points.enter().append("circle");  // create a new circle for each value
 
   points  
-  .attr("r", 3)
+  .attr("r", 3) 
   .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
   .attr("cy", function(d) { return _this.chartProps.y(d.numShares); }).on("mouseover", function(d) {
     div.transition()
@@ -112,8 +110,10 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
     this.chartProps = {};
     // Set the dimensions of the canvas / graph
     var margin = { top: 30, right: 20, bottom: 30, left: 50 },
-      width = 900 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      // width = 900 - margin.left - margin.right,
+      // height = 500 - margin.top - margin.bottom;
+      width = this.chartElement.nativeElement.clientWidth - margin.left - margin.right,
+      height = this.chartElement.nativeElement.clientHeight - margin.top - margin.bottom;
 
     // Set the ranges
     this.chartProps.x = d3.scaleLinear().range([width, 0]);
@@ -179,7 +179,7 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
      .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
      .attr("cy", function(d) { return _this.chartProps.y(d.numShares); })
      .on("mouseover", function(d) {
-       div.transition()
+       div.transition() 
          .duration(200)
          .style("opacity", .9)
          .style("width", "auto")
@@ -213,10 +213,13 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
 
       
       svg.append("text")
-      .attr("class", "x label")
+  
       .attr("text-anchor", "end")
-      .attr("x", width)
-      .attr("y", height - 6)
+      
+      .attr("x", (width/2))
+      .attr("y", height + margin.bottom)
+      .style("text-anchor", "middle")
+      .attr("dy", "1em")
       .text("Price Per Share");
 
 
