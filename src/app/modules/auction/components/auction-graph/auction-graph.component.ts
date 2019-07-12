@@ -109,7 +109,7 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
   buildChart() {
     this.chartProps = {};
     // Set the dimensions of the canvas / graph
-    var margin = { top: 30, right: 20, bottom: 30, left: 50 },
+    var margin = { top: 45, right: 20, bottom: 45, left: 50 },
       // width = 900 - margin.left - margin.right,
       // height = 500 - margin.top - margin.bottom;
       width = this.chartElement.nativeElement.clientWidth - margin.left - margin.right,
@@ -210,20 +210,12 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
       .style("text-anchor", "middle")
       .text("# of Shares");
 
-
-      
       svg.append("text")
-  
-      .attr("text-anchor", "end")
-      
       .attr("x", (width/2))
-      .attr("y", height + margin.bottom)
-      .style("text-anchor", "middle")
+      .attr("y", height + 25)
+      .style("text-anchor", "middle") 
       .attr("dy", "1em")
-      .text("Price Per Share");
-
-
-
+      .text("Price Per Share ($)");
   }
 
 
