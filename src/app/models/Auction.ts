@@ -12,6 +12,7 @@ export class Auction {
   sharesOffered: number;
   currentStrikePrice: number;
   currentPricePerShare: number;       // Live Auction PPS
+  currentCommittedCapital: number;
   currentBids: number;
   showReserve: boolean;
   reservePrice: number;               // Minimum PPS for auction to be valid

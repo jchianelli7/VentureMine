@@ -10,13 +10,14 @@ import {RouterModule} from "@angular/router";
 import { AuctionBidListComponent } from './components/auction-bid-list/auction-bid-list.component';
 import { AuctionGraphComponent } from './components/auction-graph/auction-graph.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AuctionBidComponent } from './components/auction-bid/auction-bid.component';
 
 
  
 const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
-  declarations: [AuctionComponent, AuctionDetailsComponent, AuctionListComponent, AuctionBidListComponent, AuctionGraphComponent],
+  declarations: [AuctionComponent, AuctionDetailsComponent, AuctionListComponent, AuctionBidListComponent, AuctionGraphComponent, AuctionBidComponent],
   imports: [
     CommonModule ,
     ChartsModule,

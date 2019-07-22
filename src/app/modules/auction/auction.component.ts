@@ -30,8 +30,9 @@ export class AuctionComponent implements OnInit, OnDestroy {
       this.strikePrice = this.auction.currentStrikePrice;
       // this.bids = this.auction.bids;
       this.bids = this.auction.bids.sort(function(a,b){
-        return b.pps - a.pps; //to reverse b.date-a.date
+        return a.pps - b.pps; //to reverse b.date-a.date
      });
+
     });
   }
 
@@ -39,8 +40,8 @@ export class AuctionComponent implements OnInit, OnDestroy {
     console.log('initializIng parent comp');
     this.connection = this.auctionService.getBids(this.route.snapshot.params.id).subscribe(auction => {
       this.auction = auction;
-      this.strikePrice = this.auction.currentStrikePrice;
-      this.bids = this.auction.bids.sort(function(a,b){
+      this.strikePrice = auction.currentStrikePrice;
+      this.bids = auction.bids.sort(function(a,b){
       return a.pps - b.pps; //to reverse b.date-a.date
    });
     });

@@ -10,6 +10,14 @@ input{
     color: black;
 }
 
-.container {
+/* .container {
     color: white;
+} */
+
+span.glyphicon-remove{
+    color: red;
+}
+
+span.glyphicon-ok{
+    color: green;
 }

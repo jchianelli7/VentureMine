@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnChanges, SimpleChange, Input, V
 import * as d3 from 'd3';
 import { Auction } from 'src/app/models/Auction';
 import { Bid } from 'src/app/models/Bid';
+import { AuctionService } from 'src/app/services/auction-service.service';
 
 @Component({
   selector: 'app-auction-graph',
@@ -19,7 +20,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
   private svgElement: HTMLElement;
   private chartProps: any;
 
-  constructor() {
+  constructor(private auctionService: AuctionService) {
 
   }
 
@@ -30,17 +31,19 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
     console.log("Change Detected In Graph Component: ");
     console.log(changes);
-    if (this.bids &&  this.chartProps) {
+    if (this.bids && this.chartProps) {
       this.updateChart();
+      console.log("UPDATING CHART");
     } else if (this.bids && this.chartElement) {
       this.buildChart();
+      console.log("ELSE - BUILDING CHART");
     }
   }
 
   ngAfterViewInit() {
     console.log("View Initialized");
     if (this.auction && this.bids) {
-      console.log("Building Chart");
+      console.log("Building Chart"); 
       this.buildChart();
     }
   }
@@ -50,58 +53,67 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
   
     // Scale the range of the data again
-    this.chartProps.x.domain(d3.extent(this.bids, function (d) {
-      
-        return d.pps;
-      
-    }));
-  
-    this.chartProps.y.domain(d3.extent(this.bids, function(d){
-      return d.numShares;
-    }));
-    // this.chartProps.y.domain([0, d3.max(this.bids, function (d) { return Math.max(d.pps, d.numShares); })]);
+    var xExtent = d3.extent(this.bids, function(b) { return b.pps; }),
+  xRange = xExtent[1] - xExtent[0],
+  yExtent = d3.extent(this.bids, function(b) { return b.numShares; }),
+  yRange = yExtent[1] - yExtent[0];
+
+// set domain to be extent +- 5%
+this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
+this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
   
     // Select the section we want to apply our changes to
     this.chartProps.svg.transition();
   
     // Make the changes to the line chart
-    this.chartProps.svg.select('.line.strikePriceLine') // update the line
-      .attr('d', this.chartProps.strikePriceLine(this.bids));
+    // this.chartProps.svg.select('.line.strikePriceLine') // update the line
+    //   .attr('d', this.chartProps.strikePriceLine(this.bids));
   
-    // this.chartProps.svg.select('.line.line2') // update the line
-    //   .attr('d', this.chartProps.valueline2(this.bids));
-  
-    this.chartProps.svg.select('.x.axis') // update x axis
+  var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+  this.chartProps.svg.select('.x.axis') // update x axis
       .call(this.chartProps.xAxis);
   
-    this.chartProps.svg.select('.y.axis') // update y axis
+  this.chartProps.svg.select('.y.axis') // update y axis
       .call(this.chartProps.yAxis);
 
-      this.chartProps.svg.append("g")
-      .attr("stroke-width", 1.5)
-      .attr("font-family", "sans-serif")
-      .attr("font-size", 10)
-    .selectAll("g")
-    .data(this.bids)
-  .join("g")
-    .attr("transform", d => `translate(${this.chartProps.x(d.pps)},${this.chartProps.y(d.numShares)})`)
-    .call(g => g.append("circle")
-        .attr("stroke", "steelblue")
-        .attr("fill", "none")
-        .attr("r", 3))
-    .call(g => g.append("text")
-        .attr("dy", "0.35em")
-        .attr("x", 7)
-        .text(d => "PPS: " + d.pps + " # Shares: " + d.numShares));
+
+
+  var points = this.chartProps.svg.selectAll("circle").data(this.bids);
+  points.enter().append("circle");  // create a new circle for each value
+
+  points  
+  .attr("r", 3) 
+  .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
+  .attr("cy", function(d) { return _this.chartProps.y(d.numShares); }).on("mouseover", function(d) {
+    div.transition()
+      .duration(200)
+      .style("opacity", .9)
+      .style("width", "auto")
+      .style("height", "auto");
+    div.html("PPS: $" + d.pps + "<br/> # Shares: " + d.numShares)
+      .style("left", (d3.event.pageX) + "px")
+      .style("top", (d3.event.pageY - 28) + "px");
+    })
+  .on("mouseout", function(d) {
+    div.transition()
+      .duration(500)
+      .style("opacity", 0);
+    });
+
+  points.exit().remove();
   }
 
 
   buildChart() {
     this.chartProps = {};
     // Set the dimensions of the canvas / graph
-    var margin = { top: 30, right: 20, bottom: 30, left: 50 },
-      width = 900 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+    var margin = { top: 45, right: 20, bottom: 45, left: 50 },
+      // width = 900 - margin.left - margin.right,
+      // height = 500 - margin.top - margin.bottom;
+      width = this.chartElement.nativeElement.clientWidth - margin.left - margin.right,
+      height = this.chartElement.nativeElement.clientHeight - margin.top - margin.bottom;
 
     // Set the ranges
     this.chartProps.x = d3.scaleLinear().range([width, 0]);
@@ -120,14 +132,9 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       })
       .y(function (d) { return _this.chartProps.y(d.numShares); });
 
-    // // Define the line
-    // var valueline2 = d3.line<Bid>()
-    //   .x(function (d) {
-
-    //       return _this.chartProps.x(d.pps);
-
-    //   })
-    //   .y(function (d) { console.log('Open market'); return _this.chartProps.y(d.open); });
+      var div = d3.select("body").append("div")
+    .attr("class", "tooltip") 
+    .style("opacity", 0);
 
     var svg = d3.select(this.chartElement.nativeElement)
       .append('svg')
@@ -136,49 +143,23 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    // Scale the range of the data
-    this.chartProps.x.domain(
-      d3.extent(_this.bids, function (d) {
-        return d.pps;
-      }));
 
-      this.chartProps.y.domain(d3.extent(this.bids, function(d){
-        return d.numShares;
-      }));
-    // this.chartProps.y.domain([0, d3.max(this.bids, function (d) {
-    //   return Math.max(d.pps, d.numShares);
-    // })]);
-
-    // // Add the valueline2 path.
-    // svg.append('path')
-    //   .attr('class', 'line line2')
-    //   .style('stroke', 'green')
-    //   .style('fill', 'none');
-    //   // .attr('d', valueline2(_this.bids));
+      var xExtent = d3.extent(this.bids, function(b) { return b.pps; }),
+      xRange = xExtent[1] - xExtent[0],
+      yExtent = d3.extent(this.bids, function(b) { return b.numShares; }),
+      yRange = yExtent[1] - yExtent[0];
+    
+    // set domain to be extent +- 5%
+    this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
+    this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
 
     // Add the valueline path.
-    svg.append('path')
-      .attr('class', 'line strikePriceLine')
-      .style('stroke', 'black')
-      .style('fill', 'none')
-      .attr('d', strikePriceLine(_this.bids));
+    // svg.append('path')
+    //   .attr('class', 'line strikePriceLine')
+    //   .style('stroke', 'black')
+    //   .style('fill', 'none')
+    //   .attr('d', strikePriceLine(_this.bids));
 
-    svg.append("g")
-      .attr("stroke-width", 1.5)
-      .attr("font-family", "sans-serif")
-      .attr("font-size", 10)
-    .selectAll("g")
-    .data(this.bids)
-  .join("g")
-    .attr("transform", d => `translate(${this.chartProps.x(d.pps)},${this.chartProps.y(d.numShares)})`)
-    .call(g => g.append("circle")
-        .attr("stroke", "steelblue")
-        .attr("fill", "none")
-        .attr("r", 3))
-    .call(g => g.append("text")
-        .attr("dy", "0.35em")
-        .attr("x", 7)
-        .text(d => "PPS: " + d.pps + " # Shares: " + d.numShares));
 
     // Add the X Axis
     svg.append('g')
@@ -191,6 +172,27 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('class', 'y axis')
       .call(yAxis);
 
+      svg.selectAll("dot")
+     .data(this.bids)
+   .enter().append("circle")
+     .attr("r", 3)
+     .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
+     .attr("cy", function(d) { return _this.chartProps.y(d.numShares); })
+     .on("mouseover", function(d) {
+       div.transition() 
+         .duration(200)
+         .style("opacity", .9)
+         .style("width", "auto")
+         .style("height", "auto");
+       div.html("PPS: $" + d.pps + "<br/> # Shares: " + d.numShares)
+         .style("left", (d3.event.pageX) + "px")
+         .style("top", (d3.event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
 
 
     // Setting the required objects in chartProps so they could be used to update the chart
@@ -208,17 +210,12 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style("text-anchor", "middle")
       .text("# of Shares");
 
-
-      
       svg.append("text")
-      .attr("class", "x label")
-      .attr("text-anchor", "end")
-      .attr("x", width)
-      .attr("y", height - 6)
-      .text("Price Per Share");
-
-
-
+      .attr("x", (width/2))
+      .attr("y", height + 25)
+      .style("text-anchor", "middle") 
+      .attr("dy", "1em")
+      .text("Price Per Share ($)");
   }
 
 
