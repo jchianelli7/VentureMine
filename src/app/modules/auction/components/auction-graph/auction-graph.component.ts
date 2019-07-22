@@ -133,7 +133,7 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
       .y(function (d) { return _this.chartProps.y(d.numShares); });
 
       var div = d3.select("body").append("div")
-    .attr("class", "tooltip")
+    .attr("class", "tooltip") 
     .style("opacity", 0);
 
     var svg = d3.select(this.chartElement.nativeElement)

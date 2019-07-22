@@ -1,0 +1,7 @@
+<div class="action">
+        <label for="auctionPPS" style="margin-right: 5px;">PPS: </label>
+          <input class="form-control" type="text" id="auctionPPS" placeholder="Price per share" [(ngModel)]="pps">
+          <label for="auctionNumShares" style="margin-right: 5px;"># Shares: </label>
+          <input class="form-control" type="text" id="auctionNumShares" placeholder="# of shares" [(ngModel)]="numShares">
+          <button class="btn btn-default btn-primary" type="button" (click)="placeBid(numShares, pps)">Place Bid</button>
+</div>

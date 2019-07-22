@@ -188,5 +188,14 @@ div#auctionDetails{
 div#auctionContainer{
   width: 100%;
   height: 100%;
-  padding: 25px;
+  padding: 0 25px;
+  /* padding-top: none;  */
+}
+
+div#placeBid {
+  background-color:lightsteelblue;
+  padding: 15px;
+  align-content:center;
+  vertical-align: center;
+  height: 200px;
 }

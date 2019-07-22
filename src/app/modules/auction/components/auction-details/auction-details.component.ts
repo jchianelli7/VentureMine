@@ -15,23 +15,15 @@ export class AuctionDetailsComponent implements OnInit {
   @Input() auction: Auction;
   @Output() bidPlaced = new EventEmitter();
   currentUser: User;
-  private auctionSub: Subscription;
 
   constructor(private auctionService: AuctionService, private authService: AuthenticationService) {
 
   }
 
   ngOnInit() {
-    // this.auctionSub = this.auctionService.getBids(this.auction._id).subscribe(auction => {
-    //   this.auction = auction;
-    // });
     if (this.authService.currentUserValue) {
       this.currentUser = this.authService.currentUserValue;
     }
-  }
-
-  placeBid(numShares: number, pricePerShare: number) {
-    this.auctionService.placeBid(this.auction._id, this.currentUser._id, pricePerShare, numShares);
   }
 
 }
