@@ -136,7 +136,7 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
     .attr("class", "tooltip") 
     .style("opacity", 0);
 
-    var svg = d3.select(this.chartElement.nativeElement)
+    var svg = d3.select(this.chartElement.nativeElement) 
       .append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)

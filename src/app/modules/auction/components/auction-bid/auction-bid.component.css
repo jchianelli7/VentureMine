@@ -1,3 +1,12 @@
 button {
     margin-top: 15px;
+    /* margin: auto; */
+}
+label {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+input {
+    margin-bottom: 5px;
 }
