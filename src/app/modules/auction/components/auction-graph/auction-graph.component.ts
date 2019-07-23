@@ -88,7 +88,7 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
   .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
   .attr("cy", function(d) { return _this.chartProps.y(d.numShares); }).on("mouseover", function(d) {
     div.transition()
-      .duration(200)
+      .duration(200) 
       .style("opacity", .9)
       .style("width", "auto")
       .style("height", "auto");
