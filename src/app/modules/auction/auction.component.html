@@ -1,19 +1,19 @@
 <div class="container-fluid" id="auctionContainer">
   <h2 style="text-align:center; margin: 0 !important;" *ngIf="auction">{{auction.title}}</h2><br>
 
-  <div class="row">
-    <div class="col-md-10">
+  <div class="row" id="graphRow">
+    <div class="col-md-9">
       <app-auction-graph *ngIf="auction" [(auction)]="auction" [bids]="auction.bids"></app-auction-graph>
     </div>
-    <div class="col-md-2" id="placeBid">
+    <div class="col-md-3" id="placeBid">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col">
           <h3 style="text-align: center; color: black; font-weight: bold;">Place a Bid</h3>
           <app-auction-bid *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)"></app-auction-bid>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12" style="line-height: 300px; height: 300px; margin-top: 30px;">
+        <div class="col">
           <app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">
           </app-auction-details>
         </div>

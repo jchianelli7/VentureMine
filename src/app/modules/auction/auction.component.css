@@ -36,3 +36,7 @@ div#placeBid {
   height: 275px;
   border: 1px solid  black;
 }
+
+div#graphRow {
+  height: 550px;
+}
