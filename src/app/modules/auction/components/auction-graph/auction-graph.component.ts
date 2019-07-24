@@ -166,13 +166,13 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
     svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', `translate(0,${height})`)
-      .style("fill", "white")
+      // .style("fill", "white")
       .call(xAxis);
 
     // Add the Y Axis
     svg.append('g')
       .attr('class', 'y axis')
-      .style("fill", "white")
+      // .style("fill", "white")
       .call(yAxis);
 
       svg.selectAll("dot")
@@ -211,6 +211,8 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
       .attr("y", 0 - margin.left)
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
+      .style("font-weight", "bold")
+      .style("color", "black")
       .style("text-anchor", "middle")
       .text("# of Shares");
 
@@ -218,6 +220,7 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
       .attr("x", (width/2))
       .attr("y", height + 25)
       .style("text-anchor", "middle") 
+      .style("font-weight", "bold")
       .attr("dy", "1em")
       .text("Price Per Share ($)");
   }
