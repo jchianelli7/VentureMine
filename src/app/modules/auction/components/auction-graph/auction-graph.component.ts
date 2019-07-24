@@ -138,6 +138,7 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
 
     var svg = d3.select(this.chartElement.nativeElement) 
       .append('svg')
+      .style("fill", "steelblue")
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
@@ -165,16 +166,19 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
     svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', `translate(0,${height})`)
+      .style("fill", "white")
       .call(xAxis);
 
     // Add the Y Axis
     svg.append('g')
       .attr('class', 'y axis')
+      .style("fill", "white")
       .call(yAxis);
 
       svg.selectAll("dot")
      .data(this.bids)
    .enter().append("circle")
+   .attr("fill", "steelblue")
      .attr("r", 3)
      .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
      .attr("cy", function(d) { return _this.chartProps.y(d.numShares); })
