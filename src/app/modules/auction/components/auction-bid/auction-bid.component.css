@@ -1,12 +1,22 @@
 button {
     margin-top: 15px;
+    display:block;
     /* margin: auto; */
 }
-label {
+/* label {
     margin-top: 5px;
     margin-bottom: 5px;
+    display: inline;
 }
 
 input {
     margin-bottom: 5px;
+    width: 75%;
+    display: inline;
+    /* display: flex; */
+    /* display: table; */
+/* } */ 
+
+div.action {
+    /* text-align: center; */
 }

@@ -37,6 +37,22 @@ div#placeBid {
   border: 1px solid  black;
 }
 
+.row{
+  height: 100%;
+}
+
 div#graphRow {
-  height: 550px;
+  height: 600px;
+  margin-bottom: 45px;
+}
+
+#bidDiv {
+  background-color: lightsteelblue;
+  padding: 15px;
+  height: 100%;
+  border: 1px solid black;
+}
+
+div .sidePanel{
+margin-bottom: 50px;
 }
