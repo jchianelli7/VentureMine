@@ -24,7 +24,77 @@
   </div>
   <div class="row">
     <div class="col-lg-8">
-      Full Auction Info
+        <div class="container">
+			      <div class="row">
+			        <div class="col-sm-3">
+			          <div class="text-block">
+			            <h5>
+			              Founder
+			            </h5>
+			          </div>
+
+			          <hr class="hr-solid hr-primary" style="border-top-color: ; border-top-width: 1px; opacity: 0.25;">
+
+			          <div class="text-block">
+			            <h3>
+			              Jimmy Nguyen
+			            </h3>
+			          </div>
+
+			          <div class="social-bar sb-border sb-rounded sb-dark-skin text-left padding-top-1x">
+			            <a class="social-btn waves-effect waves-light" data-placement="top" data-toggle="tooltip" href="#" title="" data-original-title="Twitter"><i class="socicon-twitter"></i></a><a class="social-btn waves-effect waves-light" data-placement="top" data-toggle="tooltip" href="#" title="" data-original-title="Facebook"><i class="socicon-facebook"></i></a>
+			          </div>
+			        </div>
+
+			        <div class="col-sm-3">
+			          <div class="text-block">
+			            <h5>
+			              Year invested
+			            </h5>
+			          </div>
+
+			          <hr class="hr-solid hr-primary" style="border-top-color: ; border-top-width: 1px; opacity: 0.25;">
+
+			          <div class="text-block">
+			            <h3>
+			              2014
+			            </h3>
+			          </div>
+			        </div>
+
+			        <div class="col-sm-3">
+			          <div class="text-block">
+			            <h5>
+			              Sectors
+			            </h5>
+			          </div>
+
+			          <hr class="hr-solid hr-primary" style="border-top-color: ; border-top-width: 1px; opacity: 0.25;">
+
+			          <div class="text-block">
+			            <h3>
+			              Cloud Storage
+			            </h3>
+			          </div>
+			        </div>
+
+			        <div class="col-sm-3">
+			          <div class="text-block">
+			            <h5>
+			              Investment Stage
+			            </h5>
+			          </div>
+
+			          <hr class="hr-solid hr-primary" style="border-top-color: ; border-top-width: 1px; opacity: 0.25;">
+
+			          <div class="text-block">
+			            <h3>
+			              Early
+			            </h3>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
     </div>
     <div class="col-lg-4" id="auctionDetails">
       <app-auction-bid-list *ngIf="auction" [auction]="auction" [bids]="auction.bids"></app-auction-bid-list>
