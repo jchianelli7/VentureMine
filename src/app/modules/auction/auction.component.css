@@ -16,10 +16,6 @@
   text-align: center;
 }
 
-div#auctionDetails{
-  background-color: #343a40;
-  /* color:white; */
-}
 
 div#auctionContainer{
   width: 100%;
@@ -56,4 +52,8 @@ div#graphRow {
 
 div .sidePanel{
 margin-bottom: 50px;
+}
+
+#quickStats {
+  text-align: center;
 }

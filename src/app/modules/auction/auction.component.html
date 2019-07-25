@@ -25,39 +25,19 @@
   <div class="row">
     <div class="col-lg-8">
         <div class="container">
-			      <div class="row">
+			      <div class="row" id="quickStats">
 			        <div class="col-sm-3">
 			          <div class="text-block">
 			            <h5>
-			              Founder
+			              Total Comitted Capital
 			            </h5>
 			          </div>
 
-			          <hr class="hr-solid hr-primary" style="border-top-color: ; border-top-width: 1px; opacity: 0.25;">
+			          <hr class="hr-solid hr-primary" style="border-top:1px solid; opacity: 0.25;">
 
 			          <div class="text-block">
 			            <h3>
-			              Jimmy Nguyen
-			            </h3>
-			          </div>
-
-			          <div class="social-bar sb-border sb-rounded sb-dark-skin text-left padding-top-1x">
-			            <a class="social-btn waves-effect waves-light" data-placement="top" data-toggle="tooltip" href="#" title="" data-original-title="Twitter"><i class="socicon-twitter"></i></a><a class="social-btn waves-effect waves-light" data-placement="top" data-toggle="tooltip" href="#" title="" data-original-title="Facebook"><i class="socicon-facebook"></i></a>
-			          </div>
-			        </div>
-
-			        <div class="col-sm-3">
-			          <div class="text-block">
-			            <h5>
-			              Year invested
-			            </h5>
-			          </div>
-
-			          <hr class="hr-solid hr-primary" style="border-top-color: ; border-top-width: 1px; opacity: 0.25;">
-
-			          <div class="text-block">
-			            <h3>
-			              2014
+			              {{auction.currentCommittedCapital | currency: USD}}
 			            </h3>
 			          </div>
 			        </div>
@@ -65,15 +45,15 @@
 			        <div class="col-sm-3">
 			          <div class="text-block">
 			            <h5>
-			              Sectors
+			              # Of Bids
 			            </h5>
 			          </div>
 
-			          <hr class="hr-solid hr-primary" style="border-top-color: ; border-top-width: 1px; opacity: 0.25;">
+			          <hr class="hr-solid hr-primary" style="border-top:1px solid; opacity: 0.25;">
 
 			          <div class="text-block">
 			            <h3>
-			              Cloud Storage
+			              {{auction.currentBids}}
 			            </h3>
 			          </div>
 			        </div>
@@ -81,15 +61,32 @@
 			        <div class="col-sm-3">
 			          <div class="text-block">
 			            <h5>
-			              Investment Stage
+			              Current Strike Price
 			            </h5>
 			          </div>
 
-			          <hr class="hr-solid hr-primary" style="border-top-color: ; border-top-width: 1px; opacity: 0.25;">
+			          <hr class="hr-solid hr-primary" style="border-top: 1px solid black; border-top-width: 1px; opacity: 0.25;">
 
 			          <div class="text-block">
 			            <h3>
-			              Early
+			              {{auction.currentStrikePrice | currency: USD}}/share
+			            </h3>
+			          </div>
+			        </div>
+
+			        <div class="col-sm-3">
+			          <div class="text-block">
+			            <h5>
+			              Reserve Met?
+			            </h5>
+			          </div>
+
+			          <hr class="hr-solid hr-primary" style="border-top:1px solid; opacity: 0.25;">
+
+			          <div class="text-block">
+			            <h3>
+                      <fa-icon size="2x" [styles]="{'stroke': 'green', 'color': 'green'}" icon="check" *ngIf="auction.reserveMet" ></fa-icon>
+                      <fa-icon size="2x" *ngIf="!auction.reserveMet" icon="times" id="reserveNotMet" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
 			            </h3>
 			          </div>
 			        </div>
