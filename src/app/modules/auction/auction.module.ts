@@ -11,13 +11,14 @@ import { AuctionBidListComponent } from './components/auction-bid-list/auction-b
 import { AuctionGraphComponent } from './components/auction-graph/auction-graph.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AuctionBidComponent } from './components/auction-bid/auction-bid.component';
+import {CountDown} from "ng2-date-countdown";
 
 
  
 const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
-  declarations: [AuctionComponent, AuctionDetailsComponent, AuctionListComponent, AuctionBidListComponent, AuctionGraphComponent, AuctionBidComponent],
+  declarations: [AuctionComponent, AuctionDetailsComponent, AuctionListComponent, AuctionBidListComponent, AuctionGraphComponent, AuctionBidComponent, CountDown],
   imports: [
     CommonModule ,
     ChartsModule,

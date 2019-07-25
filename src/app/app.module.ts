@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuctionModule } from './modules/auction/auction.module';
 import { ChartsModule } from 'ng2-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ChartsModule } from 'ng2-charts';
     HttpClientModule,
     FormsModule, 
     ReactiveFormsModule, 
-    ChartsModule
+    ChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,5 +2,6 @@
     <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
 </head> -->
 <!-- <div style="back<div class="col-md-12" style="line-height: 300px; height: 300px; margin-top: 30px;">ground-color:lightsteelblue; border: 1px black solid;"> -->
-  <p>TODO: Auction Details</p>
+  <h2 style="text-align: center;">Auction Ends: {{auction.auctionEnd}}</h2>
 <!-- </div> -->
+<countdown (reached)="callback($event)" [text]="text" units="Year | Month | Days | Hours | Minutes | Seconds"  end="{{auction.auctionEnd}}"></countdown>
