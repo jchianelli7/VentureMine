@@ -11,14 +11,16 @@ import { AuctionBidListComponent } from './components/auction-bid-list/auction-b
 import { AuctionGraphComponent } from './components/auction-graph/auction-graph.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AuctionBidComponent } from './components/auction-bid/auction-bid.component';
-import {CountDown} from "ng2-date-countdown";
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faTimes} from '@fortawesome/free-solid-svg-icons'
+import {faCheck} from '@fortawesome/free-solid-svg-icons';
 
  
 const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
-  declarations: [AuctionComponent, AuctionDetailsComponent, AuctionListComponent, AuctionBidListComponent, AuctionGraphComponent, AuctionBidComponent, CountDown],
+  declarations: [AuctionComponent, AuctionDetailsComponent, AuctionListComponent, AuctionBidListComponent, AuctionGraphComponent, AuctionBidComponent],
   imports: [
     CommonModule ,
     ChartsModule,
@@ -26,7 +28,12 @@ const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
     SocketIoModule.forRoot(config),
     RouterModule,
     NgxChartsModule,
+    FontAwesomeModule
   ]
 })
 export class AuctionModule {
+  constructor(){
+    library.add(faTimes);
+    library.add(faCheck);
+  }
 }

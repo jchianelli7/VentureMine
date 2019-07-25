@@ -21,3 +21,27 @@ span.glyphicon-remove{
 span.glyphicon-ok{
     color: green;
 }
+
+#timer {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    color: rgb(73, 78, 80);
+    letter-spacing: -1px;
+  }
+
+  #timer span {
+    font-size: 32px;
+    color: #333;
+    margin: 0 3px 0 15px;
+  }
+  #timer span:first-child {
+    margin-left: 0;
+  }
+
+  #reserveNotMet {
+    color: red !important;
+  }
+
+  .redX {
+      color: red;
+  }

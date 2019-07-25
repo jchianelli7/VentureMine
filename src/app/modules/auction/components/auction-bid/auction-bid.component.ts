@@ -8,7 +8,7 @@ import { User } from 'src/app/models/User';
   selector: 'app-auction-bid',
   templateUrl: './auction-bid.component.html',
   styleUrls: ['./auction-bid.component.css']
-})
+}) 
 export class AuctionBidComponent implements OnInit {
 
   @Input() auction: Auction;

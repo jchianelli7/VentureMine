@@ -2,6 +2,24 @@
     <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
 </head> -->
 <!-- <div style="back<div class="col-md-12" style="line-height: 300px; height: 300px; margin-top: 30px;">ground-color:lightsteelblue; border: 1px black solid;"> -->
-  <h2 style="text-align: center;">Auction Ends: {{auction.auctionEnd}}</h2>
+  <h2 style="text-align: center;">Auction Ends:</h2>
 <!-- </div> -->
-<countdown (reached)="callback($event)" [text]="text" units="Year | Month | Days | Hours | Minutes | Seconds"  end="{{auction.auctionEnd}}"></countdown>
+<div #timer id="timer">
+  <span id="days"></span>days
+  <span id="hours"></span>hours
+  <span id="minutes"></span>minutes
+  <span id="seconds"></span>seconds
+</div>
+<div class="row" style="margin-top: 15px !important; ">
+
+
+<div class="col-md-6">
+  <span>Current Strike Price: {{auction.currentStrikePrice | currency: 'USD'}}</span>
+</div>
+<div class="col-md-6" >
+  <span>Auction Reserve Met:
+    <fa-icon size="lg" [styles]="{'stroke': 'green', 'color': 'green'}" icon="check" *ngIf="auction.reserveMet" ></fa-icon>
+    <fa-icon size="lg" *ngIf="!auction.reserveMet" icon="times" id="reserveNotMet" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
+  </span>
+</div>
+</div>
