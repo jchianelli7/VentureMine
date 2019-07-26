@@ -17,12 +17,12 @@
  <div class="col-md-12">
   <span><h3 style="text-align: center;">Current Strike Price: {{auction.currentStrikePrice | currency: 'USD'}}</h3></span>
 </div>
-<div class="col-md-6" >
+<!-- <div class="col-md-6" >
   <span><b style="margin-right: 5px;">Auction Reserve Met: </b>
     <fa-icon size="lg" [styles]="{'stroke': 'green', 'color': 'green'}" icon="check" *ngIf="auction.reserveMet" ></fa-icon>
     <fa-icon size="lg" *ngIf="!auction.reserveMet" icon="times" id="reserveNotMet" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
   </span>
-</div>
+</div> -->
 </div>
 <div class="row" style="margin-top: 10px !important; ">
 
@@ -31,9 +31,10 @@
      <span><b style="margin-right: 5px;">Shares Offered:</b> {{auction.sharesOffered}}</span>
    </div>
    <div class="col-md-6" >
-     <span>Auction Reserve Met: 
-       <fa-icon size="lg" [styles]="{'stroke': 'green', 'color': 'green'}" icon="check" *ngIf="auction.reserveMet" ></fa-icon>
-       <fa-icon size="lg" *ngIf="!auction.reserveMet" icon="times" id="reserveNotMet" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
+     <span><b>Reserve Price: </b>
+       <!-- <fa-icon size="lg" [styles]="{'stroke': 'green', 'color': 'green'}" icon="check" *ngIf="auction.reserveMet" ></fa-icon>
+       <fa-icon size="lg" *ngIf="!auction.reserveMet" icon="times" id="reserveNotMet" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon> -->
+       {{auction.reservePrice | currency: USD}}
      </span>
    </div>
    </div>
