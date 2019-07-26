@@ -155,11 +155,16 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
     this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
 
     // Add the valueline path.
-    // svg.append('path')
-    //   .attr('class', 'line strikePriceLine')
-    //   .style('stroke', 'black')
-    //   .style('fill', 'none')
-    //   .attr('d', strikePriceLine(_this.bids));
+    svg.append('line')
+      .attr('class', 'line strikePriceLine')
+      .style('stroke', 'black')
+      .style('stroke-width', 4)
+      .style('fill', 'none')
+      .attr('x1', this.auction.currentStrikePrice)
+      .style('fill', 'none')
+      .attr('x2', this.auction.currentStrikePrice)
+      .attr('y1', 0)
+      .attr('y2', 120);
 
 
     // Add the X Axis
