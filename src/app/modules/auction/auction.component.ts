@@ -7,6 +7,8 @@ import { BaseChartDirective } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { Bid } from 'src/app/models/Bid';
+import { User } from 'src/app/models/User';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-auction',
@@ -21,10 +23,12 @@ export class AuctionComponent implements OnInit, OnDestroy {
   bids: Bid[];
   strikePrice: number;
   connection;
+  bidSimTimer;
+  currentUser: User;
 
   private auctionSub: Subscription;
 
-  constructor(private auctionService: AuctionService, private route: ActivatedRoute) {
+  constructor(private auctionService: AuctionService, private route: ActivatedRoute, private authService: AuthenticationService) {
     this.auctionService.getAuction(this.route.snapshot.params.id).subscribe(auction => {
       this.auction = auction;
       this.strikePrice = this.auction.currentStrikePrice;
@@ -45,6 +49,9 @@ export class AuctionComponent implements OnInit, OnDestroy {
       return a.pps - b.pps; //to reverse b.date-a.date
    });
     });
+    if (this.authService.currentUserValue) {
+      this.currentUser = this.authService.currentUserValue;
+    }
       console.log("Got New Bids AKA Initializing Connection to socket - GetBids");
   }
 
@@ -62,5 +69,21 @@ export class AuctionComponent implements OnInit, OnDestroy {
     });
   }
 
+  simulateBids(id: string){
+    console.log('Simulating Bids');
 
+    const me = this;
+    var precision = 100; // 2 decimals
+    let i = 0;
+
+    while(i <120){
+      let randomNumShares = Math.floor(Math.random() * 100);
+    let randomPPS = Math.floor(Math.random() * (20 * precision - 1 * precision) + 1 * precision) / (1*precision);
+      // randomNumShares = Math.floor(Math.random() * (20 * precision - 1 * precision) + 1 * precision) / (1 * precision);
+      setTimeout(() => {
+        this.auctionService.placeBid(this.auction._id, this.currentUser._id, randomPPS, randomNumShares);
+      }, 700*(i + 1));
+      i++;
+    }
+  }
 }
