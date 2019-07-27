@@ -29,130 +29,77 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("Change Detected In Graph Component: ");
+    console.log('Change Detected In Graph Component: ');
     console.log(changes);
     if (this.bids && this.chartProps) {
       this.updateChart();
-      console.log("UPDATING CHART");
+      console.log('UPDATING CHART');
     } else if (this.bids && this.chartElement) {
       this.buildChart();
-      console.log("ELSE - BUILDING CHART");
+      console.log('ELSE - BUILDING CHART');
     }
   }
 
   ngAfterViewInit() {
-    console.log("View Initialized");
+    console.log('View Initialized');
     if (this.auction && this.bids) {
-      console.log("Building Chart"); 
+      console.log('Building Chart');
+      console.log(this.chartElement.nativeElement);
       this.buildChart();
     }
-  }
-
-  updateChart() {
-    let _this = this;
-
-  
-    // Scale the range of the data again
-    var xExtent = d3.extent(this.bids, function(b) { return b.pps; }),
-  xRange = xExtent[1] - xExtent[0],
-  yExtent = d3.extent(this.bids, function(b) { return b.numShares; }),
-  yRange = yExtent[1] - yExtent[0];
-
-// set domain to be extent +- 5%
-this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
-this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
-  
-    // Select the section we want to apply our changes to
-    this.chartProps.svg.transition();
-  
-    // Make the changes to the line chart
-    // this.chartProps.svg.select('.line.strikePriceLine') // update the line
-    //   .attr('d', this.chartProps.strikePriceLine(this.bids));
-  
-  var div = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
-  this.chartProps.svg.select('.x.axis') // update x axis
-      .call(this.chartProps.xAxis);
-  
-  this.chartProps.svg.select('.y.axis') // update y axis
-      .call(this.chartProps.yAxis);
-
-
-
-  var points = this.chartProps.svg.selectAll("circle").data(this.bids);
-  points.enter().append("circle");  // create a new circle for each value
-
-  points  
-  .attr("r", 3) 
-  .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
-  .attr("cy", function(d) { return _this.chartProps.y(d.numShares); }).on("mouseover", function(d) {
-    div.transition()
-      .duration(200) 
-      .style("opacity", .9)
-      .style("width", "auto")
-      .style("height", "auto");
-    div.html("PPS: $" + d.pps + "<br/> # Shares: " + d.numShares)
-      .style("left", (d3.event.pageX) + "px")
-      .style("top", (d3.event.pageY - 28) + "px");
-    })
-  .on("mouseout", function(d) {
-    div.transition()
-      .duration(500)
-      .style("opacity", 0);
-    });
-
-  points.exit().remove();
   }
 
 
   buildChart() {
     this.chartProps = {};
     // Set the dimensions of the canvas / graph
-    var margin = { top: 45, right: 20, bottom: 45, left: 50 },
+    const margin = { top: 45, right: 50, bottom: 45, left: 50 },
       // width = 900 - margin.left - margin.right,
       // height = 500 - margin.top - margin.bottom;
       width = this.chartElement.nativeElement.clientWidth - margin.left - margin.right,
-      height = this.chartElement.nativeElement.clientHeight - margin.top - margin.bottom;
+    height = this.chartElement.nativeElement.clientHeight - margin.top - margin.bottom;
 
     // Set the ranges
     this.chartProps.x = d3.scaleLinear().range([width, 0]);
     this.chartProps.y = d3.scaleLinear().range([height, 0]);
+    this.chartProps.y2 = d3.scaleLinear().range([height, 0]);
 
     // Define the axes
-    var xAxis = d3.axisBottom(this.chartProps.x).ticks(10);
-    var yAxis = d3.axisLeft(this.chartProps.y).ticks(10);
+    const xAxis = d3.axisBottom(this.chartProps.x).ticks(10);
+    const yAxis = d3.axisLeft(this.chartProps.y).ticks(10);
+    const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(10);
 
-    let _this = this;
+    const _this = this;
 
     // Define the line
-    var strikePriceLine = d3.line<Bid>()
-      .x(function (d) {
+    const strikePriceLine = d3.line<Bid>()
+      .x(function(d) {
         return _this.chartProps.x(d.pps);
       })
-      .y(function (d) { return _this.chartProps.y(d.numShares); });
+      .y(function(d) { return _this.chartProps.y(d.numShares); });
 
-      var div = d3.select("body").append("div")
-    .attr("class", "tooltip") 
-    .style("opacity", 0);
+    const div = d3.select('body').append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', 0);
 
-    var svg = d3.select(this.chartElement.nativeElement) 
+    const svg = d3.select(this.chartElement.nativeElement)
       .append('svg')
-      .style("fill", "steelblue")
+      .style('fill', 'steelblue')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
 
-      var xExtent = d3.extent(this.bids, function(b) { return b.pps; }),
+    const xExtent = d3.extent(this.bids, function(b) { return b.pps; }),
       xRange = xExtent[1] - xExtent[0],
       yExtent = d3.extent(this.bids, function(b) { return b.numShares; }),
       yRange = yExtent[1] - yExtent[0];
-    
+
     // set domain to be extent +- 5%
     this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
     this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
+    this.chartProps.y2.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
 
     // Add the valueline path.
     svg.append('line')
@@ -180,28 +127,33 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
       // .style("fill", "white")
       .call(yAxis);
 
-      svg.selectAll("dot")
-     .data(this.bids)
-   .enter().append("circle")
-   .attr("fill", "steelblue")
-     .attr("r", 3)
-     .attr("cx", function(d) { return _this.chartProps.x(d.pps); })
-     .attr("cy", function(d) { return _this.chartProps.y(d.numShares); })
-     .on("mouseover", function(d) {
-       div.transition() 
-         .duration(200)
-         .style("opacity", .9)
-         .style("width", "auto")
-         .style("height", "auto");
-       div.html("PPS: $" + d.pps + "<br/> # Shares: " + d.numShares)
-         .style("left", (d3.event.pageX) + "px")
-         .style("top", (d3.event.pageY - 28) + "px");
-       })
-     .on("mouseout", function(d) {
-       div.transition()
-         .duration(500)
-         .style("opacity", 0);
-       });
+    svg.append('g')
+      .attr('transform', 'translate(' + width + ' ,0)')
+      .attr('class', 'y axis')
+      .call(yAxis2);
+
+    svg.selectAll('dot')
+      .data(this.bids)
+      .enter().append('circle')
+      .attr('fill', 'steelblue')
+      .attr('r', 3)
+      .attr('cx', function(d) { return _this.chartProps.x(d.pps); })
+      .attr('cy', function(d) { return _this.chartProps.y(d.numShares); })
+      .on('mouseover', function(d) {
+        div.transition()
+          .duration(200)
+          .style('opacity', .9)
+          .style('width', 'auto')
+          .style('height', 'auto');
+        div.html('PPS: $' + d.pps + '<br/> # Shares: ' + d.numShares)
+          .style('left', (d3.event.pageX) + 'px')
+          .style('top', (d3.event.pageY - 28) + 'px');
+      })
+      .on('mouseout', function(d) {
+        div.transition()
+          .duration(500)
+          .style('opacity', 0);
+      });
 
 
     // Setting the required objects in chartProps so they could be used to update the chart
@@ -210,25 +162,94 @@ this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .0
     // this.chartProps.valueline2 = valueline2;
     this.chartProps.xAxis = xAxis;
     this.chartProps.yAxis = yAxis;
+    this.chartProps.yAxis2 = yAxis2;
     // text label for the y axis
-    svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
-      .attr("x", 0 - (height / 2))
-      .attr("dy", "1em")
-      .style("font-weight", "bold")
-      .style("color", "black")
-      .style("text-anchor", "middle")
-      .text("# of Shares");
+    svg.append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 0 - margin.left)
+      .attr('x', 0 - (height / 2))
+      .attr('dy', '1em')
+      .style('font-weight', 'bold')
+      .style('color', 'black')
+      .style('text-anchor', 'middle')
+      .text('# of Shares');
 
-      svg.append("text")
-      .attr("x", (width/2))
-      .attr("y", height + 25)
-      .style("text-anchor", "middle") 
-      .style("font-weight", "bold")
-      .attr("dy", "1em")
-      .text("Price Per Share ($)");
+    svg.append('text')
+      .attr('x', (width / 2))
+      .attr('y', height + 25)
+      .style('text-anchor', 'middle')
+      .style('font-weight', 'bold')
+      .attr('dy', '1em')
+      .text('Price Per Share ($)');
+
+    svg.append('text')
+      .attr('transform', 'rotate(90)')
+      .attr('x', 255 )
+      .attr('y', -1 * (width + margin.right + 3) )
+      .style('text-anchor', 'middle')
+      .style('font-weight', 'bold')
+      .attr('dy', '1em')
+      .text('Volume');
   }
 
+  updateChart() {
+    const _this = this;
+
+
+    // Scale the range of the data again
+    const xExtent = d3.extent(this.bids, function(b) { return b.pps; }),
+  xRange = xExtent[1] - xExtent[0],
+  yExtent = d3.extent(this.bids, function(b) { return b.numShares; }),
+  yRange = yExtent[1] - yExtent[0];
+
+// set domain to be extent +- 5%
+    this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
+    this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
+    this.chartProps.y2.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
+
+    // Select the section we want to apply our changes to
+    this.chartProps.svg.transition();
+
+    // Make the changes to the line chart
+    // this.chartProps.svg.select('.line.strikePriceLine') // update the line
+    //   .attr('d', this.chartProps.strikePriceLine(this.bids));
+
+    const div = d3.select('body').append('div')
+    .attr('class', 'tooltip')
+    .style('opacity', 0);
+    this.chartProps.svg.select('.x.axis') // update x axis
+      .call(this.chartProps.xAxis);
+
+    this.chartProps.svg.select('.y.axis') // update y axis
+      .call(this.chartProps.yAxis);
+    this.chartProps.svg.select('.y2.axis')
+      .call(this.chartProps.yAxis2);
+
+
+
+    const points = this.chartProps.svg.selectAll('circle').data(this.bids);
+    points.enter().append('circle');  // create a new circle for each value
+
+    points
+  .attr('r', 3)
+  .attr('cx', function(d) { return _this.chartProps.x(d.pps); })
+  .attr('cy', function(d) { return _this.chartProps.y(d.numShares); }).on('mouseover', function(d) {
+    div.transition()
+      .duration(200)
+      .style('opacity', .9)
+      .style('width', 'auto')
+      .style('height', 'auto');
+    div.html('PPS: $' + d.pps + '<br/> # Shares: ' + d.numShares)
+      .style('left', (d3.event.pageX) + 'px')
+      .style('top', (d3.event.pageY - 28) + 'px');
+    })
+  .on('mouseout', function(d) {
+    div.transition()
+      .duration(500)
+      .style('opacity', 0);
+    });
+
+    points.exit().remove();
+  }
 
 }
