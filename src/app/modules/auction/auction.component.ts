@@ -28,15 +28,11 @@ export class AuctionComponent implements OnInit, OnDestroy, OnChanges {
   private auctionSub: Subscription;
 
   constructor(private auctionService: AuctionService, private route: ActivatedRoute, private authService: AuthenticationService) {
-    console.log("Constructor - Auction");
+    console.log('Constructor - Auction');
     this.auctionService.getAuction(this.route.snapshot.params.id).subscribe(auction => {
       this.auction = auction;
       this.strikePrice = this.auction.currentStrikePrice;
-      // this.bids = this.auction.bids;
-      this.bids = this.auction.bids.sort(function(a, b) {
-        return a.pps - b.pps; // to reverse b.date-a.date
-     });
-
+      this.bids = this.auction.bids;
     });
   }
 
@@ -44,10 +40,11 @@ export class AuctionComponent implements OnInit, OnDestroy, OnChanges {
     console.log('initializIng parent comp');
     this.connection = this.auctionService.getBids(this.route.snapshot.params.id).subscribe(auction => {
        this.auction = auction;
-      this.strikePrice = auction.currentStrikePrice;
-      this.bids = auction.bids.sort(function(a, b) {
-      return a.pps - b.pps; // to reverse b.date-a.date
-   });
+       this.strikePrice = auction.currentStrikePrice;
+       this.bids = auction.bids;
+   //    this.bids = auction.bids.sort(function(a, b) {
+   //    return a.pps - b.pps; // to reverse b.date-a.date
+   // });
 
     });
 
