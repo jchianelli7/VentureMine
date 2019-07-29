@@ -42,10 +42,6 @@ export class AuctionComponent implements OnInit, OnDestroy, OnChanges {
        this.auction = auction;
        this.strikePrice = auction.currentStrikePrice;
        this.bids = auction.bids;
-   //    this.bids = auction.bids.sort(function(a, b) {
-   //    return a.pps - b.pps; // to reverse b.date-a.date
-   // });
-
     });
 
     if (this.authService.currentUserValue) {
@@ -56,6 +52,7 @@ export class AuctionComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     console.log('Unsubbing - Auction Component');
+    this.auctionService.socket.emit('close');
     this.connection.unsubscribe();
   }
 

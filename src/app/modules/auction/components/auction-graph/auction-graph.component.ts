@@ -28,7 +28,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() bids: Bid[];
   @Input() volumeData: any[];
 
-
   private svgElement: HTMLElement;
   private chartProps: any;
 
@@ -37,8 +36,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit() {
-
-    console.log('asdasdasa ds', this.volumeData );
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -81,7 +78,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
     // Define the axes
     const xAxis = d3.axisBottom(this.chartProps.x).ticks(10);
-    const x2Axis = d3.axisBottom(this.chartProps.x2).ticks(5);
+    // const x2Axis = d3.axisBottom(this.chartProps.x2).ticks(10);
     const yAxis = d3.axisLeft(this.chartProps.y).ticks(10);
     const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(10);
 
@@ -118,7 +115,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       }),
       yRange = yExtent[1] - yExtent[0],
       y2Extent = d3.extent(this.volumeData, function(v) {
-        return v.count;
+        return v.bidCount;
       }),
       y2Range = y2Extent[1] - y2Extent[0];
 
@@ -195,14 +192,14 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('fill', 'black')
       .style('opacity', .25)
       .attr('x', function(b) {
-        return me.chartProps.x2(b.pps);
+        return me.chartProps.x(b.pps);
       })
       .attr('width', 10)
       .attr('y', function(b) {
-        return me.chartProps.y2(b.count);
+        return me.chartProps.y2(b.bidCount);
       })
       .attr('height', function(b) {
-        return height - me.chartProps.y2(b.count);
+        return height - me.chartProps.y2(b.bidCount);
       })
       .on('mouseover', function(d) {
         div.transition()
@@ -210,7 +207,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           .style('opacity', .9)
           .style('width', 'auto')
           .style('height', 'auto');
-        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.count)
+        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.bidCount)
           .style('left', (d3.event.pageX) + 'px')
           .style('top', (d3.event.pageY - 28) + 'px');
       })
@@ -228,7 +225,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.strikePriceLine = strikePriceLine;
     // this.chartProps.valueline2 = valueline2;
     this.chartProps.xAxis = xAxis;
-    this.chartProps.x2Axis = x2Axis;
+    // this.chartProps.x2Axis = x2Axis;
     this.chartProps.yAxis = yAxis;
     this.chartProps.yAxis2 = yAxis2;
     // text label for the y axis
@@ -282,7 +279,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       }),
       yRange = yExtent[1] - yExtent[0],
       y2Extent = d3.extent(this.volumeData, function(v) {
-        return v.count;
+        return v.bidCount;
       }),
       y2Range = y2Extent[1] - y2Extent[0];
 
@@ -304,8 +301,8 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('opacity', 0);
     this.chartProps.svg.select('.x.axis') // update x axis
       .call(this.chartProps.xAxis);
-    this.chartProps.svg.select('.x2.axis')
-      .call(this.chartProps.x2Axis);
+    // this.chartProps.svg.select('.x2.axis')
+    //   .call(this.chartProps.x2Axis);
 
     this.chartProps.svg.select('.y.axis') // update y axis
       .call(this.chartProps.yAxis);
@@ -355,14 +352,14 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     volumeBars
       .style('fill', 'black')
       .attr('x', function(b) {
-        return me.chartProps.x2(b.pps);
+        return me.chartProps.x(b.pps);
       })
       .attr('width', 10 / this.volumeData.length)
       .attr('y', function(b) {
-        return me.chartProps.y2(b.count);
+        return me.chartProps.y2(b.bidCount);
       })
       .attr('height', function(b) {
-        return height - me.chartProps.y2(b.count);
+        return height - me.chartProps.y2(b.bidCount);
       })
       .on('mouseover', function(d) {
         div.transition()
@@ -370,7 +367,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           .style('opacity', .9)
           .style('width', 'auto')
           .style('height', 'auto');
-        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.count)
+        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.bidCount)
           .style('left', (d3.event.pageX) + 'px')
           .style('top', (d3.event.pageY - 28) + 'px');
       })

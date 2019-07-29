@@ -18,7 +18,7 @@ export class AuctionService {
   constructor(private http: HttpClient, private authService: AuthenticationService) {
 
   }
- 
+
   getAuction(id: string) {
     return this.http.get<Auction>('http://localhost:3000/auctions/' + id, {}).pipe(map(
       auction => {
@@ -30,7 +30,7 @@ export class AuctionService {
   }
 
   getBids(id: string): Observable<Auction> {
-    let observable = new Observable<Auction>(observer => {
+    const observable = new Observable<Auction>(observer => {
       this.socket = io('http://localhost:4000');
       this.socket.on('bidPlaced', (auction) => {
         console.log('BID PLACED - GET BIDS');
@@ -40,19 +40,19 @@ export class AuctionService {
         console.log('Disconnecting');
         this.socket.disconnect();
       };
-    }); 
+    });
     return observable;
   }
 
   placeBid(auctionId: number, ownerId: number, pps: number, numShares: number) {
-    console.log("Placing Bid: ");
-    console.log("auctionID: ", auctionId);
-    console.log("OwnerID: ", ownerId);
-    console.log("PPS: ", pps);
-    console.log("# Shares: ", numShares);
-    console.log("************************");
+    console.log('Placing Bid: ');
+    console.log('auctionID: ', auctionId);
+    console.log('OwnerID: ', ownerId);
+    console.log('PPS: ', pps);
+    console.log('# Shares: ', numShares);
+    console.log('************************');
     this.socket.emit('placeBid', {auctionId, ownerId, pps, numShares});
-  } 
+  }
 
   getAuctions() {
     return this.http.get<Auction[]>('http://localhost:3000/auctions', {}).pipe(map(auctions => {

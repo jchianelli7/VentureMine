@@ -21,7 +21,6 @@ export class Auction {
   time: Date;
   bids: Bid[];
   volumeData: any[];
-  // _id: any;
 }
 
 // TODO: Graph variables? Or unique object for this
