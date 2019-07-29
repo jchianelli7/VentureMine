@@ -65,8 +65,6 @@ export class AuctionComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
-
-
   simulateBids(id: string) {
     console.log('Simulating Bids');
 
