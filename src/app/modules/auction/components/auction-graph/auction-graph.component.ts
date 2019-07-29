@@ -38,7 +38,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit() {
 
-    console.log('asdasdasads', this.volumeData);
+    console.log('asdasdasa ds', this.volumeData );
   }
 
   ngOnChanges(changes: SimpleChanges) {
