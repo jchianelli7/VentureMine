@@ -1,8 +1,19 @@
-import { Component, ViewEncapsulation, OnInit, OnChanges, SimpleChange, Input, ViewChild, ElementRef, SimpleChanges, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  OnInit,
+  OnChanges,
+  SimpleChange,
+  Input,
+  ViewChild,
+  ElementRef,
+  SimpleChanges,
+  AfterViewInit
+} from '@angular/core';
 import * as d3 from 'd3';
-import { Auction } from 'src/app/models/Auction';
-import { Bid } from 'src/app/models/Bid';
-import { AuctionService } from 'src/app/services/auction-service.service';
+import {Auction} from 'src/app/models/Auction';
+import {Bid} from 'src/app/models/Bid';
+import {AuctionService} from 'src/app/services/auction-service.service';
 
 @Component({
   selector: 'app-auction-graph',
@@ -11,10 +22,11 @@ import { AuctionService } from 'src/app/services/auction-service.service';
   styleUrls: ['./auction-graph.component.css']
 })
 export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
-  @ViewChild('chart', { static: false }) chartElement: ElementRef;
+  @ViewChild('chart', {static: false}) chartElement: ElementRef;
 
   @Input() auction: Auction;
   @Input() bids: Bid[];
+  @Input() volumeData: any[];
 
 
   private svgElement: HTMLElement;
@@ -46,18 +58,19 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       console.log('Building Chart');
       console.log(this.chartElement.nativeElement);
       this.buildChart();
+      console.log(this.volumeData);
+
     }
   }
-
 
   buildChart() {
     this.chartProps = {};
     // Set the dimensions of the canvas / graph
-    const margin = { top: 45, right: 50, bottom: 45, left: 50 },
+    const margin = {top: 45, right: 50, bottom: 45, left: 50},
       // width = 900 - margin.left - margin.right,
       // height = 500 - margin.top - margin.bottom;
       width = this.chartElement.nativeElement.clientWidth - margin.left - margin.right,
-    height = this.chartElement.nativeElement.clientHeight - margin.top - margin.bottom;
+      height = this.chartElement.nativeElement.clientHeight - margin.top - margin.bottom;
 
     // Set the ranges
     this.chartProps.x = d3.scaleLinear().range([width, 0]);
@@ -73,10 +86,8 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
     // Define the line
     const strikePriceLine = d3.line<Bid>()
-      .x(function(d) {
-        return _this.chartProps.x(d.pps);
-      })
-      .y(function(d) { return _this.chartProps.y(d.numShares); });
+      .x(this.auction.currentStrikePrice);
+
 
     const div = d3.select('body').append('div')
       .attr('class', 'tooltip')
@@ -91,15 +102,23 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
 
-    const xExtent = d3.extent(this.bids, function(b) { return b.pps; }),
+    const xExtent = d3.extent(this.bids, function(b) {
+        return b.pps;
+      }),
       xRange = xExtent[1] - xExtent[0],
-      yExtent = d3.extent(this.bids, function(b) { return b.numShares; }),
-      yRange = yExtent[1] - yExtent[0];
+      yExtent = d3.extent(this.bids, function(b) {
+        return b.numShares;
+      }),
+      yRange = yExtent[1] - yExtent[0],
+      y2Extent = d3.extent(this.volumeData, function(v) {
+        return v.count;
+      }),
+      y2Range = y2Extent[1] - y2Extent[0];
 
     // set domain to be extent +- 5%
     this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
     this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
-    this.chartProps.y2.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
+    this.chartProps.y2.domain([y2Extent[0] - (y2Range * .05), y2Extent[1] + (y2Range * .05)]);
 
     // Add the valueline path.
     svg.append('line')
@@ -111,7 +130,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('fill', 'none')
       .attr('x2', this.auction.currentStrikePrice)
       .attr('y1', 0)
-      .attr('y2', 120);
+      .attr('y2', height);
 
 
     // Add the X Axis
@@ -127,18 +146,24 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       // .style("fill", "white")
       .call(yAxis);
 
+    // Add the y2 Axis
     svg.append('g')
       .attr('transform', 'translate(' + width + ' ,0)')
       .attr('class', 'y axis')
       .call(yAxis2);
+
 
     svg.selectAll('dot')
       .data(this.bids)
       .enter().append('circle')
       .attr('fill', 'steelblue')
       .attr('r', 3)
-      .attr('cx', function(d) { return _this.chartProps.x(d.pps); })
-      .attr('cy', function(d) { return _this.chartProps.y(d.numShares); })
+      .attr('cx', function(d) {
+        return _this.chartProps.x(d.pps);
+      })
+      .attr('cy', function(d) {
+        return _this.chartProps.y(d.numShares);
+      })
       .on('mouseover', function(d) {
         div.transition()
           .duration(200)
@@ -154,6 +179,39 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           .duration(500)
           .style('opacity', 0);
       });
+
+    const me = this;
+    svg.selectAll('bar')
+      .data(this.volumeData)
+      .enter().append('rect')
+      .style('fill', 'black')
+      .style('opacity', .5)
+      .attr('x', function(b) {
+        return me.chartProps.x(b.pps);
+      })
+      .attr('width', 10)
+      .attr('y', function(b) {
+        return me.chartProps.y2(b.count);
+      })
+      .attr('height', function(b) {
+        return height - me.chartProps.y2(b.count);
+      })
+      .on('mouseover', function(d) {
+        div.transition()
+          .duration(200)
+          .style('opacity', .9)
+          .style('width', 'auto')
+          .style('height', 'auto');
+        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.count)
+          .style('left', (d3.event.pageX) + 'px')
+          .style('top', (d3.event.pageY - 28) + 'px');
+      })
+      .on('mouseout', function(d) {
+        div.transition()
+          .duration(500)
+          .style('opacity', 0);
+      });
+
 
 
     // Setting the required objects in chartProps so they could be used to update the chart
@@ -184,8 +242,8 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
     svg.append('text')
       .attr('transform', 'rotate(90)')
-      .attr('x', 255 )
-      .attr('y', -1 * (width + margin.right + 3) )
+      .attr('x', 255)
+      .attr('y', -1 * (width + margin.right + 3))
       .style('text-anchor', 'middle')
       .style('font-weight', 'bold')
       .attr('dy', '1em')
@@ -195,28 +253,40 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
   updateChart() {
     const _this = this;
 
-
+    const margin = {top: 45, right: 50, bottom: 45, left: 50},
+      // width = 900 - margin.left - margin.right,
+      // height = 500 - margin.top - margin.bottom;
+      width = this.chartElement.nativeElement.clientWidth - margin.left - margin.right,
+      height = this.chartElement.nativeElement.clientHeight - margin.top - margin.bottom;
     // Scale the range of the data again
-    const xExtent = d3.extent(this.bids, function(b) { return b.pps; }),
-  xRange = xExtent[1] - xExtent[0],
-  yExtent = d3.extent(this.bids, function(b) { return b.numShares; }),
-  yRange = yExtent[1] - yExtent[0];
+    const xExtent = d3.extent(this.bids, function(b) {
+        return b.pps;
+      }),
+      xRange = xExtent[1] - xExtent[0],
+      yExtent = d3.extent(this.bids, function(b) {
+        return b.numShares;
+      }),
+      yRange = yExtent[1] - yExtent[0],
+      y2Extent = d3.extent(this.volumeData, function(v) {
+        return v.count;
+      }),
+      y2Range = y2Extent[1] - y2Extent[0];
 
 // set domain to be extent +- 5%
     this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
     this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
-    this.chartProps.y2.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
+    this.chartProps.y2.domain([y2Extent[0] - (y2Range * .05), y2Extent[1] + (y2Range * .05)]);
 
     // Select the section we want to apply our changes to
     this.chartProps.svg.transition();
 
+
     // Make the changes to the line chart
-    // this.chartProps.svg.select('.line.strikePriceLine') // update the line
-    //   .attr('d', this.chartProps.strikePriceLine(this.bids));
+
 
     const div = d3.select('body').append('div')
-    .attr('class', 'tooltip')
-    .style('opacity', 0);
+      .attr('class', 'tooltip')
+      .style('opacity', 0);
     this.chartProps.svg.select('.x.axis') // update x axis
       .call(this.chartProps.xAxis);
 
@@ -225,31 +295,75 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.svg.select('.y2.axis')
       .call(this.chartProps.yAxis2);
 
+    this.chartProps.svg.select('.line') // update the line
+      .attr('x1', this.auction.currentStrikePrice)
+      .style('fill', 'none')
+      .attr('x2', this.auction.currentStrikePrice)
+      .attr('y1', 0)
+      .attr('y2', height);
 
 
     const points = this.chartProps.svg.selectAll('circle').data(this.bids);
     points.enter().append('circle');  // create a new circle for each value
 
     points
-  .attr('r', 3)
-  .attr('cx', function(d) { return _this.chartProps.x(d.pps); })
-  .attr('cy', function(d) { return _this.chartProps.y(d.numShares); }).on('mouseover', function(d) {
-    div.transition()
-      .duration(200)
-      .style('opacity', .9)
-      .style('width', 'auto')
-      .style('height', 'auto');
-    div.html('PPS: $' + d.pps + '<br/> # Shares: ' + d.numShares)
-      .style('left', (d3.event.pageX) + 'px')
-      .style('top', (d3.event.pageY - 28) + 'px');
+      .attr('r', 3)
+      .attr('cx', function(d) {
+        return _this.chartProps.x(d.pps);
+      })
+      .attr('cy', function(d) {
+        return _this.chartProps.y(d.numShares);
+      }).on('mouseover', function(d) {
+      div.transition()
+        .duration(200)
+        .style('opacity', .9)
+        .style('width', 'auto')
+        .style('height', 'auto');
+      div.html('PPS: $' + d.pps + '<br/> # Shares: ' + d.numShares)
+        .style('left', (d3.event.pageX) + 'px')
+        .style('top', (d3.event.pageY - 28) + 'px');
     })
-  .on('mouseout', function(d) {
-    div.transition()
-      .duration(500)
-      .style('opacity', 0);
-    });
+      .on('mouseout', function(d) {
+        div.transition()
+          .duration(500)
+          .style('opacity', 0);
+      });
 
     points.exit().remove();
+    const volumeBars = this.chartProps.svg.selectAll('bar').data(this.volumeData);
+    volumeBars.enter().append('bar');
+    const me = this;
+    volumeBars
+      .style('fill', 'black')
+      .attr('x', function(b) {
+        return me.chartProps.x(b.pps);
+      })
+      .attr('width', 10 / this.volumeData.length)
+      .attr('y', function(b) {
+        return me.chartProps.y2(b.count);
+      })
+      .attr('height', function(b) {
+        return height - me.chartProps.y2(b.count);
+      })
+      .on('mouseover', function(d) {
+        div.transition()
+          .duration(200)
+          .style('opacity', .9)
+          .style('width', 'auto')
+          .style('height', 'auto');
+        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.count)
+          .style('left', (d3.event.pageX) + 'px')
+          .style('top', (d3.event.pageY - 28) + 'px');
+      })
+      .on('mouseout', function(d) {
+        div.transition()
+          .duration(500)
+          .style('opacity', 0);
+      });
+    volumeBars.exit().remove();
+
+
+
   }
 
 }

@@ -14,7 +14,7 @@ export class AuctionBidListComponent implements OnInit {
   @Input() auction;
   @Input() bids;
   private auctionSub: Subscription;
-  currentUser: User
+  currentUser: User;
 
   constructor(private auctionService: AuctionService, private authService: AuthenticationService) { }
 
@@ -22,10 +22,9 @@ export class AuctionBidListComponent implements OnInit {
     // this.auctionSub = this.auctionService.currentAuction.subscribe(auction => {
     //   this.auction = auction;
     // });
-    if(this.authService.currentUserValue){
-      this.currentUser = this.authService.currentUserValue
+    if(this.authService.currentUserValue) {
+      this.currentUser = this.authService.currentUserValue;
     }
-    
   }
 
 }

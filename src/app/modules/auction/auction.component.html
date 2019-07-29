@@ -3,7 +3,7 @@
 
   <div class="row" id="graphRow">
     <div class="col-md-9">
-      <app-auction-graph *ngIf="auction" [(auction)]="auction" [bids]="auction.bids"></app-auction-graph>
+      <app-auction-graph *ngIf="auction" [(auction)]="auction" [volumeData]="auction.volumeData" [bids]="auction.bids"></app-auction-graph>
     </div>
     <div class="col-md-3" id="placeBid">
         <div class="row sidePanel">

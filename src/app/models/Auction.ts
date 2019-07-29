@@ -20,6 +20,7 @@ export class Auction {
   uniqueBidders: number;
   time: Date;
   bids: Bid[];
+  volumeData: any[];
   // _id: any;
 }
 
