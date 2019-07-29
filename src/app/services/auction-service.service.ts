@@ -34,6 +34,7 @@ export class AuctionService {
       this.socket = io('http://localhost:4000');
       this.socket.on('bidPlaced', (auction) => {
         console.log('BID PLACED - GET BIDS');
+        console.log(auction);
         observer.next(auction);
       });
       return () => {
