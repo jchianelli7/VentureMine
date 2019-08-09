@@ -18,7 +18,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 
-export class AuctionComponent implements OnInit, OnDestroy, OnChanges {
+export class AuctionComponent implements OnInit, OnDestroy{
   auction: Auction;
   bids: Bid[];
   strikePrice: number;
@@ -37,7 +37,7 @@ export class AuctionComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
-    console.log('initializIng parent comp');
+    console.log('initializing parent comp');
     this.connection = this.auctionService.getBids(this.route.snapshot.params.id).subscribe(auction => {
        this.auction = auction;
        this.strikePrice = auction.currentStrikePrice;

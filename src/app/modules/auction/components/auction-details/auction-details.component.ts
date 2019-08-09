@@ -18,7 +18,7 @@ export class AuctionDetailsComponent implements OnInit {
   @Output() bidPlaced = new EventEmitter();
   currentUser: User;
   timerCount;
-  
+   
   constructor(private auctionService: AuctionService, private authService: AuthenticationService) {
 
   }
