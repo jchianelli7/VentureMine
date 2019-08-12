@@ -18,7 +18,7 @@ export class AuctionBidComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.currentUserValue) {
-      this.currentUser = this.authService.currentUserValue;
+      this.currentUser = this.authService.currentUserValue; 
     }
   }
 

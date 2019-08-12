@@ -115,7 +115,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       }),
       yRange = yExtent[1] - yExtent[0],
       y2Extent = d3.extent(this.volumeData, function(v) {
-        return v.bidCount;
+        return v.shareCount;
       }),
       y2Range = y2Extent[1] - y2Extent[0];
 
@@ -196,10 +196,10 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       })
       .attr('width', 10)
       .attr('y', function(b) {
-        return me.chartProps.y2(b.bidCount);
+        return me.chartProps.y2(b.shareCount);
       })
       .attr('height', function(b) {
-        return height - me.chartProps.y2(b.bidCount);
+        return height - me.chartProps.y2(b.shareCount);
       })
       .on('mouseover', function(d) {
         div.transition()
@@ -207,7 +207,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           .style('opacity', .9)
           .style('width', 'auto')
           .style('height', 'auto');
-        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.bidCount)
+        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.shareCount)
           .style('left', (d3.event.pageX) + 'px')
           .style('top', (d3.event.pageY - 28) + 'px');
       })
@@ -279,7 +279,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       }),
       yRange = yExtent[1] - yExtent[0],
       y2Extent = d3.extent(this.volumeData, function(v) {
-        return v.bidCount;
+        return v.shareCount;
       }),
       y2Range = y2Extent[1] - y2Extent[0];
 
@@ -356,10 +356,10 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       })
       .attr('width', 10 / this.volumeData.length)
       .attr('y', function(b) {
-        return me.chartProps.y2(b.bidCount);
+        return me.chartProps.y2(b.shareCount);
       })
       .attr('height', function(b) {
-        return height - me.chartProps.y2(b.bidCount);
+        return height - me.chartProps.y2(b.shareCount);
       })
       .on('mouseover', function(d) {
         div.transition()
@@ -367,7 +367,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           .style('opacity', .9)
           .style('width', 'auto')
           .style('height', 'auto');
-        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.bidCount)
+        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.shareCount)
           .style('left', (d3.event.pageX) + 'px')
           .style('top', (d3.event.pageY - 28) + 'px');
       })
