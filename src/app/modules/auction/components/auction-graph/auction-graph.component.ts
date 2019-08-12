@@ -42,6 +42,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     console.log('Change Detected In Graph Component: ');
     console.log(changes);
     if (this.bids && this.chartProps) {
+      console.log(changes);
       this.updateChart();
       console.log('UPDATING CHART');
     } else if (this.bids && this.chartElement) {
@@ -129,11 +130,12 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     svg.append('line')
       .attr('class', 'line strikePriceLine')
       .style('stroke', 'black')
+      .style('opacity', .8)
       .style('stroke-width', 4)
       .style('fill', 'none')
-      .attr('x1', this.auction.currentStrikePrice)
+      .attr('x1', this.chartProps.x(this.auction.currentStrikePrice))
       .style('fill', 'none')
-      .attr('x2', this.auction.currentStrikePrice)
+      .attr('x2', this.chartProps.x(this.auction.currentStrikePrice))
       .attr('y1', 0)
       .attr('y2', height);
 
@@ -310,11 +312,12 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .call(this.chartProps.yAxis2);
 
     this.chartProps.svg.select('.line') // update the line
-      .attr('x1', this.auction.currentStrikePrice)
+      .attr('x1', this.chartProps.x(this.auction.currentStrikePrice))
+      .style('opacity', .8)
       .style('fill', 'none')
-      .attr('x2', this.auction.currentStrikePrice)
+      .attr('x2', this.chartProps.x(this.auction.currentStrikePrice))
       .attr('y1', 0)
-      .attr('y2', height);
+      .attr('y2', height - margin.top);
 
 
     const points = this.chartProps.svg.selectAll('circle').data(this.bids);
