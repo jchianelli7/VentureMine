@@ -66,7 +66,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.x = d3.scaleLinear().range([width, 0]);
     this.chartProps.x2 = d3.scaleOrdinal().range([width, 0]);
     this.chartProps.y = d3.scaleLinear().range([height, 0]);
-    this.chartProps.y2 = d3.scaleLinear().range([height, height / 2]);        // TODO: Manipulate this to look good AND COLOR CODE AXIS & DATA POINTS/LINES TO MATCH
+    this.chartProps.y2 = d3.scaleLinear().range([height, 0]);        // TODO: Manipulate this to look good AND COLOR CODE AXIS & DATA POINTS/LINES TO MATCH
 
     // Define the axes
     const xAxis = d3.axisBottom(this.chartProps.x).ticks(10);
@@ -131,10 +131,10 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
 
       // Add Volume Data Line  --- TODO: Is this how I really want to do it...?
-    var volumeLine = d3.line()
+    const volumeLine = d3.line()
     .x(function(pps, shareCount) { return _this.chartProps.x(pps); }) // set the x values for the line generator
-    .y(function(pps, shareCount) { return _this.chartProps.y(shareCount); }) // set the y values for the line generator 
-    .curve(d3.curveMonotoneX)
+    .y(function(pps, shareCount) { return _this.chartProps.y(shareCount); }) // set the y values for the line generator
+    .curve(d3.curveMonotoneX);
 
 
 
@@ -256,20 +256,20 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('dy', '1em')
       .text('Volume');
 
-      svg.append("path")
+    svg.append('path')
       .datum(this.volumeData.sort(function(a, b) {
         return a.pps - b.pps;
       }))
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 1.5)
-      .attr("d", d3.line()
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1.5)
+      .attr('d', d3.line()
         .x(function(bid) {
-          return _this.chartProps.x(Number(bid.pps)) })
+          return _this.chartProps.x(Number(bid.pps)); })
         .y(function(bid) {
-          return _this.chartProps.y2(Number(bid.shareCount))})
-        .curve(d3.curveMonotoneX)
-        )
+          return _this.chartProps.y2(Number(bid.shareCount)); })
+        // .curve(d3.curveMonotoneX)
+        );
   }
 
   updateChart() {
@@ -316,7 +316,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('opacity', 0);
     this.chartProps.svg.select('.x.axis') // update x axis
       .call(this.chartProps.xAxis);
-  
+
     this.chartProps.svg.select('.y.axis') // update y axis
       .call(this.chartProps.yAxis);
     this.chartProps.svg.select('.y2.axis')
@@ -392,6 +392,16 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           .style('opacity', 0);
       });
     volumeBars.exit().remove();
+
+    this.chartProps.svg.select('path')
+      .duration(750)
+      .attr('d', d3.line()
+        .x(function(bid) {
+          return _this.chartProps.x(Number(bid.pps)); })
+        .y(function(bid) {
+          return _this.chartProps.y2(Number(bid.shareCount)); })
+        // .curve(d3.curveMonotoneX)
+      );
   }
 
 }

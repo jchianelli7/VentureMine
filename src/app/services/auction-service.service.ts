@@ -41,7 +41,7 @@ export class AuctionService {
         console.log('Disconnecting');
         this.socket.disconnect();
       };
-    });
+     });
     return observable;
   }
 
