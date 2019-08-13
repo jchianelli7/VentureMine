@@ -66,7 +66,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.x = d3.scaleLinear().range([width, 0]);
     this.chartProps.x2 = d3.scaleOrdinal().range([width, 0]);
     this.chartProps.y = d3.scaleLinear().range([height, 0]);
-    this.chartProps.y2 = d3.scaleLinear().range([height, height / 2]);        // TODO: Manipulate this to look good
+    this.chartProps.y2 = d3.scaleLinear().range([height, height / 2]);        // TODO: Manipulate this to look good AND COLOR CODE AXIS & DATA POINTS/LINES TO MATCH
 
     // Define the axes
     const xAxis = d3.axisBottom(this.chartProps.x).ticks(10);
