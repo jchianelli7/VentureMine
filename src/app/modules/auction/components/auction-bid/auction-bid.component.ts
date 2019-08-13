@@ -23,7 +23,7 @@ export class AuctionBidComponent implements OnInit {
   }
 
   placeBid(numShares: number, pricePerShare: number) {
-    this.auctionService.placeBid(this.auction._id, this.currentUser._id, pricePerShare, numShares);
+    this.auctionService.placeBid(this.auction._id, this.currentUser._id, Number(pricePerShare), Number(numShares));
   }
 
 }

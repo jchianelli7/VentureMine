@@ -30,7 +30,6 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    console.log(this.timer);
     const me = this;
     this.timerCount = setInterval(function() {
       
@@ -46,6 +45,10 @@ export class AuctionDetailsComponent implements OnInit {
   
     if (difference <= 0) {
   
+      this.timer.nativeElement.children[0].innerText = 0;
+      this.timer.nativeElement.children[1].innerText = 0;
+      this.timer.nativeElement.children[2].innerText = 0;
+      this.timer.nativeElement.children[3].innerText=0;
       // Timer done
       clearInterval(this.timerCount);
     

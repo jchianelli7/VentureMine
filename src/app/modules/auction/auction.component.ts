@@ -28,7 +28,6 @@ export class AuctionComponent implements OnInit, OnDestroy{
   private auctionSub: Subscription;
 
   constructor(private auctionService: AuctionService, private route: ActivatedRoute, private authService: AuthenticationService) {
-    console.log('Constructor - Auction');
     this.auctionService.getAuction(this.route.snapshot.params.id).subscribe(auction => {
       this.auction = auction;
       this.strikePrice = this.auction.currentStrikePrice;
@@ -37,7 +36,6 @@ export class AuctionComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
-    console.log('initializing parent comp');
     this.connection = this.auctionService.getBids(this.route.snapshot.params.id).subscribe(auction => {
        this.auction = auction;
        this.strikePrice = auction.currentStrikePrice;
@@ -47,17 +45,15 @@ export class AuctionComponent implements OnInit, OnDestroy{
     if (this.authService.currentUserValue) {
       this.currentUser = this.authService.currentUserValue;
     }
-    console.log('Got New Bids AKA Initializing Connection to socket - GetBids');
   }
 
   ngOnDestroy() {
-    console.log('Unsubbing - Auction Component');
     this.auctionService.socket.emit('close');
     this.connection.unsubscribe();
   }
 
   resetBids(id: string) {
-    console.log('Resetting Bids');
+    console.log('Resetting Bids...');
     this.auctionService.resetBids(this.auction._id).subscribe(auction => {
       this.auction = auction;
       this.strikePrice = this.auction.currentStrikePrice;
@@ -66,7 +62,7 @@ export class AuctionComponent implements OnInit, OnDestroy{
   }
 
   simulateBids(id: string) {
-    console.log('Simulating Bids');
+    console.log('Simulating Bids...');
 
     const me = this;
     const precision = 100; // 2 decimals
@@ -75,7 +71,6 @@ export class AuctionComponent implements OnInit, OnDestroy{
     while (i < 120) {
       const randomNumShares = Math.floor(Math.random() * 100) + 25;
       const randomPPS = Math.floor(Math.random() * 20) + 6;
-      // randomNumShares = Math.floor(Math.random() * (20 * precision - 1 * precision) + 1 * precision) / (1 * precision);
       setTimeout(() => {
         this.auctionService.placeBid(this.auction._id, this.currentUser._id, randomPPS, randomNumShares);
       }, 700 * (i + 1));
