@@ -75,6 +75,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(20);
 
     const _this = this;
+    const me = this;
 
     // Define the line
     const strikePriceLine = d3.line<Bid>()
@@ -119,6 +120,8 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
 
     const volumeArea = d3.area()
+    // .x0(this.chartProps.x(0))
+    // .x1(this.chartProps.x(this.auction.currentStrikePrice))
     .x(function(b) {return _this.chartProps.x(Number(b.pps)); })
     .y0(height)
     .y1(function(b) {return _this.chartProps.y2(Number(b.shareCount))})
@@ -129,9 +132,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
      .x0(this.chartProps.x(Number(this.auction.currentStrikePrice)))
     .y0(height)
     .y1(function(b) {return _this.chartProps.y2(Number(b.shareCount))})
-
-
-
 
     // Add the X Axis
     svg.append('g')
@@ -152,19 +152,65 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('class', 'y axis')
       .call(yAxis2);
 
-      svg.append("path")
-      .data([this.auction.volumeData])
-      .attr("class", "area")
-      .style("fill", "lightskyblue")
-      .attr("d", volumeArea);
+      // svg.append("path")
+      // .data([this.auction.volumeData])
+      // .attr("class", "area")
+      // .style("fill", "lightskyblue")
+      // .attr("d", volumeArea);
 
-      svg.append("path")
-    .data([this.auction.volumeData])
-    .attr("class", "area")
-    .style("fill", "green")
-    .style("background-color", "green")
-    .attr("d", winningArea);
+      var chunks = [];
+      var prev = undefined;
+      var bucket = [];
+      this.auction.volumeData.sort(function( a, b ) {
+        return b.pps - a.pps;
+      });
+      this.auction.volumeData.forEach(function (d) {
+        if(d.pps >= me.auction.currentStrikePrice){
+          if(prev && prev.pps < me.auction.currentStrikePrice){
+            chunks.push(bucket);
+            bucket = [];
+            // if()
+          }
+          bucket.push(d);
+        }else{
+          if(prev && prev.pps >= me.auction.currentStrikePrice){
+            // if(d.pps == me.auction.currentStrikePrice){
+            //   console.log("HI");
+            //   bucket.push(d);
+            // }
+            chunks.push(bucket);
+            bucket = [];
+          }
+          bucket.push(d);
+        }
+        prev = d;
+      });
+      chunks.push(bucket);
 
+      // this.auction.volumeData.forEach(function (d) {
+      //   if(d.pps >= me.auction.currentStrikePrice){
+      //     chunks[0].push(d);
+      //   }else{
+      //     chunks[1].push(d);
+      //   }
+      // })
+
+      // chunks[1].push(chunks[0][chunks[0].length - 1]);
+      chunks.forEach(function(d) {
+        let c;
+        console.log(d);
+        if(d[0].pps >= me.auction.currentStrikePrice){
+          c = "green";
+        }else{
+          c = "gray";
+        }
+        svg.append('path')
+        .datum(d)
+        .attr("class", "area")
+        .attr("stroke", c)
+        .style("fill", c)
+        .attr('d', volumeArea)
+      });
 
     svg.selectAll('dot')
       .data(this.bids)
@@ -189,11 +235,11 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       })
       .on('mouseout', function(d) {
         div.transition()
-          .duration(500)
+          .duration(500) 
           .style('opacity', 0);
       });
 
-    const me = this;
+   
 
     // Setting the required objects in chartProps so they could be used to update the chart
     this.chartProps.svg = svg;
@@ -257,10 +303,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     .attr('x2', this.chartProps.x(this.auction.currentStrikePrice))
     .attr('y1', 0)
     .attr('y2', height);
-
-    
-    
-
   }
 
   updateChart() {
@@ -351,38 +393,38 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     points.exit().remove();
 
 
-    const volumeBars = this.chartProps.svg.selectAll('bar').data(this.volumeData);
-    volumeBars.enter().append('bar');
-    const me = this;
-    volumeBars
-      .style('fill', 'black')
-      .style('opacity', .25)
-      .attr('x', function(b) {
-        return me.chartProps.x(b.pps);
-      })
-      .attr('width', 10 / this.volumeData.length)
-      .attr('y', function(b) {
-        return me.chartProps.y2(b.shareCount);
-      })
-      .attr('height', function(b) {
-        return height - me.chartProps.y2(b.shareCount);
-      })
-      .on('mouseover', function(d) {
-        div.transition()
-          .duration(200)
-          .style('opacity', .9)
-          .style('width', 'auto')
-          .style('height', 'auto');
-        div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.shareCount)
-          .style('left', (d3.event.pageX) + 'px')
-          .style('top', (d3.event.pageY - 28) + 'px');
-      })
-      .on('mouseout', function(d) {
-        div.transition()
-          .duration(500)
-          .style('opacity', 0);
-      });
-    volumeBars.exit().remove();
+    // const volumeBars = this.chartProps.svg.selectAll('bar').data(this.volumeData);
+    // volumeBars.enter().append('bar');
+    // const me = this;
+    // volumeBars
+    //   .style('fill', 'black')
+    //   .style('opacity', .25)
+    //   .attr('x', function(b) {
+    //     return me.chartProps.x(b.pps);
+    //   })
+    //   .attr('width', 10 / this.volumeData.length)
+    //   .attr('y', function(b) {
+    //     return me.chartProps.y2(b.shareCount);
+    //   })
+    //   .attr('height', function(b) {
+    //     return height - me.chartProps.y2(b.shareCount);
+    //   })
+    //   .on('mouseover', function(d) {
+    //     div.transition()
+    //       .duration(200)
+    //       .style('opacity', .9)
+    //       .style('width', 'auto')
+    //       .style('height', 'auto');
+    //     div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.shareCount)
+    //       .style('left', (d3.event.pageX) + 'px')
+    //       .style('top', (d3.event.pageY - 28) + 'px');
+    //   })
+    //   .on('mouseout', function(d) {
+    //     div.transition()
+    //       .duration(500)
+    //       .style('opacity', 0);
+    //   });
+    // volumeBars.exit().remove();
 
     this.chartProps.svg.select('path')
       .duration(750)
