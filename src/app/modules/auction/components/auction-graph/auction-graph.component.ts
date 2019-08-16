@@ -14,6 +14,7 @@ import * as d3 from 'd3';
 import {Auction} from 'src/app/models/Auction';
 import {Bid} from 'src/app/models/Bid';
 import {AuctionService} from 'src/app/services/auction-service.service';
+import { style } from 'd3';
 
 @Component({
   selector: 'app-auction-graph',
@@ -71,7 +72,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     // Define the axes
     const xAxis = d3.axisBottom(this.chartProps.x).ticks(10);
     const yAxis = d3.axisLeft(this.chartProps.y).ticks(10);
-    const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(10);
+    const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(20);
 
     const _this = this;
 
@@ -89,7 +90,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('fill', 'steelblue')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
-      .append('g')
+      .append('g') 
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
 
@@ -114,27 +115,21 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
     this.chartProps.x2.domain([x2Extent[0] - (x2Range * .05), x2Extent[1] + (x2Range * .05)]);
     this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
-    this.chartProps.y2.domain([y2Extent[0] - (y2Range * .05), y2Extent[1] + (y2Range * .05)]);
-
-    // Add the valueline path.
-    svg.append('line')
-      .attr('class', 'line strikePriceLine')
-      .style('stroke', 'red')
-      .style('opacity', .8)
-      .style('stroke-width', 4)
-      .style('fill', 'none')
-      .attr('x1', this.chartProps.x(this.auction.currentStrikePrice))
-      .style('fill', 'none')
-      .attr('x2', this.chartProps.x(this.auction.currentStrikePrice))
-      .attr('y1', 0)
-      .attr('y2', height);
+    this.chartProps.y2.domain([y2Extent[0] - (y2Range * .05), y2Extent[1] + (y2Range * .05) + 500]) ;
 
 
-      // Add Volume Data Line  --- TODO: Is this how I really want to do it...?
-    const volumeLine = d3.line()
-    .x(function(pps, shareCount) { return _this.chartProps.x(pps); }) // set the x values for the line generator
-    .y(function(pps, shareCount) { return _this.chartProps.y(shareCount); }) // set the y values for the line generator
-    .curve(d3.curveMonotoneX);
+    const volumeArea = d3.area()
+    .x(function(b) {return _this.chartProps.x(Number(b.pps)); })
+    .y0(height)
+    .y1(function(b) {return _this.chartProps.y2(Number(b.shareCount))})
+
+    const winningArea = d3.area()
+    // .x(function(b) {return _this.chartProps.x(Number(d.pps))})
+     .x1(this.chartProps.x(Number(this.auction.volumeData[this.auction.volumeData.length - 1].pps)))
+     .x0(this.chartProps.x(Number(this.auction.currentStrikePrice)))
+    .y0(height)
+    .y1(function(b) {return _this.chartProps.y2(Number(b.shareCount))})
+
 
 
 
@@ -157,10 +152,24 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('class', 'y axis')
       .call(yAxis2);
 
+      svg.append("path")
+      .data([this.auction.volumeData])
+      .attr("class", "area")
+      .style("fill", "lightskyblue")
+      .attr("d", volumeArea);
+
+      svg.append("path")
+    .data([this.auction.volumeData])
+    .attr("class", "area")
+    .style("fill", "green")
+    .style("background-color", "green")
+    .attr("d", winningArea);
+
+
     svg.selectAll('dot')
       .data(this.bids)
       .enter().append('circle')
-      .attr('fill', 'steelblue')
+      .attr('fill', 'black')
       .attr('r', 3)
       .attr('cx', function(d) {
         return _this.chartProps.x(d.pps);
@@ -185,40 +194,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       });
 
     const me = this;
-
-    // svg.selectAll('bar')
-    //   .data(this.volumeData)
-    //   .enter().append('rect')
-    //   .style('fill', 'black')
-    //   .style('opacity', .25)
-    //   .attr('x', function(b) {
-    //     return me.chartProps.x(b.pps);
-    //   })
-    //   .attr('width', 10)
-    //   .attr('y', function(b) {
-    //     return me.chartProps.y2(b.shareCount);
-    //   })
-    //   .attr('height', function(b) {
-    //     return height - me.chartProps.y2(b.shareCount);
-    //   })
-    //   .on('mouseover', function(d) {
-    //     div.transition()
-    //       .duration(200)
-    //       .style('opacity', .9)
-    //       .style('width', 'auto')
-    //       .style('height', 'auto');
-    //     div.html('PPS: ' + d.pps + '<br/>Vol:  ' + d.shareCount)
-    //       .style('left', (d3.event.pageX) + 'px')
-    //       .style('top', (d3.event.pageY - 28) + 'px');
-    //   })
-    //   .on('mouseout', function(d) {
-    //     div.transition()
-    //       .duration(500)
-    //       .style('opacity', 0);
-    //   })
-    //   .exit().remove();
-
-
 
     // Setting the required objects in chartProps so they could be used to update the chart
     this.chartProps.svg = svg;
@@ -261,7 +236,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
         return a.pps - b.pps;
       }))
       .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
+      .attr('stroke', 'red')
       .attr('stroke-width', 1.5)
       .attr('d', d3.line()
         .x(function(bid) {
@@ -270,6 +245,22 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           return _this.chartProps.y2(Number(bid.shareCount)); })
         // .curve(d3.curveMonotoneX)
         );
+            // Add the valueline path.
+    svg.append('line')
+    .attr('class', 'line strikePriceLine')
+    .style('stroke', 'red')
+    .style('opacity', .8)
+    .style('stroke-width', 4)
+    .style('fill', 'none')
+    .attr('x1', this.chartProps.x(this.auction.currentStrikePrice))
+    .style('fill', 'none')
+    .attr('x2', this.chartProps.x(this.auction.currentStrikePrice))
+    .attr('y1', 0)
+    .attr('y2', height);
+
+    
+    
+
   }
 
   updateChart() {
