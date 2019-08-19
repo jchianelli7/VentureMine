@@ -161,48 +161,57 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       var chunks = [];
       var prev = undefined;
       var bucket = [];
+      var data = [];
+      data.push([]);
+      data.push([]);
       this.auction.volumeData.sort(function( a, b ) {
         return b.pps - a.pps;
       });
-      this.auction.volumeData.forEach(function (d) {
-        if(d.pps >= me.auction.currentStrikePrice){
-          if(prev && prev.pps < me.auction.currentStrikePrice){
-            chunks.push(bucket);
-            bucket = [];
-            // if()
-          }
-          bucket.push(d);
-        }else{
-          if(prev && prev.pps >= me.auction.currentStrikePrice){
-            // if(d.pps == me.auction.currentStrikePrice){
-            //   console.log("HI");
-            //   bucket.push(d);
-            // }
-            chunks.push(bucket);
-            bucket = [];
-          }
-          bucket.push(d);
-        }
-        prev = d;
-      });
-      chunks.push(bucket);
 
+      this.auction.volumeData.forEach(function (d){
+        if(d.pps >= me.auction.currentStrikePrice){
+          data[1].push(d);
+          if(d.pps === me.auction.currentStrikePrice){
+            data[0].push(d);
+          }
+        }else{
+          data[0].push(d);
+        }
+      })
       // this.auction.volumeData.forEach(function (d) {
       //   if(d.pps >= me.auction.currentStrikePrice){
-      //     chunks[0].push(d);
+      //     if(prev && prev.pps < me.auction.currentStrikePrice){
+      //       chunks.push(bucket);
+      //       bucket = [];
+      //       // if()
+      //     }
+      //     bucket.push(d);
       //   }else{
-      //     chunks[1].push(d);
+      //     if(prev && prev.pps >= me.auction.currentStrikePrice){
+      //       // if(d.pps == me.auction.currentStrikePrice){
+      //       //   console.log("HI");
+      //       //   bucket.push(d);
+      //       // }
+      //       chunks.push(bucket);
+      //       bucket = [];
+      //     }
+      //     bucket.push(d);
       //   }
-      // })
+      //   prev = d;
+      // });
+      // chunks.push(bucket);
 
       // chunks[1].push(chunks[0][chunks[0].length - 1]);
-      chunks.forEach(function(d) {
+      data.forEach(function(d) {
         let c;
-        console.log(d);
+        console.log(d);    
         if(d[0].pps >= me.auction.currentStrikePrice){
           c = "green";
         }else{
           c = "gray";
+        }
+        if(d[0].pps === me.auction.currentStrikePrice){
+          c = "gray"
         }
         svg.append('path')
         .datum(d)
