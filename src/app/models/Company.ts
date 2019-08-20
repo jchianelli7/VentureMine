@@ -1,10 +1,9 @@
-import { Auction } from './Auction';
 import { User } from './User';
 import { Person } from './Person';
 
 export class Company {
     companyName: string;
-    auctions: [Auction];
+    auctionIds: [string];
     generalBio: string;
     images: [string];
     staff: [Person];
