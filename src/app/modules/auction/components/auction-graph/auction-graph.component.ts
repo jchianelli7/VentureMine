@@ -101,13 +101,13 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     .x(function(b) {return _this.chartProps.x(Number(b.pps)); })
     .y0(height)
     .y1(function(b) {return _this.chartProps.y2(Number(b.shareCount))})
-    // .curve(d3.curveMonotoneX)
+    // .curve(d3.curveNatural)
 
 
     // Add the X Axis
     svg.append('g')
       .attr('class', 'x axis')
-      .attr('transform', `translate(0,${height})`)
+      .attr('transform', `translate(0,${height})`) 
       .call(xAxis);
 
     // Add the Y Axis
@@ -207,7 +207,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           return _this.chartProps.x(Number(bid.pps)); })
         .y(function(bid) {
           return _this.chartProps.y2(Number(bid.shareCount)); })
-        // .curve(d3.curveMonotoneX)
+        // .curve(d3.curveNatural)
         );
 
             // Add the valueline path.

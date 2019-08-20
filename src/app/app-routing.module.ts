@@ -4,13 +4,15 @@ import { LoginComponent } from './components/login/login.component';
 import { UserDashboardComponent } from './modules/user-dashboard/user-dashboard/user-dashboard.component';
 import { AuctionComponent } from './modules/auction/auction.component';
 import {AuctionListComponent} from './modules/auction/components/auction-list/auction-list.component';
+import { EditCompanyComponent } from './modules/company/edit-company/edit-company.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: UserDashboardComponent},
   {path: 'auction/:id', component: AuctionComponent},
-  {path: 'auctions', component: AuctionListComponent}
+  {path: 'auctions', component: AuctionListComponent},
+  {path: 'auction/:id/edit', component: EditCompanyComponent}
 ];
 
 @NgModule({

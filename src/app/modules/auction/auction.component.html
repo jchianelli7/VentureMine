@@ -99,6 +99,9 @@
 			<div class="container-fluid">
 				<div class="col-lg-8">
 					<app-company-details></app-company-details>
+					<button class="btn btn-primary" (click)="simulateBids(auction._id)" style="margin-bottom: 10px;">Simulate Bidding</button>
+<br>
+<button class="btn btn-primary" (click)="resetBids(auction._id)">Clear Bids</button>
 				</div>
 			</div>
 		</div>
