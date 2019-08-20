@@ -18,6 +18,7 @@ export class AuctionDetailsComponent implements OnInit {
   @Output() bidPlaced = new EventEmitter();
   currentUser: User;
   timerCount;
+  timerDone: Boolean = false;
    
   constructor(private auctionService: AuctionService, private authService: AuthenticationService) {
 
@@ -48,9 +49,11 @@ export class AuctionDetailsComponent implements OnInit {
       this.timer.nativeElement.children[0].innerText = 0;
       this.timer.nativeElement.children[1].innerText = 0;
       this.timer.nativeElement.children[2].innerText = 0;
-      this.timer.nativeElement.children[3].innerText=0;
+      this.timer.nativeElement.children[3].innerText= 0;
       // Timer done
       clearInterval(this.timerCount);
+      this.timerDone = true;
+      this.timer.nativeElement.innerHTML = "";
     
     } else {
       

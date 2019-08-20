@@ -94,7 +94,14 @@
 			          </div>
 			        </div>
 			      </div>
-			    </div>
+		</div>
+		<div class="row">
+			<div class="container-fluid">
+				<div class="col-lg-8">
+					<app-company-details></app-company-details>
+				</div>
+			</div>
+		</div>
     </div>
     <div class="col-lg-4" id="auctionDetails">
       <app-auction-bid-list *ngIf="auction" [auction]="auction" [bids]="auction.bids"></app-auction-bid-list>

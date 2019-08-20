@@ -15,6 +15,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes} from '@fortawesome/free-solid-svg-icons'
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
+import { CompanyDetailsComponent } from '../company/components/company-details/company-details.component';
+import { CompanyModule } from '../company/company.module';
 
  
 const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
@@ -28,7 +30,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
     SocketIoModule.forRoot(config),
     RouterModule,
     NgxChartsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    CompanyModule
   ]
 })
 export class AuctionModule {

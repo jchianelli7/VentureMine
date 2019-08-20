@@ -11,6 +11,7 @@ import { AuctionModule } from './modules/auction/auction.module';
 import { ChartsModule } from 'ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CompanyModule } from './modules/company/company.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule, 
     ReactiveFormsModule, 
     ChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CompanyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
