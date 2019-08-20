@@ -24,7 +24,7 @@ import { CompanyModule } from './modules/company/company.module';
     AppRoutingModule,
     UserDashboardModule,    // Feature Module
     AuctionModule,          // Feature Module
-    HttpClientModule,
+    HttpClientModule, 
     FormsModule, 
     ReactiveFormsModule, 
     ChartsModule,

@@ -70,7 +70,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
     // Define the axes
     const xAxis = d3.axisBottom(this.chartProps.x).ticks(20);
-    const yAxis = d3.axisLeft(this.chartProps.y).ticks(10);
+    // const yAxis = d3.axisLeft(this.chartProps.y).ticks(10);
     const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(20);
 
     const _this = this;
@@ -101,7 +101,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     .x(function(b) {return _this.chartProps.x(Number(b.pps)); })
     .y0(height)
     .y1(function(b) {return _this.chartProps.y2(Number(b.shareCount))})
-    // .curve(d3.curveNatural)
+    .curve(d3.curveMonotoneX)
 
 
     // Add the X Axis
@@ -111,9 +111,9 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .call(xAxis);
 
     // Add the Y Axis
-    svg.append('g')
-      .attr('class', 'y axis')
-      .call(yAxis);
+    // svg.append('g')
+    //   .attr('class', 'y axis')
+    //   .call(yAxis);
 
     // Add the y2 Axis
     svg.append('g')
@@ -167,15 +167,16 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     // this.chartProps.yAxis2 = yAxis2;
 
     // text label for the y axis
-    svg.append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('y', 0 - margin.left)
-      .attr('x', 0 - (height / 2))
-      .attr('dy', '1em')
-      .style('font-weight', 'bold')
-      .style('color', 'black')
-      .style('text-anchor', 'middle')
-      .text('# of Shares');
+
+    // svg.append('text')
+    //   .attr('transform', 'rotate(-90)')
+    //   .attr('y', 0 - margin.left)
+    //   .attr('x', 0 - (height / 2))
+    //   .attr('dy', '1em')
+    //   .style('font-weight', 'bold')
+    //   .style('color', 'black')
+    //   .style('text-anchor', 'middle')
+    //   .text('# of Shares');
 
     svg.append('text')
       .attr('x', (width / 2))
@@ -207,7 +208,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           return _this.chartProps.x(Number(bid.pps)); })
         .y(function(bid) {
           return _this.chartProps.y2(Number(bid.shareCount)); })
-        // .curve(d3.curveNatural)
+        .curve(d3.curveMonotoneX)
         );
 
             // Add the valueline path.
