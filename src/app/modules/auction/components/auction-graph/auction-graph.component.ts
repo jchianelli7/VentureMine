@@ -121,43 +121,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('class', 'y2 axis')
       .call(yAxis2);
 
-    var data = [];
-    data.push([]);
-    data.push([]);
-    this.auction.volumeData.sort(function (a, b) {
-      return b.pps - a.pps;
-    });
-
-    this.auction.volumeData.forEach(function (d) {
-      if (d.pps >= me.auction.currentStrikePrice) {
-        data[1].push(d);
-        if (d.pps === me.auction.currentStrikePrice) {
-          data[0].push(d);
-        }
-      } else {
-        data[0].push(d);
-      }
-    })
-
-    data.forEach(function (d) {
-      let c;
-      console.log(d);
-      if (d[0].pps >= me.auction.currentStrikePrice) {
-        c = "green";
-      } else {
-        c = "darkgray";
-      }
-      if (d[0].pps === me.auction.currentStrikePrice) {
-        c = "darkgray"
-      }
-      svg.append('path')
-        .datum(d)
-        .attr("class", "area")
-        .attr("stroke", c)
-        .style('opacity', .6)
-        .style("fill", c)
-        .attr('d', volumeArea)
-    });
+    
 
 
     // Setting the required objects in chartProps so they could be used to update the chart
@@ -209,6 +173,44 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
         })
         .curve(d3.curveMonotoneX)
       );
+
+      var data = [];
+    data.push([]);
+    data.push([]);
+    this.auction.volumeData.sort(function (a, b) {
+      return b.pps - a.pps;
+    });
+
+    this.auction.volumeData.forEach(function (d) {
+      if (d.pps >= me.auction.currentStrikePrice) {
+        data[1].push(d);
+        if (d.pps === me.auction.currentStrikePrice) {
+          data[0].push(d);
+        }
+      } else {
+        data[0].push(d);
+      }
+    })
+
+    data.forEach(function (d) {
+      let c;
+      console.log(d);
+      if (d[0].pps >= me.auction.currentStrikePrice) {
+        c = "green";
+      } else {
+        c = "darkgray";
+      }
+      if (d[0].pps === me.auction.currentStrikePrice) {
+        c = "darkgray"
+      }
+      svg.append('path')
+        .datum(d)
+        .attr("class", "area")
+        .attr("stroke", c)
+        .style('opacity', .6)
+        .style("fill", c)
+        .attr('d', volumeArea)
+    });
 
     // Add the valueline path.
     svg.append('line')

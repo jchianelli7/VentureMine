@@ -12,6 +12,7 @@ import { ChartsModule } from 'ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CompanyModule } from './modules/company/company.module';
+import { AdminModule } from './modules/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CompanyModule } from './modules/company/company.module';
     ReactiveFormsModule, 
     ChartsModule,
     BrowserAnimationsModule,
-    CompanyModule
+    CompanyModule,
+    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]
