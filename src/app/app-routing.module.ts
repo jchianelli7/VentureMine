@@ -5,6 +5,7 @@ import { UserDashboardComponent } from './modules/user-dashboard/user-dashboard/
 import { AuctionComponent } from './modules/auction/auction.component';
 import {AuctionListComponent} from './modules/auction/components/auction-list/auction-list.component';
 import { EditCompanyComponent } from './modules/company/edit-company/edit-company.component';
+import { AdminDashboardComponent } from './modules/admin/components/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: 'dashboard', component: UserDashboardComponent},
   {path: 'auction/:id', component: AuctionComponent},
   {path: 'auctions', component: AuctionListComponent},
-  {path: 'auction/:id/edit', component: EditCompanyComponent}
+  {path: 'auction/:id/edit', component: EditCompanyComponent},
+  {path: 'admin', component: AdminDashboardComponent}
 ];
 
 @NgModule({
