@@ -1,10 +1,13 @@
-<!-- <div class="container" *ngIf="users">
-    <ul>
-        <li *ngFor="let user of users">
-            {{user.firstName}}
-        </li>
-        Hi?
-    </ul>
-</div> -->
-<app-all-users *ngIf="users" [users]="this.users"></app-all-users>
-Hi?
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6" style="padding: 25px;">
+            <H2>All Users</H2>
+            <app-all-users *ngIf="users" [users]="users"></app-all-users>
+        </div>
+        <div class="col-lg-6" style="padding: 25px;">
+            <H2 style="text-align: center;">All Auctions</H2>
+            <app-all-auctions *ngIf="auctions" [auctions]="auctions"></app-all-auctions>
+        </div>
+    </div>
+
+</div>

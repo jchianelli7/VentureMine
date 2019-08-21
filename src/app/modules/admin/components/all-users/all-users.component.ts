@@ -13,7 +13,7 @@ export class AllUsersComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.users);
+    console.log(this.users); 
   }
 
 }
