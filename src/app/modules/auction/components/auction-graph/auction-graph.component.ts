@@ -11,9 +11,9 @@ import {
   AfterViewInit
 } from '@angular/core';
 import * as d3 from 'd3';
-import {Auction} from 'src/app/models/Auction';
-import {Bid} from 'src/app/models/Bid';
-import {AuctionService} from 'src/app/services/auction-service.service';
+import { Auction } from 'src/app/models/Auction';
+import { Bid } from 'src/app/models/Bid';
+import { AuctionService } from 'src/app/services/auction-service.service';
 import { style } from 'd3';
 
 @Component({
@@ -23,7 +23,7 @@ import { style } from 'd3';
   styleUrls: ['./auction-graph.component.css']
 })
 export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
-  @ViewChild('chart', {static: false}) chartElement: ElementRef;
+  @ViewChild('chart', { static: false }) chartElement: ElementRef;
 
   @Input() auction: Auction;
   @Input() bids: Bid[];
@@ -57,7 +57,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
   buildChart() {
     this.chartProps = {};
     // Set the dimensions of the canvas / graph
-    const margin = {top: 45, right: 50, bottom: 45, left: 50},
+    const margin = { top: 45, right: 50, bottom: 45, left: 50 },
       // width = 900 - margin.left - margin.right,
       // height = 500 - margin.top - margin.bottom;
       width = this.chartElement.nativeElement.clientWidth - margin.left - margin.right,
@@ -82,32 +82,32 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('opacity', 0);
 
     const svg = d3.select(this.chartElement.nativeElement)
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
       .append('svg')
       .style('fill', 'steelblue')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
-      .append('g') 
+      .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
 
     // this.chartProps.x.domain(d3.extent(this.auction.bids, function(d){ return d.pps}));
-    this.chartProps.x.domain([0, d3.max(this.auction.volumeData, function(d) { return d.pps})]);
-    this.chartProps.y.domain([0, d3.max(this.auction.bids, function(d) { return d.numShares})]);
-    this.chartProps.y2.domain([0, d3.max(this.volumeData, function(d) { return d.shareCount})])
+    this.chartProps.x.domain([0, d3.max(this.auction.volumeData, function (d) { return d.pps })]);
+    this.chartProps.y.domain([0, d3.max(this.auction.bids, function (d) { return d.numShares })]);
+    this.chartProps.y2.domain([0, d3.max(this.volumeData, function (d) { return d.shareCount })])
 
     const volumeArea = d3.area()
-    .x(function(b) {return _this.chartProps.x(Number(b.pps)); })
-    .y0(height)
-    .y1(function(b) {return _this.chartProps.y2(Number(b.shareCount))})
-    .curve(d3.curveMonotoneX)
+      .x(function (b) { return _this.chartProps.x(Number(b.pps)); })
+      .y0(height)
+      .y1(function (b) { return _this.chartProps.y2(Number(b.shareCount)) })
+      .curve(d3.curveMonotoneX)
 
 
     // Add the X Axis
     svg.append('g')
       .attr('class', 'x axis')
-      .attr('transform', `translate(0,${height})`) 
+      .attr('transform', `translate(0,${height})`)
       .call(xAxis);
 
     // Add the Y Axis
@@ -121,50 +121,11 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('class', 'y2 axis')
       .call(yAxis2);
 
-      var data = [];
-      data.push([]);
-      data.push([]);
-      this.auction.volumeData.sort(function( a, b ) {
-        return b.pps - a.pps;
-      });
-
-      this.auction.volumeData.forEach(function (d){
-        if(d.pps >= me.auction.currentStrikePrice){
-          data[1].push(d);
-          if(d.pps === me.auction.currentStrikePrice){
-            data[0].push(d);
-          }
-        }else{
-          data[0].push(d);
-        }
-      })
-
-      data.forEach(function(d) {
-        let c;
-        console.log(d);    
-        if(d[0].pps >= me.auction.currentStrikePrice){
-          c = "green";
-        }else{
-          c = "darkgray";
-        }
-        if(d[0].pps === me.auction.currentStrikePrice){
-          c = "darkgray"
-        }
-        svg.append('path')
-        .datum(d)
-        .attr("class", "area")
-        .attr("stroke", c)
-        .style('opacity', .6)
-        .style("fill", c)
-        .attr('d', volumeArea)
-      });
+    
 
 
     // Setting the required objects in chartProps so they could be used to update the chart
     this.chartProps.svg = svg;
-    // this.chartProps.xAxis = xAxis;
-    // this.chartProps.yAxis = yAxis;
-    // this.chartProps.yAxis2 = yAxis2;
 
     // text label for the y axis
 
@@ -196,7 +157,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .text('Volume');
 
     svg.append('path')
-      .datum(this.volumeData.sort(function(a, b) {
+      .datum(this.volumeData.sort(function (a, b) {
         return a.pps - b.pps;
       }))
       .attr('fill', 'none')
@@ -204,25 +165,65 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('stroke-width', 1.5)
       .attr('id', 'bidLine')
       .attr('d', d3.line()
-        .x(function(bid) {
-          return _this.chartProps.x(Number(bid.pps)); })
-        .y(function(bid) {
-          return _this.chartProps.y2(Number(bid.shareCount)); })
+        .x(function (bid) {
+          return _this.chartProps.x(Number(bid.pps));
+        })
+        .y(function (bid) {
+          return _this.chartProps.y2(Number(bid.shareCount));
+        })
         .curve(d3.curveMonotoneX)
-        );
+      );
 
-            // Add the valueline path.
+      var data = [];
+    data.push([]);
+    data.push([]);
+    this.auction.volumeData.sort(function (a, b) {
+      return b.pps - a.pps;
+    });
+
+    this.auction.volumeData.forEach(function (d) {
+      if (d.pps >= me.auction.currentStrikePrice) {
+        data[1].push(d);
+        if (d.pps === me.auction.currentStrikePrice) {
+          data[0].push(d);
+        }
+      } else {
+        data[0].push(d);
+      }
+    })
+
+    data.forEach(function (d) {
+      let c;
+      console.log(d);
+      if (d[0].pps >= me.auction.currentStrikePrice) {
+        c = "green";
+      } else {
+        c = "darkgray";
+      }
+      if (d[0].pps === me.auction.currentStrikePrice) {
+        c = "darkgray"
+      }
+      svg.append('path')
+        .datum(d)
+        .attr("class", "area")
+        .attr("stroke", c)
+        .style('opacity', .6)
+        .style("fill", c)
+        .attr('d', volumeArea)
+    });
+
+    // Add the valueline path.
     svg.append('line')
-    .attr('class', 'line strikePriceLine')
-    .style('stroke', 'red')
-    .style('opacity', .8)
-    .style('stroke-width', 4)
-    .style('fill', 'none')
-    .attr('x1', this.chartProps.x(this.auction.currentStrikePrice))
-    .style('fill', 'none')
-    .attr('x2', this.chartProps.x(this.auction.currentStrikePrice))
-    .attr('y1', 0)
-    .attr('y2', height);
+      .attr('class', 'line strikePriceLine')
+      .style('stroke', 'red')
+      .style('opacity', .8)
+      .style('stroke-width', 4)
+      .style('fill', 'none')
+      .attr('x1', this.chartProps.x(this.auction.currentStrikePrice))
+      .style('fill', 'none')
+      .attr('x2', this.chartProps.x(this.auction.currentStrikePrice))
+      .attr('y1', 0)
+      .attr('y2', height);
   }
 
 
@@ -237,7 +238,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     //   width = this.chartElement.nativeElement.clientWidth - margin.left - margin.right,
     //   height = this.chartElement.nativeElement.clientHeight - margin.top - margin.bottom;
     // // Scale the range of the data again
-  
+
     // // Select the section we want to apply our changes to
     // this.chartProps.svg.transition();
 
@@ -313,7 +314,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     //   .attr('d', line(this.auction.volumeData))
     //   // .attr('fill', "black");
 
-    
+
   }
 
 }
