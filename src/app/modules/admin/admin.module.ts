@@ -6,6 +6,7 @@ import { AllAuctionsComponent } from './components/all-auctions/all-auctions.com
 import { RouterModule } from '@angular/router';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { EditAuctionComponent } from './components/edit-auction/edit-auction.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,7 +14,8 @@ import { EditAuctionComponent } from './components/edit-auction/edit-auction.com
   declarations: [AdminDashboardComponent, AllUsersComponent, AllAuctionsComponent, EditUserComponent, EditAuctionComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }
