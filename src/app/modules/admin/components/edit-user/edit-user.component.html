@@ -1,1 +1,14 @@
-<p>edit-user works!</p>
+<div *ngIf="user && editUserForm" class="container-fluid">
+    <h2 style="text-align: center">Edit User</h2>
+    <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
+        <label for="firstName" style="margin-right: 10px;">First Name</label>
+        <input formControlName="firstName" type="text" id="firstName" class="fadeIn second" name="firstName" style="margin-right: 10px;">
+        <label for="lastName" style="margin-right: 10px;">Last Name</label>
+        <input formControlName="lastName" type="text" id="lastName" class="fadeIn third" name="lastName" style="margin-right: 10px;">
+        <br>
+        <label for="email" style="margin-right: 10px;">Email</label>
+        <input formControlName="email" type="text" id="email" class="fadeIn fourth" name="email" style="margin-right: 10px;">
+        <br>
+        <input type="submit" class="fadeIn fourth btn btn-primary" value="Save Changes">
+    </form>
+</div>

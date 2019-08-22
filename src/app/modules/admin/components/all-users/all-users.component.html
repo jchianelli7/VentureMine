@@ -12,9 +12,13 @@
           <tr *ngFor="let user of users">
             <td>{{user.firstName}} {{user.lastName}}</td>
             <td>{{user.email}}</td>
-            <td>TODO</td>
+            <td><button class="btn btn-primary" (click)="editUser(user._id)">Edit</button></td>
             <td>TODO</td>
             <td>TODO</td>
           </tr>
         </tbody>
       </table>
+
+      <div class="row" style="margin-top: 20px;">
+            <app-edit-user [user]="activeEditingUser" *ngIf="editingUser && activeEditingUser"></app-edit-user>
+    </div>

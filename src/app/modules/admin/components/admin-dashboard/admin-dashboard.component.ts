@@ -14,6 +14,8 @@ export class AdminDashboardComponent implements OnInit {
 
   users: User[];
   auctions: Auction[];
+  editingUser: boolean = false;
+  activeEditingUser: User; 
 
   constructor(private auctionService: AuctionService, authService: AuthenticationService, private adminService: AdminService) {
 
@@ -26,6 +28,14 @@ export class AdminDashboardComponent implements OnInit {
 
     this.auctionService.getAuctions().subscribe((auctions) => {
       this.auctions = auctions;
+    })
+  }
+
+  getUser(id: string){
+    this.adminService.getUser(id).subscribe((user) => {
+      this.activeEditingUser = user;
+      this.editingUser = true;
+      console.log("Got user: " , user);
     })
   }
 

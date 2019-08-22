@@ -9,11 +9,25 @@ import { User } from 'src/app/models/User';
 export class AllUsersComponent implements OnInit {
 
   @Input() users: User[];
+  activeEditingUser: User;
+  editingUser: boolean = false;
 
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.users); 
+  ngOnInit() { 
+  }
+
+  editUser(id: string){
+    console.log(id);
+    var userToEdit = this.users.filter(function(user) {
+      return String(user._id) === id;
+    });
+
+    if(userToEdit) {
+      this.activeEditingUser = userToEdit[0];
+      this.editingUser = true;
+    }
+    console.log(this.activeEditingUser);
   }
 
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { User } from 'src/app/models/User';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-edit-user',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditUserComponent implements OnInit {
 
-  constructor() { }
+  @Input() user: User;
+  editUserForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    console.log("init edit user");
+    const me = this;
+    this.editUserForm = this.formBuilder.group({
+      firstName: [me.user.firstName],
+      lastName: [me.user.lastName],
+      email: [me.user.email]
+    });
   }
 
 }

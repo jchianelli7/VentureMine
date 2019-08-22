@@ -22,4 +22,14 @@ export class AdminService {
       }
     ));
   }
+
+  getUser(id: string){
+    return this.http.get<User>('http://localhost:3000/users/' + id).pipe(map(
+      user => {
+        if(user){
+          return user;
+        }
+      }
+    ));
+  }
 }
