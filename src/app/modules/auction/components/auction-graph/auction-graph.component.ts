@@ -156,61 +156,15 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('dy', '1em')
       .text('Volume');
 
-    svg.append('path')
-      .datum(this.volumeData.sort(function (a, b) {
-        return a.pps - b.pps;
-      }))
-      .attr('fill', 'none')
-      .attr('stroke', 'red')
-      .attr('stroke-width', 1.5)
-      .attr('id', 'bidLine')
-      .attr('d', d3.line()
-        .x(function (bid) {
-          return _this.chartProps.x(Number(bid.pps));
-        })
-        .y(function (bid) {
-          return _this.chartProps.y2(Number(bid.shareCount));
-        })
-        .curve(d3.curveMonotoneX) 
-      );
+      svg.selectAll(".bar")
+      .data(this.auction.volumeData)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return me.chartProps.x(d.pps) - 15/2; })
+      .attr("width", Number(15))
+      .attr("y", function(d) { return me.chartProps.y2(d.shareCount); })
+      .attr("height", function(d) { return height - me.chartProps.y2(d.shareCount); });
 
-      var data = [];
-    data.push([]);
-    data.push([]);
-    this.auction.volumeData.sort(function (a, b) {
-      return b.pps - a.pps;
-    });
-
-    this.auction.volumeData.forEach(function (d) {
-      if (d.pps >= me.auction.currentStrikePrice) {
-        data[1].push(d);
-        if (d.pps === me.auction.currentStrikePrice) {
-          data[0].push(d);
-        }
-      } else {
-        data[0].push(d);
-      }
-    })
-
-    data.forEach(function (d) {
-      let c;
-      console.log(d);
-      if (d[0].pps >= me.auction.currentStrikePrice) {
-        c = "green";
-      } else {
-        c = "darkgray";
-      }
-      if (d[0].pps === me.auction.currentStrikePrice) {
-        c = "darkgray"
-      }
-      svg.append('path')
-        .datum(d)
-        .attr("class", "area")
-        .attr("stroke", c)
-        .style('opacity', .6)
-        .style("fill", c)
-        .attr('d', volumeArea)
-    });
 
     // Add the valueline path.
     svg.append('line')
