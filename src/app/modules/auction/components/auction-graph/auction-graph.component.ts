@@ -171,7 +171,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
         .y(function (bid) {
           return _this.chartProps.y2(Number(bid.shareCount));
         })
-        .curve(d3.curveMonotoneX)
+        .curve(d3.curveMonotoneX) 
       );
 
       var data = [];
@@ -233,88 +233,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     const _this = this;
     d3.selectAll("svg").remove();
     this.buildChart();
-
-    // const margin = {top: 45, right: 50, bottom: 45, left: 50},
-    //   width = this.chartElement.nativeElement.clientWidth - margin.left - margin.right,
-    //   height = this.chartElement.nativeElement.clientHeight - margin.top - margin.bottom;
-    // // Scale the range of the data again
-
-    // // Select the section we want to apply our changes to
-    // this.chartProps.svg.transition();
-
-    // this.chartProps.svg.selectAll(".area").remove();
-    // // Make the changes to the line chart
-
-    // // Set Domain of Axis'
-    // this.chartProps.x.domain([0, d3.max(this.auction.volumeData, function(d) { return d.pps})]);
-    // this.chartProps.y.domain([0, d3.max(this.auction.bids, function(d) { return d.numShares})]);
-    // this.chartProps.y2.domain([0, d3.max(this.auction.volumeData, function(d) { return d.shareCount})])
-
-    // this.chartProps.svg.select('.line') // update the line
-    //   .attr('x1', this.chartProps.x(this.auction.currentStrikePrice))
-    //   .style('opacity', .8)
-    //   .style('fill', 'none')
-    //   .attr('x2', this.chartProps.x(this.auction.currentStrikePrice))
-    //   .attr('y1', 0)
-    //   .attr('y2', height - margin.top);
-
-
-    // /* TESTING */
-    // const me = this;
-    // const volumeArea = d3.area()
-    // .x(function(b) {return _this.chartProps.x(Number(b.pps)); })
-    // .y0(height)
-    // .y1(function(b) {return _this.chartProps.y2(Number(b.shareCount))})
-    // var data = [];
-    //   data.push([]);
-    //   data.push([]);
-    //   this.auction.volumeData.sort(function( a, b ) {
-    //     return b.pps - a.pps;
-    //   });
-
-    //   this.auction.volumeData.forEach(function (d){
-    //     if(d.pps >= me.auction.currentStrikePrice){
-    //       data[1].push(d);
-    //       if(d.pps === me.auction.currentStrikePrice){
-    //         data[0].push(d);
-    //       }
-    //     }else{
-    //       data[0].push(d);
-    //     }
-    //   })
-
-    //   data.forEach(function(d) {
-    //     let c;
-    //     console.log(d);    
-    //     if(d[0].pps >= me.auction.currentStrikePrice){
-    //       c = "green";
-    //     }else{
-    //       c = "gray";
-    //     }
-    //     if(d[0].pps === me.auction.currentStrikePrice){
-    //       c = "gray"
-    //     }
-    //     me.chartProps.svg.append('path')
-    //     .datum(d)
-    //     .attr("class", "area")
-    //     .attr("stroke", c)
-    //     .style("fill", c)
-    //     .style('opacity', .5)
-    //     .attr('d', volumeArea)
-    //   });
-
-    //   var line = d3.line()
-    //   .x(function(bid) {
-    //     return _this.chartProps.x(Number(bid.pps)); })
-    //   .y(function(bid) {
-    //     return _this.chartProps.y2(Number(bid.shareCount)); })
-    //   // .curve(d3.curveMonotoneX)
-
-    // this.chartProps.svg.select('#bidLine')
-    //   .attr('d', line(this.auction.volumeData))
-    //   // .attr('fill', "black");
-
-
   }
 
 }

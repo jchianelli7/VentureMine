@@ -45,14 +45,14 @@ export class AuctionService {
     return observable;
   }
 
-  placeBid(auctionId: number, ownerId: number, pps: number, numShares: number) {
+  placeBid(auctionId: number, userId: number, pps: number, numShares: number) {
     console.log('Placing Bid: ');
     console.log('auctionID: ', auctionId);
-    console.log('OwnerID: ', ownerId);
+    console.log('userId: ', userId);
     console.log('PPS: ', pps);
     console.log('# Shares: ', numShares);
     console.log('************************');
-    this.socket.emit('placeBid', {auctionId, ownerId, pps, numShares});
+    this.socket.emit('placeBid', {auctionId, userId, pps, numShares});
   }
 
   getAuctions() {
