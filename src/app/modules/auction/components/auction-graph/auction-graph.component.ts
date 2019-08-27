@@ -105,7 +105,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
 
 
-
     // Add the X Axis
     svg.append('g')
       .attr('class', 'x axis')
@@ -185,6 +184,13 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
         .curve(d3.curveLinear)
       );
 
+      svg.selectAll("dot")
+        .data(this.auction.volumeData)
+      .enter().append("circle")
+        .style('fill', 'black')
+        .attr("r", 5)
+        .attr("cx", function(d) { return me.chartProps.x(d.pps); })
+        .attr("cy", function(d) { return me.chartProps.y2(d.shareCount); });
 
     // Add the valueline path.
     svg.append('line')
