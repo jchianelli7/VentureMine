@@ -97,11 +97,13 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.y.domain([0, d3.max(this.auction.bids, function (d) { return d.numShares })]);
     this.chartProps.y2.domain([0, d3.max(this.volumeData, function (d) { return d.shareCount })])
 
-    const volumeArea = d3.area()
-      .x(function (b) { return _this.chartProps.x(Number(b.pps)); })
-      .y0(height)
-      .y1(function (b) { return _this.chartProps.y2(Number(b.shareCount)) })
-      .curve(d3.curveMonotoneX)
+    // const volumeArea = d3.area()
+    //   .x(function (b) { return _this.chartProps.x(Number(b.pps)); })
+    //   .y0(height)
+    //   .y1(function (b) { return _this.chartProps.y2(Number(b.shareCount)) })
+    //   .curve(d3.curveMonotoneX;
+
+
 
 
     // Add the X Axis
@@ -121,7 +123,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('class', 'y2 axis')
       .call(yAxis2);
 
-    
+
 
 
     // Setting the required objects in chartProps so they could be used to update the chart
@@ -160,10 +162,28 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .data(this.auction.volumeData)
     .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return me.chartProps.x(d.pps) - 15/2; })
-      .attr("width", Number(15))
+      .attr("x", function(d) { return me.chartProps.x(d.pps) - 15; })
+      .attr("width", Number(30))
       .attr("y", function(d) { return me.chartProps.y2(d.shareCount); })
       .attr("height", function(d) { return height - me.chartProps.y2(d.shareCount); });
+
+    svg.append('path')
+      .datum(this.volumeData.sort(function (a, b) {
+        return a.pps - b.pps;
+      }))
+      .attr('fill', 'none')
+      .attr('stroke', 'red')
+      .attr('stroke-width', 1.5)
+      .attr('id', 'bidLine')
+      .attr('d', d3.line()
+        .x(function (bid) {
+          return _this.chartProps.x(Number(bid.pps));
+        })
+        .y(function (bid) {
+          return _this.chartProps.y2(Number(bid.shareCount));
+        })
+        .curve(d3.curveLinear)
+      );
 
 
     // Add the valueline path.
@@ -176,7 +196,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('x1', this.chartProps.x(this.auction.currentStrikePrice))
       .style('fill', 'none')
       .attr('x2', this.chartProps.x(this.auction.currentStrikePrice))
-      .attr('y1', 0)
+      .attr('y1',  0)
       .attr('y2', height);
   }
 
