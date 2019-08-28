@@ -16,7 +16,10 @@
 
 
  <div class="col-md-12">
-  <span><h3 style="text-align: center;">Current Strike Price: {{auction.currentStrikePrice | currency: 'USD'}}</h3></span>
+  <span><h3 style="text-align: center;">Current Strike Price: <b *ngIf="auction.reserveMet">{{auction.currentStrikePrice | currency: 'USD'}}</b> <b #hiddenStrikePrice *ngIf="!auction.reserveMet" (mouseover)="showInfoPopup(strikePricePopup)" (mouseleave)="hideInfoPopup(strikePricePopup)">?</b></h3></span>
+</div>
+<div #strikePricePopup id="strikePricePopup" style="display: none" class="container">
+  You won't see the strike price until the reserve is met! (This is to keep everyone honest)
 </div>
 </div>
 <div class="row" style="margin-top: 10px !important; ">
@@ -26,10 +29,12 @@
      <span><b style="margin-right: 5px;">Shares Offered:</b> {{auction.sharesOffered}}</span>
    </div>
    <div class="col-md-6" >
-     <span><b>Reserve Price: </b>
-       <!-- <fa-icon size="lg" [styles]="{'stroke': 'green', 'color': 'green'}" icon="check" *ngIf="auction.reserveMet" ></fa-icon>
-       <fa-icon size="lg" *ngIf="!auction.reserveMet" icon="times" id="reserveNotMet" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon> -->
+     <!-- <span><b>Reserve Price: </b>
        {{auction.reserve.pps | currency: USD}}
+     </span> -->
+     <span>
+       <b>Unique Bidders: </b>
+       {{auction.uniqueBidders}}
      </span>
    </div>
    </div>

@@ -14,6 +14,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class AuctionDetailsComponent implements OnInit {
   @ViewChild('timer', {static: false}) timer: ElementRef;
+  @ViewChild('strikePricePopup', {static: false}) strikePricePopup: ElementRef;
   @Input() auction: Auction;
   @Output() bidPlaced = new EventEmitter();
   currentUser: User;
@@ -37,6 +38,18 @@ export class AuctionDetailsComponent implements OnInit {
       me.timeBetweenDates(me.auction.time);
     }, 1000);
     
+  }
+
+  showInfoPopup(el){
+    el.style.display = "block";
+    el.style.backgroundColor = "pink";
+    el.style.border = "1px dashed black";
+    el.style.margin = "5px";
+    console.log(el);
+  }
+
+  hideInfoPopup(el){
+    el.style.display = "none";
   }
 
  timeBetweenDates(end: Date): void {
