@@ -19,7 +19,7 @@
   <span><h3 style="text-align: center;">Current Strike Price: <b *ngIf="auction.reserveMet">{{auction.currentStrikePrice | currency: 'USD'}}</b> <b #hiddenStrikePrice *ngIf="!auction.reserveMet" (mouseover)="showInfoPopup(strikePricePopup)" (mouseleave)="hideInfoPopup(strikePricePopup)">?</b></h3></span>
 </div>
 <div #strikePricePopup id="strikePricePopup" style="display: none" class="container">
-  You won't see the strike price until the reserve is met! (This is to keep everyone honest)
+  You won't see the strike price until the reserve is met!
 </div>
 </div>
 <div class="row" style="margin-top: 10px !important; ">

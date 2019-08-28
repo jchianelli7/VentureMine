@@ -111,6 +111,8 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', `translate(0,${height})`)
+      .style('stroke', 'white')
+      .style('fill', 'white')
       .call(xAxis);
 
     // Add the Y Axis
@@ -122,6 +124,8 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     svg.append('g')
       .attr('transform', 'translate(' + width + ' ,0)')
       .attr('class', 'y2 axis')
+      .style('fill', 'white')
+      .style('stroke', 'white')
       .call(yAxis2);
 
 
@@ -134,6 +138,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('y', height + 25)
       .style('text-anchor', 'middle')
       .style('font-weight', 'bold')
+      .style('fill', 'white')
       .attr('dy', '1em')
       .text('Price Per Share ($)');
 
@@ -144,6 +149,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('text-anchor', 'middle')
       .style('font-weight', 'bold')
       .attr('dy', '1em')
+      .style('fill', 'white')
       .text('Volume');
 
   
@@ -191,7 +197,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           let c;
           console.log(d);
           if (d[0].pps >= me.auction.currentStrikePrice) {
-            c = "green";
+            c = "lightgreen";
           } else {
             c = "darkgray";
           }
@@ -205,12 +211,12 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
             .style('opacity', .6)
             .style("fill", c)
             .attr('d', volumeArea)
-            .on('mouseover', function(d, i) {
-              console.log("Mouseover on ", this);
-              d3.select(this)
-              .transition()
-              .attr('fill', 'pink')
-            })
+            // .on('mouseover', function(d, i) {
+            //   console.log("Mouseover on ", this);
+            //   d3.select(this)
+            //   .transition()
+            //   .attr('fill', 'pink')
+            // })
         });
 
       } else{

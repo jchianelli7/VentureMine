@@ -45,7 +45,6 @@ export class AuctionDetailsComponent implements OnInit {
     el.style.backgroundColor = "pink";
     el.style.border = "1px dashed black";
     el.style.margin = "5px";
-    console.log(el);
   }
 
   hideInfoPopup(el){

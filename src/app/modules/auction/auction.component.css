@@ -21,6 +21,7 @@ div#auctionContainer{
   width: 100%;
   height: 100%;
   padding: 0 25px;
+  background-color: #252E36;
   /* background-color: #4B535E; */
   /* padding-top: none;  */
 }
