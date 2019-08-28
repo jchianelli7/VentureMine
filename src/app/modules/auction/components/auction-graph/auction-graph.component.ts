@@ -31,6 +31,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
   private svgElement: HTMLElement;
   private chartProps: any;
+  private showStrikePrice: boolean = false;
 
   constructor(private auctionService: AuctionService) {
 
@@ -69,12 +70,13 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.y2 = d3.scaleLinear().range([height, 0]);        // TODO: Manipulate this to look good AND COLOR CODE AXIS & DATA POINTS/LINES TO MATCH
 
     // Define the axes
-    const xAxis = d3.axisBottom(this.chartProps.x).ticks(20);
+    const xAxis = d3.axisBottom(this.chartProps.x).ticks(30);
     // const yAxis = d3.axisLeft(this.chartProps.y).ticks(10);
-    const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(20);
+    const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(10);
 
     const _this = this;
     const me = this;
+    
 
 
     const div = d3.select('body').append('div')
@@ -95,7 +97,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     // this.chartProps.x.domain(d3.extent(this.auction.bids, function(d){ return d.pps}));
     this.chartProps.x.domain([0, d3.max(this.auction.volumeData, function (d) { return d.pps })]);
     this.chartProps.y.domain([0, d3.max(this.auction.bids, function (d) { return d.numShares })]);
-    this.chartProps.y2.domain([0, d3.max(this.volumeData, function (d) { return d.shareCount })])
+    this.chartProps.y2.domain([0, d3.max(this.auction.volumeData, function (d) { return d.shareCount })])
 
     const volumeArea = d3.area()
       .x(function (b) { return _this.chartProps.x(Number(b.pps)); })
@@ -123,23 +125,10 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .call(yAxis2);
 
 
-
-
     // Setting the required objects in chartProps so they could be used to update the chart
     this.chartProps.svg = svg;
 
-    // text label for the y axis
-
-    // svg.append('text')
-    //   .attr('transform', 'rotate(-90)')
-    //   .attr('y', 0 - margin.left)
-    //   .attr('x', 0 - (height / 2))
-    //   .attr('dy', '1em')
-    //   .style('font-weight', 'bold')
-    //   .style('color', 'black')
-    //   .style('text-anchor', 'middle')
-    //   .text('# of Shares');
-
+    /* Text Labels For Axis' */
     svg.append('text')
       .attr('x', (width / 2))
       .attr('y', height + 25)
@@ -157,21 +146,13 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('dy', '1em')
       .text('Volume');
 
-    //   svg.selectAll(".bar")
-    //   .data(this.auction.volumeData)
-    // .enter().append("rect")
-    //   .attr("class", "bar")
-    //   .attr("x", function(d) { return me.chartProps.x(d.pps) - 15; })
-    //   .attr("width", Number(30))
-    //   .attr("y", function(d) { return me.chartProps.y2(d.shareCount); })
-    //   .attr("height", function(d) { return height - me.chartProps.y2(d.shareCount); });
-
+  
     svg.append('path')
       .datum(this.volumeData.sort(function (a, b) {
         return a.pps - b.pps;
       }))
       .attr('fill', 'none')
-      .attr('stroke', 'red')
+      .attr('stroke', 'darkgray')
       .attr('stroke-width', 1.5)
       .attr('id', 'bidLine')
       .attr('d', d3.line()
@@ -182,18 +163,12 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           return _this.chartProps.y2(Number(bid.shareCount));
         })
         .curve(d3.curveMonotoneX)
-      
       );
 
-      // svg.selectAll("dot")
-      //   .data(this.auction.volumeData)
-      // .enter().append("circle")
-      //   .style('fill', 'black')
-      //   .attr("r", 5)
-      //   .attr("cx", function(d) { return me.chartProps.x(d.pps); })
-      //   .attr("cy", function(d) { return me.chartProps.y2(d.shareCount); });
 
+    if(this.auction.reserveMet){
 
+    
         var data = [];
         data.push([]);
         data.push([]);
@@ -230,9 +205,26 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
             .style('opacity', .6)
             .style("fill", c)
             .attr('d', volumeArea)
+            .on('mouseover', function(d, i) {
+              console.log("Mouseover on ", this);
+              d3.select(this)
+              .transition()
+              .attr('fill', 'pink')
+            })
         });
 
+      } else{
+        svg.append('path')
+            .datum(this.auction.volumeData)
+            .attr("class", "area")
+            .attr("stroke", "gray")
+            .style('opacity', .6)
+            .style("fill", "gray")
+            .attr('d', volumeArea)
+      }
+
     // Add the valueline path.
+    if(this.auction.reserveMet){
     svg.append('line')
       .attr('class', 'line strikePriceLine')
       .style('stroke', 'red')
@@ -245,7 +237,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('y1',  0)
       .attr('y2', height);
   }
-
+}
 
 
 

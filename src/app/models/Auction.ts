@@ -16,6 +16,7 @@ export class Auction {
   currentBids: number;
   showReserve: boolean;
   reservePrice: number;               // Minimum PPS for auction to be valid
+  reserve: {};
   reserveMet: boolean;
   uniqueBidders: number;
   time: Date;
