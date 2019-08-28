@@ -253,6 +253,14 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('y1',  0)
       .attr('y2', height);
   }
+
+  svg.selectAll("dot")
+        .data(this.auction.volumeData)
+      .enter().append("circle")
+        .style('fill', 'lightgray')
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return me.chartProps.x(d.pps); })
+        .attr("cy", function(d) { return me.chartProps.y2(d.shareCount); });
 }
 
 
