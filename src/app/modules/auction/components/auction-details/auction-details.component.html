@@ -29,7 +29,7 @@
      <span><b>Reserve Price: </b>
        <!-- <fa-icon size="lg" [styles]="{'stroke': 'green', 'color': 'green'}" icon="check" *ngIf="auction.reserveMet" ></fa-icon>
        <fa-icon size="lg" *ngIf="!auction.reserveMet" icon="times" id="reserveNotMet" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon> -->
-       {{auction.reservePrice | currency: USD}}
+       {{auction.reserve.pps | currency: USD}}
      </span>
    </div>
    </div>
