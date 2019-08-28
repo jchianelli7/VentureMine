@@ -1,117 +1,124 @@
 <div class="container-fluid" id="auctionContainer">
-  <h2 style="text-align:center; margin: 0 !important;" *ngIf="auction">{{auction.title}}</h2><br>
+	<h2 style="text-align:center; margin: 0 !important; color: white;" *ngIf="auction">{{auction.title}}</h2><br>
 
-  <div class="row" id="graphRow">
-    <div class="col-md-9">
-      <app-auction-graph *ngIf="auction" [(auction)]="auction" [volumeData]="auction.volumeData" [bids]="auction.bids"></app-auction-graph>
-    </div>
-    <div class="col-md-3" id="placeBid">
-        <div class="row sidePanel">
-            <div class="col col-lg-12">
-              <app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">
-              </app-auction-details>
-            </div>
-
-          </div>
-      <div class="row sidePanel">
-        <div class="col col-lg-12" id="bidDiv">
-          <h3 style="text-align: center; color: black;  margin-top: 0 !important;">Place a Bid</h3>
-          <app-auction-bid *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)"></app-auction-bid>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <div class="row" style="border-top:50px solid #343a40!important; margin-bottom: 40px; width: 100%;">
-
-  </div>
-  <div class="row"  *ngIf="auction">
-    <div class="col-lg-8">
-        <div class="container">
-			      <div class="row" id="quickStats">
-			        <div class="col-sm-3">
-			          <div class="text-block">
-			            <h5>
-			              Total Comitted Capital
-			            </h5>
-			          </div>
-
-			          <hr class="hr-solid hr-primary" style="border-top:1px solid; opacity: 0.25;">
-
-			          <div class="text-block">
-			            <h3>
-			              {{auction.currentCommittedCapital | currency: USD}}
-			            </h3>
-			          </div>
-			        </div>
-
-			        <div class="col-sm-3">
-			          <div class="text-block">
-			            <h5>
-			              Shares Offered
-			            </h5>
-			          </div>
-
-			          <hr class="hr-solid hr-primary" style="border-top:1px solid; opacity: 0.25;">
-
-			          <div class="text-block">
-			            <h3>
-			              {{auction.sharesOffered}}
-			            </h3>
-			          </div>
-			        </div>
-
-			        <div class="col-sm-3">
-			          <div class="text-block">
-			            <h5>
-			              Current Strike Price
-			            </h5>
-			          </div>
-
-			          <hr class="hr-solid hr-primary" style="border-top: 1px solid black; border-top-width: 1px; opacity: 0.25;">
-
-			          <div class="text-block">
-			            <h3>
-			              {{auction.currentStrikePrice | currency: USD}}/share
-			            </h3>
-			          </div>
-			        </div>
-
-			        <div class="col-sm-3">
-			          <div class="text-block">
-			            <h5>
-			              Reserve Met?
-			            </h5>
-			          </div>
-
-			          <hr class="hr-solid hr-primary" style="border-top:1px solid; opacity: 0.25;">
-
-			          <div class="text-block">
-			            <h3>
-                      <fa-icon size="2x" [styles]="{'stroke': 'green', 'color': 'green'}" icon="check" *ngIf="auction.reserveMet" ></fa-icon>
-                      <fa-icon size="2x" *ngIf="!auction.reserveMet" icon="times" id="reserveNotMet" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
-			            </h3>
-			          </div>
-			        </div>
-			      </div>
+	<div class="row" id="graphRow">
+		<div class="col-md-9">
+			<app-auction-graph *ngIf="auction" [(auction)]="auction" [volumeData]="auction.volumeData"
+				[bids]="auction.bids"></app-auction-graph>
 		</div>
-		<div class="row">
-			<div class="container-fluid">
-				<div class="col-lg-8">
-					<app-company-details></app-company-details>
-					<button class="btn btn-primary" (click)="simulateBids(auction._id)" style="margin-bottom: 10px;">Simulate Bidding</button>
-<br>
-<button class="btn btn-primary" (click)="resetBids(auction._id)">Clear Bids</button>
+		<div class="col-md-3" id="placeBid">
+			<div class="row sidePanel">
+				<div class="col col-lg-12">
+					<app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">
+					</app-auction-details>
+				</div>
+
+			</div>
+			<div class="row sidePanel">
+				<div class="col col-lg-12" id="bidDiv">
+					<h3 style="text-align: center; color: white;  margin-top: 0 !important;">Place a Bid</h3>
+					<app-auction-bid *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">
+					</app-auction-bid>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="row" style="border-top:50px solid #343a40!important; margin-bottom: 40px; width: 100%;">
+
+	</div>
+	<div class="row" *ngIf="auction">
+		<div class="col-lg-8">
+			<div class="container">
+				<div class="row" id="quickStats">
+					<div class="col-sm-3">
+						<div class="text-block">
+							<h5 style="color: #007bff">
+								Total Comitted Capital
+							</h5>
+						</div>
+
+						<hr class="hr-solid hr-primary"
+							style="border-top: 1px solid white; border-top-width: 1px; opacity: 0.25;">
+
+						<div class="text-block">
+							<h3>
+								{{auction.currentCommittedCapital | currency: USD}}
+							</h3>
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="text-block">
+							<h5 style="color: #007bff">
+								Shares Offered
+							</h5>
+						</div>
+
+						<!-- <hr class="hr-solid hr-primary" style="border-top:1px solid; opacity: 0.25;"> -->
+						<hr class="hr-solid hr-primary"
+							style="border-top: 1px solid white; border-top-width: 1px; opacity: 0.25;">
+
+						<div class="text-block">
+							<h3>
+								{{auction.sharesOffered}}
+							</h3>
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="text-block">
+							<h5 style="color: #007bff">
+								Current Strike Price
+							</h5>
+						</div>
+
+						<hr class="hr-solid hr-primary"
+							style="border-top: 1px solid white; border-top-width: 1px; opacity: 0.25;">
+
+						<div class="text-block">
+							<h3>
+								{{auction.currentStrikePrice | currency: USD}}/share
+							</h3>
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="text-block">
+							<h5 style="color: #007bff">
+								Reserve Met?
+							</h5>
+						</div>
+
+						<hr class="hr-solid hr-primary"
+							style="border-top: 1px solid white; border-top-width: 1px; opacity: 0.25;">
+
+						<div class="text-block">
+							<h3>
+								<fa-icon size="2x" [styles]="{'stroke': 'green', 'color': 'green'}" icon="check"
+									*ngIf="auction.reserveMet"></fa-icon>
+								<fa-icon size="2x" *ngIf="!auction.reserveMet" icon="times" id="reserveNotMet"
+									[styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
+							</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="container-fluid">
+					<div class="col-lg-8">
+						<app-company-details></app-company-details>
+						<button class="btn btn-primary" (click)="simulateBids(auction._id)"
+							style="margin-bottom: 10px;">Simulate Bidding</button>
+						<br>
+						<button class="btn btn-primary" (click)="resetBids(auction._id)">Clear Bids</button>
+					</div>
 				</div>
 			</div>
 		</div>
-    </div>
-    <div class="col-lg-4" id="auctionDetails">
-      <app-auction-bid-list *ngIf="auction" [auction]="auction" [bids]="auction.bids"></app-auction-bid-list>
-    </div>
+		<div class="col-lg-4" id="auctionDetails">
+			<app-auction-bid-list *ngIf="auction" [auction]="auction" [bids]="auction.bids"></app-auction-bid-list>
+		</div>
 
-  </div>
+	</div>
 </div>
-<!-- <button class="btn btn-primary" (click)="simulateBids(auction._id)" style="margin-bottom: 10px;">Simulate Bidding</button>
-<br>
-<button class="btn btn-primary" (click)="resetBids(auction._id)">Clear Bids</button> -->

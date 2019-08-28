@@ -2,21 +2,21 @@
     <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
 </head> -->
 <!-- <div style="back<div class="col-md-12" style="line-height: 300px; height: 300px; margin-top: 30px;">ground-color:lightsteelblue; border: 1px black solid;"> -->
-  <h2 style="text-align: center;" *ngIf="!timerDone">Auction Ends:</h2>
-  <h2 style="text-align: center;" *ngIf="timerDone">Auction Ended!</h2>
+  <h2 style="text-align: center; color: white;" *ngIf="!timerDone">Auction Ends:</h2>
+  <h2 style="text-align: center; color: white;" *ngIf="timerDone">Auction Ended!</h2>
 <!-- </div> -->
-<div #timer id="timer">
-  <span id="days"></span>days
-  <span  id="hours"></span>hours 
-  <span id="minutes"></span>minutes
-  <span id="seconds"></span>seconds
+<div #timer id="timer" style="color: white;">
+  <span id="days" class="timer"></span>days
+  <span id="hours" class="timer"></span>hours 
+  <span id="minutes" class="timer"></span>minutes
+  <span id="seconds" class="timer"></span>seconds
 </div>
-<hr class="hr-solid hr-primary" style="border-top: 1px solid black; border-top-width: 1px; opacity: 0.25;">
+<hr class="hr-solid hr-primary" style="border-top: 1px solid lightgreen; border-top-width: 1px; opacity: 0.25;">
 <div class="row" style="margin-top: 15px !important; ">
 
 
  <div class="col-md-12">
-  <span><h3 style="text-align: center;">Current Strike Price: <b *ngIf="auction.reserveMet">{{auction.currentStrikePrice | currency: 'USD'}}</b> <b #hiddenStrikePrice *ngIf="!auction.reserveMet" (mouseover)="showInfoPopup(strikePricePopup)" (mouseleave)="hideInfoPopup(strikePricePopup)">?</b></h3></span>
+  <span><h3 style="text-align: center; color: white;">Current Strike Price: <b *ngIf="auction.reserveMet" style="color: lightgreen;">{{auction.currentStrikePrice | currency: 'USD'}}</b> <b #hiddenStrikePrice *ngIf="!auction.reserveMet" (mouseover)="showInfoPopup(strikePricePopup)" (mouseleave)="hideInfoPopup(strikePricePopup)">?</b></h3></span>
 </div>
 <div #strikePricePopup id="strikePricePopup" style="display: none" class="container">
   You won't see the strike price until the reserve is met!
@@ -26,14 +26,14 @@
 
 
     <div class="col-md-6">
-     <span><b style="margin-right: 5px;">Shares Offered:</b> {{auction.sharesOffered}}</span>
+     <span style="color: white;"><b style="margin-right: 5px; color:#007bff;">Shares Offered:</b> {{auction.sharesOffered}}</span>
    </div>
    <div class="col-md-6" >
      <!-- <span><b>Reserve Price: </b>
        {{auction.reserve.pps | currency: USD}}
      </span> -->
-     <span>
-       <b>Unique Bidders: </b>
+     <span style="color: white">
+       <b style="color: #007bff;">Unique Bidders: </b>
        {{auction.uniqueBidders}}
      </span>
    </div>
