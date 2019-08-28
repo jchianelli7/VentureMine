@@ -211,12 +211,22 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
             .style('opacity', .6)
             .style("fill", c)
             .attr('d', volumeArea)
-            // .on('mouseover', function(d, i) {
-            //   console.log("Mouseover on ", this);
-            //   d3.select(this)
-            //   .transition()
-            //   .attr('fill', 'pink')
-            // })
+            .on("mouseover", function(d) {
+              div.transition()
+                .duration(200)
+                .style("opacity", .9);
+              div.html("Unique Bidders : " + me.auction.uniqueBidders + "<br/>" )
+                .style("left", (d3.event.pageX) + "px")
+                .style('width', '150px')
+                .style('height', '25px')
+                .style("top", (d3.event.pageY) + "px");
+              })
+            .on("mouseout", function(d) {
+              div.transition()
+                .duration(500)
+                .style("opacity", 0);
+              });
+       
         });
 
       } else{
