@@ -180,7 +180,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
         data.forEach(function(d) {
           let c;
-          console.log(d);
+          // console.log(d);
           if (d[0].pps >= me.auction.currentStrikePrice) {
             c = 'lightgreen';
           } else {
@@ -189,31 +189,6 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
           if (d[0].pps === me.auction.currentStrikePrice) {
             // c = 'darkgray';
           }
-
-
-          // svg.append('path')
-          //   .datum(d)
-          //   .attr('class', 'area')
-          //   .attr('stroke', c)
-          //   .style('opacity', .6)
-          //   .style('fill', c)
-          //   .attr('d', volumeArea)
-          //   .on('mouseover', function(d) {
-          //     div.transition()
-          //       .duration(200)
-          //       .style('opacity', .9);
-          //     div.html('Unique Bidders : ' + me.auction.uniqueBidders + '<br/>' )
-          //       .style('left', (d3.event.pageX) + 'px')
-          //       .style('width', '150px')
-          //       .style('height', '25px')
-          //       .style('top', (d3.event.pageY) + 'px');
-          //     })
-          //   .on('mouseout', function(d) {
-          //     div.transition()
-          //       .duration(500)
-          //       .style('opacity', 0);
-          //     });
-
         });
 
       } else {
@@ -231,6 +206,10 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .data(this.auction.volumeData)
       .enter().append('rect')
       .attr('class', 'bar')
+      .attr('fill', function (d) {
+        console.log(d);
+        return d.pps >= me.auction.currentStrikePrice ? 'green' : null;
+      })
       .attr('x', function (d) {
         return me.chartProps.x(d.pps) - 15 / 2;
       })
