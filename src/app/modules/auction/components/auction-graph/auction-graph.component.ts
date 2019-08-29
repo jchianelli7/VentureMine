@@ -31,7 +31,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
   private svgElement: HTMLElement;
   private chartProps: any;
-  private showStrikePrice: boolean = false;
+  private showStrikePrice = false;
 
   constructor(private auctionService: AuctionService) {
 
@@ -70,13 +70,13 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.y2 = d3.scaleLinear().range([height, 0]);        // TODO: Manipulate this to look good AND COLOR CODE AXIS & DATA POINTS/LINES TO MATCH
 
     // Define the axes
-    const xAxis = d3.axisBottom(this.chartProps.x).ticks(30);
+    const xAxis = d3.axisBottom(this.chartProps.x).ticks(10);
     // const yAxis = d3.axisLeft(this.chartProps.y).ticks(10);
     const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(10);
 
     const _this = this;
     const me = this;
-    
+
 
 
     const div = d3.select('body').append('div')
@@ -84,8 +84,8 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('opacity', 0);
 
     const svg = d3.select(this.chartElement.nativeElement)
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
       .append('svg')
       .style('fill', 'steelblue')
       .attr('width', width + margin.left + margin.right)
@@ -95,14 +95,14 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
 
     // this.chartProps.x.domain(d3.extent(this.auction.bids, function(d){ return d.pps}));
-    this.chartProps.x.domain([0, d3.max(this.auction.volumeData, function (d) { return d.pps })]);
-    this.chartProps.y.domain([0, d3.max(this.auction.bids, function (d) { return d.numShares })]);
-    this.chartProps.y2.domain([0, d3.max(this.auction.volumeData, function (d) { return d.shareCount })])
+    this.chartProps.x.domain([0, d3.max(this.auction.volumeData, function(d) { return d.pps; })]);
+    this.chartProps.y.domain([0, d3.max(this.auction.bids, function(d) { return d.numShares; })]);
+    this.chartProps.y2.domain([0, d3.max(this.auction.volumeData, function(d) { return d.shareCount; })]);
 
     const volumeArea = d3.area()
-      .x(function (b) { return _this.chartProps.x(Number(b.pps)); })
+      .x(function(b) { return _this.chartProps.x(Number(b.pps)); })
       .y0(height)
-      .y1(function (b) { return _this.chartProps.y2(Number(b.shareCount)) })
+      .y1(function(b) { return _this.chartProps.y2(Number(b.shareCount)); })
       .curve(d3.curveMonotoneX);
 
 
@@ -152,95 +152,87 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('fill', 'white')
       .text('Volume');
 
-  
-    svg.append('path')
-      .datum(this.volumeData.sort(function (a, b) {
-        return a.pps - b.pps;
-      }))
-      .attr('fill', 'none')
-      .attr('stroke', 'darkgray')
-      .attr('stroke-width', 1.5)
-      .attr('id', 'bidLine')
-      .attr('d', d3.line()
-        .x(function (bid) {
-          return _this.chartProps.x(Number(bid.pps));
-        })
-        .y(function (bid) {
-          return _this.chartProps.y2(Number(bid.shareCount));
-        })
-        .curve(d3.curveMonotoneX)
-      );
 
 
-    if(this.auction.reserveMet){
+    //
+    // if (this.auction.reserveMet) {
+    //
+    //
+    //     let data = [];
+    //     data.push([]);
+    //     data.push([]);
+    //     this.auction.volumeData.sort(function(a, b) {
+    //       return b.pps - a.pps;
+    //     });
+    //
+    //     this.auction.volumeData.forEach(function(d) {
+    //       if (d.pps >= me.auction.currentStrikePrice) {
+    //         data[1].push(d);
+    //         if (d.pps === me.auction.currentStrikePrice) {
+    //           data[0].push(d);
+    //         }
+    //       } else {
+    //         data[0].push(d);
+    //       }
+    //     });
+    //
+    //     data.forEach(function(d) {
+    //       let c;
+    //       console.log(d);
+    //       if (d[0].pps >= me.auction.currentStrikePrice) {
+    //         c = 'lightgreen';
+    //       } else {
+    //         c = 'darkgray';
+    //       }
+    //       if (d[0].pps === me.auction.currentStrikePrice) {
+    //         c = 'darkgray';
+    //       }
+    //       svg.append('path')
+    //         .datum(d)
+    //         .attr('class', 'area')
+    //         .attr('stroke', c)
+    //         .style('opacity', .6)
+    //         .style('fill', c)
+    //         .attr('d', volumeArea)
+    //         .on('mouseover', function(d) {
+    //           div.transition()
+    //             .duration(200)
+    //             .style('opacity', .9);
+    //           div.html('Unique Bidders : ' + me.auction.uniqueBidders + '<br/>' )
+    //             .style('left', (d3.event.pageX) + 'px')
+    //             .style('width', '150px')
+    //             .style('height', '25px')
+    //             .style('top', (d3.event.pageY) + 'px');
+    //           })
+    //         .on('mouseout', function(d) {
+    //           div.transition()
+    //             .duration(500)
+    //             .style('opacity', 0);
+    //           });
+    //
+    //     });
+    //
+    //   } else {
+    //     svg.append('path')
+    //         .datum(this.auction.volumeData)
+    //         .attr('class', 'area')
+    //         .attr('stroke', 'gray')
+    //         .style('opacity', .6)
+    //         .style('fill', 'gray')
+    //         .attr('d', volumeArea);
+    //   }
 
-    
-        var data = [];
-        data.push([]);
-        data.push([]);
-        this.auction.volumeData.sort(function (a, b) {
-          return b.pps - a.pps;
-        });
-    
-        this.auction.volumeData.forEach(function (d) {
-          if (d.pps >= me.auction.currentStrikePrice) {
-            data[1].push(d);
-            if (d.pps === me.auction.currentStrikePrice) {
-              data[0].push(d);
-            }
-          } else {
-            data[0].push(d);
-          }
-        })
-    
-        data.forEach(function (d) {
-          let c;
-          console.log(d);
-          if (d[0].pps >= me.auction.currentStrikePrice) {
-            c = "lightgreen";
-          } else {
-            c = "darkgray";
-          }
-          if (d[0].pps === me.auction.currentStrikePrice) {
-            c = "darkgray"
-          }
-          svg.append('path')
-            .datum(d)
-            .attr("class", "area")
-            .attr("stroke", c)
-            .style('opacity', .6)
-            .style("fill", c)
-            .attr('d', volumeArea)
-            .on("mouseover", function(d) {
-              div.transition()
-                .duration(200)
-                .style("opacity", .9);
-              div.html("Unique Bidders : " + me.auction.uniqueBidders + "<br/>" )
-                .style("left", (d3.event.pageX) + "px")
-                .style('width', '150px')
-                .style('height', '25px')
-                .style("top", (d3.event.pageY) + "px");
-              })
-            .on("mouseout", function(d) {
-              div.transition()
-                .duration(500)
-                .style("opacity", 0);
-              });
-       
-        });
-
-      } else{
-        svg.append('path')
-            .datum(this.auction.volumeData)
-            .attr("class", "area")
-            .attr("stroke", "gray")
-            .style('opacity', .6)
-            .style("fill", "gray")
-            .attr('d', volumeArea)
-      }
+    svg.selectAll('.bar')
+      .data(this.auction.volumeData)
+      .enter().append('rect')
+      .attr('class', 'bar')
+      .attr('x', function(d) { return me.chartProps.x(d.pps) - 15 / 2; })
+      .attr('width', Number(15))
+      .attr('y', function(d) { return me.chartProps.y2(d.shareCount); })
+      .attr('height', function(d) { return height - me.chartProps.y2(d.shareCount); });
 
     // Add the valueline path.
-    if(this.auction.reserveMet){
+    if (this.auction.reserveMet) {
     svg.append('line')
       .attr('class', 'line strikePriceLine')
       .style('stroke', 'red')
@@ -253,21 +245,40 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('y1',  0)
       .attr('y2', height);
   }
+    //
+    // svg.selectAll('dot')
+    //     .data(this.auction.volumeData)
+    //   .enter().append('circle')
+    //     .style('fill', 'lightgray')
+    //     .attr('r', 3.5)
+    //     .attr('cx', function(d) { return me.chartProps.x(d.pps); })
+    //     .attr('cy', function(d) { return me.chartProps.y2(d.shareCount); });
 
-  svg.selectAll("dot")
-        .data(this.auction.volumeData)
-      .enter().append("circle")
-        .style('fill', 'lightgray')
-        .attr("r", 3.5)
-        .attr("cx", function(d) { return me.chartProps.x(d.pps); })
-        .attr("cy", function(d) { return me.chartProps.y2(d.shareCount); });
-}
+    // svg.append('path')
+    //   .datum(this.volumeData.sort(function(a, b) {
+    //     return a.pps - b.pps;
+    //   }))
+    //   .attr('fill', 'none')
+    //   .attr('stroke', 'darkgray')
+    //   .attr('stroke-width', 1.5)
+    //   .attr('id', 'bidLine')
+    //   .attr('d', d3.line()
+    //     .x(function(bid) {
+    //       return _this.chartProps.x(Number(bid.pps));
+    //     })
+    //     .y(function(bid) {
+    //       return _this.chartProps.y2(Number(bid.shareCount));
+    //     })
+    //     .curve(d3.curveMonotoneX)
+    //   );
+
+  }
 
 
 
   updateChart() {
     const _this = this;
-    d3.selectAll("svg").remove();
+    d3.selectAll('svg').remove();
     this.buildChart();
   }
 
