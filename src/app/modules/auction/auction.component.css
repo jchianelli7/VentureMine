@@ -49,6 +49,7 @@ div#graphRow {
   padding: 15px;
   height: 100%;
   border: 1px solid black;
+  width: 60%;
 }
 
 div .sidePanel{
@@ -61,4 +62,10 @@ margin-bottom: 50px;
 
 h3, h5 {
   color: white;
+}
+
+div#bidContainer {
+  width: 70%;
+  align-content: center;
+  margin: auto;
 }

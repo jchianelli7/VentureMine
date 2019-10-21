@@ -29,9 +29,9 @@ export class AuctionComponent implements OnInit, OnDestroy{
 
   constructor(private auctionService: AuctionService, private route: ActivatedRoute, private authService: AuthenticationService) {
     this.auctionService.getAuction(this.route.snapshot.params.id).subscribe(auction => {
-      this.auction = auction;
+      this.auction = auction ;
       this.strikePrice = this.auction.currentStrikePrice;
-      this.bids = this.auction.bids;
+      this.bids = this.auction.bids ;
     });
   }
 

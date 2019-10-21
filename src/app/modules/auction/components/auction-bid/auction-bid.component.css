@@ -3,20 +3,17 @@ button {
     display:block;
     /* margin: auto; */
 }
-/* label {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: inline;
+
+div#ppsDiv {
+  width: 90%;
+  margin: auto;
 }
 
-input {
-    margin-bottom: 5px;
-    width: 75%;
-    display: inline;
-    /* display: flex; */
-    /* display: table; */
-/* } */ 
+div#numSharesDiv {
+  width: 90%;
+  margin: auto;
+}
 
-div.action {
-    /* text-align: center; */
+div#contianer {
+  /*width: 60%;*/
 }

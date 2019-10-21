@@ -69,8 +69,13 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.y = d3.scaleLinear().range([height, 0]);
     this.chartProps.y2 = d3.scaleLinear().range([height, 0]);        // TODO: Manipulate this to look good AND COLOR CODE AXIS & DATA POINTS/LINES TO MATCH
 
+    var xExtent = d3.extent(this.auction.volumeData, function(d) { return d.pps; }),
+      xRange = xExtent[1] - xExtent[0],
+      yExtent = d3.extent(this.auction.volumeData, function(d) { return d.shareCount; }),
+      yRange = yExtent[1] - yExtent[0];
+
     // Define the axes
-    const xAxis = d3.axisBottom(this.chartProps.x).ticks(10);
+    const xAxis = d3.axisBottom(this.chartProps.x).ticks(40);
     // const yAxis = d3.axisLeft(this.chartProps.y).ticks(10);
     const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(10);
 
@@ -94,22 +99,16 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
 
     // this.chartProps.x.domain(d3.extent(this.auction.bids, function(d){ return d.pps}));
-    this.chartProps.x.domain([0, d3.max(this.auction.volumeData, function (d) {
-      return d.pps;
-    })]);
-    this.chartProps.y.domain([0, d3.max(this.auction.bids, function (d) {
-      return d.numShares;
-    })]);
-    this.chartProps.y2.domain([0, d3.max(this.auction.volumeData, function (d) {
-      return d.shareCount;
-    })]);
+    this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
+    this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
+    this.chartProps.y2.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
 
     const volumeArea = d3.area()
-      .x(function (b) {
+      .x(function(b) {
         return _this.chartProps.x(Number(b.pps));
       })
       .y0(height)
-      .y1(function (b) {
+      .y1(function(b) {
         return _this.chartProps.y2(Number(b.shareCount));
       })
       .curve(d3.curveMonotoneX);
@@ -155,69 +154,22 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .style('fill', 'white')
       .text('Volume');
 
-
-
-    if (this.auction.reserveMet) {
-
-
-        let data = [];
-        data.push([]);
-        data.push([]);
-        this.auction.volumeData.sort(function(a, b) {
-          return b.pps - a.pps;
-        });
-
-        this.auction.volumeData.forEach(function(d) {
-          if (d.pps >= me.auction.currentStrikePrice) {
-            data[1].push(d);
-            if (d.pps === me.auction.currentStrikePrice) {
-              data[0].push(d);
-            }
-          } else {
-            data[0].push(d);
-          }
-        });
-
-        data.forEach(function(d) {
-          let c;
-          // console.log(d);
-          if (d[0].pps >= me.auction.currentStrikePrice) {
-            c = 'lightgreen';
-          } else {
-            // c = 'darkgray';
-          }
-          if (d[0].pps === me.auction.currentStrikePrice) {
-            // c = 'darkgray';
-          }
-        });
-
-      } else {
-        // svg.append('path')
-        //     .datum(this.auction.volumeData)
-        //     .attr('class', 'area')
-        //     .attr('stroke', 'gray')
-        //     .style('opacity', .6)
-        //     .style('fill', 'gray')
-        //     .attr('d', volumeArea);
-
-      }
-
     svg.selectAll('.bar')
       .data(this.auction.volumeData)
       .enter().append('rect')
       .attr('class', 'bar')
-      .attr('fill', function (d) {
+      .attr('fill', function(d) {
         console.log(d);
-        return d.pps >= me.auction.currentStrikePrice ? 'green' : null;
+        return ((d.pps >= me.auction.currentStrikePrice) && (me.auction.reserveMet)) ? 'green' : null;
       })
-      .attr('x', function (d) {
+      .attr('x', function(d) {
         return me.chartProps.x(d.pps) - 15 / 2;
       })
       .attr('width', Number(15))
-      .attr('y', function (d) {
+      .attr('y', function(d) {
         return me.chartProps.y2(d.shareCount);
       })
-      .attr('height', function (d) {
+      .attr('height', function(d) {
         return height - me.chartProps.y2(d.shareCount);
       });
 
