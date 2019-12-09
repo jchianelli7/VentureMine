@@ -1,14 +1,14 @@
 import {Component, OnInit, OnDestroy, OnChanges, SimpleChanges} from '@angular/core';
-import { Auction } from 'src/app/models/Auction';
-import { AuctionService } from 'src/app/services/auction-service.service';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { BaseChartDirective } from 'ng2-charts';
+import {Auction} from 'src/app/models/Auction';
+import {AuctionService} from 'src/app/services/auction-service.service';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {BaseChartDirective} from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
-import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
-import { Bid } from 'src/app/models/Bid';
-import { User } from 'src/app/models/User';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import {ChartType, ChartOptions, ChartDataSets} from 'chart.js';
+import {Bid} from 'src/app/models/Bid';
+import {User} from 'src/app/models/User';
+import {AuthenticationService} from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-auction',
@@ -17,29 +17,32 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 
 
-
-export class AuctionComponent implements OnInit, OnDestroy{
+export class AuctionComponent implements OnInit, OnDestroy {
   auction: Auction;
   bids: Bid[];
   strikePrice: number;
   connection;
   currentUser: User;
+  averageBidAmount: number;
 
   private auctionSub: Subscription;
 
   constructor(private auctionService: AuctionService, private route: ActivatedRoute, private authService: AuthenticationService) {
     this.auctionService.getAuction(this.route.snapshot.params.id).subscribe(auction => {
-      this.auction = auction ;
+      this.auction = auction;
       this.strikePrice = this.auction.currentStrikePrice;
-      this.bids = this.auction.bids ;
+      this.bids = this.auction.bids;
+      this.averageBidAmount = this.calculateAverage(this.bids);
     });
+
   }
 
   ngOnInit() {
     this.connection = this.auctionService.getBids(this.route.snapshot.params.id).subscribe(auction => {
-       this.auction = auction;
-       this.strikePrice = auction.currentStrikePrice;
-       this.bids = auction.bids;
+      this.auction = auction;
+      this.strikePrice = auction.currentStrikePrice;
+      this.bids = auction.bids;
+      this.averageBidAmount = this.calculateAverage(this.bids);
     });
 
     if (this.authService.currentUserValue) {
@@ -76,5 +79,13 @@ export class AuctionComponent implements OnInit, OnDestroy{
       }, 900 * (i + 1));
       i++;
     }
+  }
+
+  calculateAverage(bids: Bid[]): number {
+    let total = 0;
+    for (const bid of this.bids) {
+      total += (bid.pps * bid.numShares);
+    }
+    return total / this.bids.length;
   }
 }

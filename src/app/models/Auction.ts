@@ -16,12 +16,13 @@ export class Auction {
   currentBids: number;
   showReserve: boolean;
   reservePrice: number;               // Minimum PPS for auction to be valid
-  reserve: {};
+  // reserve: {};
   reserveMet: boolean;
   uniqueBidders: number;
   time: Date;
   bids: Bid[];
   volumeData: any[];
+  averageBidAmount: number;
 }
 
 // TODO: Graph variables? Or unique object for this
