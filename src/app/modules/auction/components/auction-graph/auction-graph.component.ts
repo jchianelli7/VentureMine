@@ -118,16 +118,16 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', `translate(0,${height})`)
-      .style('stroke', 'white')
-      .style('fill', 'white')
+      .style('stroke', 'black')
+      .style('fill', 'black')
       .call(xAxis);
 
     // Add the y2 Axis
     svg.append('g')
       .attr('transform', 'translate(' + width + ' ,0)')
       .attr('class', 'y2 axis')
-      .style('fill', 'white')
-      .style('stroke', 'white')
+      .style('fill', 'black')
+      .style('stroke', 'black')
       .call(yAxis2);
 
 
@@ -139,7 +139,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('x', (width / 2))
       .attr('y', height + 25)
       .style('text-anchor', 'middle')
-      .style('font-weight', 'bold')
+      // .style('font-weight', 'bold')
       .style('fill', 'white')
       .attr('dy', '1em')
       .text('Price Per Share ($)');
@@ -160,7 +160,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('class', 'bar')
       .attr('fill', function(d) {
         console.log(d);
-        return ((d.pps >= me.auction.currentStrikePrice) && (me.auction.reserveMet)) ? 'green' : null;
+        return ((d.pps >= me.auction.currentStrikePrice) && (me.auction.reserveMet)) ? '#038C3E' : 'darkgrey';
       })
       .attr('x', function(d) {
         return me.chartProps.x(d.pps) - 15 / 2;

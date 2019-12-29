@@ -2,8 +2,9 @@
   <div class="row">
     <div class="col-md-12" style="text-align: center; margin-top:15px;"><h1>Welcome Back {{activeUser.firstName}}!</h1>
     </div>
-    <div class="col-md-6" style="margin-top:15px !important;">
+    <div class="col-md-6" style="margin-top:15px !important;" *ngIf="activeBids && activeUser">
       <h1 style="text-align:center;">My Active Bids</h1>
+      <h1>{{this.activeBids}}</h1>
       <!--      <div class="table-responsive" id="bidList">-->
 
       <!--        <table class="table table-fixed" >-->

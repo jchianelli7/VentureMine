@@ -7,6 +7,7 @@ import {pipe} from 'rxjs/internal/util/pipe';
 import {Socket} from 'ngx-socket-io';
 import {AuthenticationService} from './authentication.service';
 import * as io from 'socket.io-client';
+import {Bid} from "../models/Bid";
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,7 @@ export class AuctionService {
         console.log('Disconnecting');
         this.socket.disconnect();
       };
-     });
+    });
     return observable;
   }
 
@@ -69,6 +70,14 @@ export class AuctionService {
     return this.http.post<Auction>('http://localhost:3000/auctions/' + auctionId + '/clear', {auctionId}).pipe(map(auction => {
       if (auction) {
         return auction;
+      }
+    }));
+  }
+
+  getActiveUserBids(userId: string): Observable<Bid[]> {
+    return this.http.get<Bid[]>('http://localhost:3000/users/' + userId + '/active', {userId}).pipe(map(activeBids => {
+      if (activeBids) {
+        return activeBids;
       }
     }));
   }

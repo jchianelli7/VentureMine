@@ -1,17 +1,17 @@
 <div class="table-responsive" id="bidList">
 
     <table class="table table-fixed" >
-        <thead style="background-color: #343a40 !important;">
-            <tr style="background-color: #343a40 !important;">
+        <thead style="background-color: #038C3E !important;">
+            <tr style="background-color: #038C3E !important;">
                 <th scope="col" style="color: white;">Time</th>
-                <th scope="col" style="color: white;">PPS</th>
+                <th scope="col" style="color: white;">PPS ($)</th>
                 <th scope="col" style="color: white;"># Shares</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let bid of bids.slice().reverse()" [class.my-bid]="bid.ownerId == currentUser._id">
                 <td>{{bid.date | date: 'M/d/yy, h:mm:ss a'}}</td>
-                <td>{{bid.pps}}</td>
+                <td>{{bid.pps | currency:USD}}</td>
                 <td>{{bid.numShares}}</td>
             </tr>
         </tbody>

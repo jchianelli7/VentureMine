@@ -1,15 +1,15 @@
 <head></head>
 <nav *ngIf="currentUser" class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" [routerLink]="['/']">VentureMine</a>
+    <a class="navbar-brand" [routerLink]="['/dashboard']">VentureMine</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="navbar" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a [routerLink]="['/']" class="nav-link" >
+          <a [routerLink]="['/dashboard']" class="nav-link" >
             <i class="fa fa-home"></i>
             Home
             <span class="sr-only">(current)</span>
@@ -28,7 +28,7 @@
 
         </li>
       </ul>
-      
+
         <button class="btn btn-outline-warning my-2 my-sm-0" (click)="logout()">Sign Out</button>
         <h5 style="color: white; padding-left: 30px;">Welcome {{currentUser.username}}</h5>
     </div>
