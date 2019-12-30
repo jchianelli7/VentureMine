@@ -119,14 +119,14 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('class', 'x axis')
       .attr('transform', `translate(0,${height})`)
       .style('stroke', 'black')
-      .style('fill', 'black')
+      .style('fill', 'white')
       .call(xAxis);
 
     // Add the y2 Axis
     svg.append('g')
       .attr('transform', 'translate(' + width + ' ,0)')
       .attr('class', 'y2 axis')
-      .style('fill', 'black')
+      .style('fill', 'white')
       .style('stroke', 'black')
       .call(yAxis2);
 
@@ -184,7 +184,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
         .attr('x1', this.chartProps.x(this.auction.currentStrikePrice))
         .style('fill', 'none')
         .attr('x2', this.chartProps.x(this.auction.currentStrikePrice))
-        .attr('y1', 0)
+        .attr('y1', 2)
         .attr('y2', height);
     }
   }

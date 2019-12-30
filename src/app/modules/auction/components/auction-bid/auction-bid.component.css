@@ -1,6 +1,7 @@
 button {
     margin-top: 15px;
     display:block;
+  background-color: #8CBF3F !important;
     /* margin: auto; */
 }
 
@@ -17,3 +18,5 @@ div#numSharesDiv {
 div#contianer {
   /*width: 60%;*/
 }
+
+

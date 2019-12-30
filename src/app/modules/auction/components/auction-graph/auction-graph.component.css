@@ -19,5 +19,14 @@ div.tooltip {
   }
 
   .tick {
-    color: #038C3E;
+    color: white;
+  }
+
+  line{
+    color: white;
+    width: 1px;
+  }
+
+  #bidDiv{
+    background-color: #F5F5F5;
   }
