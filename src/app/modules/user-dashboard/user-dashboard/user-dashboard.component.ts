@@ -26,7 +26,7 @@ export class UserDashboardComponent implements OnInit {
       this.activeUser = this.authService.currentUserValue;
     }
     this.auctionService.getAuctions().subscribe(auctions => {
-      if (auctions) {
+      if (auctions)  {
         me.auctions = auctions;
       }
       // if (this.activeUser) {

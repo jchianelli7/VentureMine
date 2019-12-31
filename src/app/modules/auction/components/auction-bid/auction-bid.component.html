@@ -1,19 +1,19 @@
-<div class="action" id="contianer">
+<div class="action" id="container">
   <!-- <form> -->
   <div class="input-group mb-2" id="ppsDiv">
     <div class="input-group-prepend">
       <span class="input-group-text">PPS</span>
     </div>
-    <input class="form-control" type="number" id="auctionPPS" placeholder="Price per share" [(ngModel)]="pps">
+    <input class="form-control bidPlace" type="number" id="auctionPPS" placeholder="Price per share" [(ngModel)]="pps">
   </div>
   <div class="input-group mb-2" id="numSharesDiv">
       <div class="input-group-prepend">
         <span class="input-group-text"># Shares</span>
       </div>
-  <input class="form-control" type="number" id="auctionNumShares" placeholder="# of shares" [(ngModel)]="numShares">
+  <input class="form-control bidPlace" type="number" id="auctionNumShares" placeholder="# of shares" [(ngModel)]="numShares">
     </div>
     <div class="input-group">
-  <button class="btn btn-default form-control" type="button" (click)="placeBid(numShares, pps)" style="color:black;">Place Bid</button>
+  <button class="btn" type="button" (click)="placeBid(numShares, pps)" style="color:black; width: 40%;">Place Bid</button>
 </div>
   <!-- </form> -->
 </div>

@@ -2,14 +2,14 @@
     <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
 </head> -->
 <!-- <div style="back<div class="col-md-12" style="line-height: 300px; height: 300px; margin-top: 30px;">ground-color:lightsteelblue; border: 1px black solid;"> -->
-  <h2 style="text-align: center; color: white;" *ngIf="!timerDone">Auction Ends:</h2>
-  <h2 style="text-align: center; color: white;" *ngIf="timerDone">Auction Ended!</h2>
+  <h2 style="text-align: center; color: #038C3E !important;" *ngIf="!timerDone">Auction Ends:</h2>
+  <h2 style="text-align: center; color: #038C3E !important;" *ngIf="timerDone">Auction Ended!</h2>
 <!-- </div> -->
 <div #timer id="timer" style="color: white;">
-  <span id="days" class="timer"></span>days
-  <span id="hours" class="timer"></span>hours 
-  <span id="minutes" class="timer"></span>minutes
-  <span id="seconds" class="timer"></span>seconds
+  <span id="days" class="timer"></span>:
+  <span id="hours" class="timer"></span>:
+  <span id="minutes" class="timer"></span>:
+  <span id="seconds" class="timer"></span>
 </div>
 <hr class="hr-solid hr-primary" style="border-top: 1px solid lightgreen; border-top-width: 1px; opacity: 0.25;">
 <div class="row" style="margin-top: 15px !important; ">

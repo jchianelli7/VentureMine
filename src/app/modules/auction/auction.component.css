@@ -1,72 +1,83 @@
 
-#auctionPPS {
-  margin-right: 10px;
-}
+/*#auctionPPS {*/
+/*  margin-right: 10px;*/
+/*}*/
 
-.auctionRow {
-  margin: 30px;
-}
+/*.auctionRow {*/
+/*  margin: 30px;*/
+/*}*/
 
-#bidList {
-  margin-left: 0px;
-}
+/*#bidList {*/
+/*  margin-left: 0px;*/
+/*}*/
 
-#graphContainer {
-  margin: auto;
-  text-align: center;
-}
+/*#graphContainer {*/
+/*  margin: auto;*/
+/*  text-align: center;*/
+/*}*/
 
+
+/*div#auctionContainer{*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  padding: 25px;*/
+/*  background-color: white;*/
+/*  !*background-color: #252E36;*!*/
+/*  !* background-color: #4B535E; *!*/
+/*  !* padding-top: none;  *!*/
+/*}*/
+
+/*div#placeBid {*/
+
+/*  padding: 15px;*/
+/*  !* align-content:center;*/
+/*  vertical-align: center; *!*/
+/*  height: 275px;*/
+/*  border-left: 3px solid #8CBF3F;*/
+/*}*/
+
+/*.row{*/
+/*  height: 100%;*/
+/*}*/
+
+/*div#graphRow {*/
+/*  height: 600px;*/
+/*}*/
+
+/*#bidDiv {*/
+/*  background-color: white;*/
+/*  padding: 15px;*/
+/*  height: 100%;*/
+/*  border-left: 3px solid #8CBF3F;*/
+/*  !*width: 60%;*!*/
+/*}*/
+
+/*!*div .sidePanel{*!*/
+/*!*margin-bottom: 50px;*!*/
+/*!*}*!*/
+
+/*#quickStats {*/
+/*  text-align: center;*/
+/*}*/
+
+/*h3, h5 {*/
+/*  color: white;*/
+/*}*/
+
+/*div#bidContainer {*/
+/*  width: 70%;*/
+/*  align-content: center;*/
+/*  !*margin: auto;*!*/
+/*}*/
+
+
+div#bidDiv{
+  /*border-left: 3px solid #038C3E;*/
+}
 
 div#auctionContainer{
-  width: 100%;
-  height: 100%;
-  padding: 25px;
-  background-color: white;
-  /*background-color: #252E36;*/
-  /* background-color: #4B535E; */
-  /* padding-top: none;  */
 }
 
-div#placeBid {
-  background-color: #343a40;
-  padding: 15px;
-  /* align-content:center;
-  vertical-align: center; */
-  height: 275px;
-  border: 1px solid  black;
-}
-
-.row{
-  height: 100%;
-}
-
-div#graphRow {
-  height: 600px;
-  margin-bottom: 45px;
-}
-
-#bidDiv {
-  background-color: #343a40;
-  padding: 15px;
-  height: 100%;
-  border: 1px solid black;
-  width: 60%;
-}
-
-div .sidePanel{
-margin-bottom: 50px;
-}
-
-#quickStats {
-  text-align: center;
-}
-
-h3, h5 {
-  color: white;
-}
-
-div#bidContainer {
-  width: 70%;
-  align-content: center;
+div#chart{
   margin: auto;
 }

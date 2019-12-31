@@ -1,2 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+
+
+
+
+.input-group-text{
+  color: white;
+  background-color:#8CBF3F !important;
+}
+
+
+button {
+  margin: auto;
+}

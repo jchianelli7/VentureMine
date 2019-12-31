@@ -2,67 +2,70 @@
 	<h2 style="text-align:center; margin: 0 !important; color: white;" *ngIf="auction">{{auction.title}}</h2><br>
 
 	<div class="row" id="graphRow">
-		<div class="col-md-9">
+		<div class="col-md-7">
 			<app-auction-graph *ngIf="auction" [(auction)]="auction" [volumeData]="auction.volumeData"
 				[bids]="auction.bids"></app-auction-graph>
 		</div>
-		<div class="col-md-3" id="placeBid">
+		<div class="col-md-4" id="placeBid">
 			<div class="row sidePanel">
 				<div class="col col-lg-12">
-					<app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">
-					</app-auction-details>
+<!--					<app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">-->
+<!--					</app-auction-details>-->
 				</div>
 
 			</div>
 			<div class="row sidePanel" id="bidContainer">
 				<div class="col col-lg-12" id="bidDiv">
-					<h3 style="text-align: center; color: white;  margin-top: 0 !important;">Place a Bid</h3>
+					<h3 style="text-align: center; color: #038C3E !important;  margin-bottom: 25px !important;">Place a Bid</h3>
 					<app-auction-bid *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">
 					</app-auction-bid>
+                      <!--          TODO: ENABLE AND DESIGN THIS -->
+<!--          <app-auction-details *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">&ndash;&gt;-->
+<!--            					</app-auction-details>-->
 				</div>
 			</div>
 
 		</div>
 	</div>
-	<div class="row" style="border-top:5px solid #3FBF48 !important; margin-bottom: 20px; width: 100%;">
+<!--	<div class="row" style="border-top:5px solid #3FBF48 !important; margin-bottom: 20px; width: 100%;">-->
 
-	</div>
-	<div class="row" *ngIf="auction">
+<!--	</div>-->
+	<div class="row" *ngIf="auction" style="margin-top: 20px;">
 		<div class="col-lg-8">
 			<div class="container">
 				<div class="row" id="quickStats">
-					<div class="col-sm-3">
+					<div class="col-lg-2">
 						<div class="text-block">
-							<h5 style="color: darkgray">
-								Total Committed Capital
-							</h5>
+							<p style="color: darkgray">
+								Committed Capital
+							</p>
 						</div>
 
-						<hr class="hr-solid hr-primary"
-							style="border-top: 1px solid white; border-top-width: 1px; opacity: 0.25;">
+<!--						<hr class="hr-solid hr-primary"-->
+<!--							style="border-top: 1px solid white; border-top-width: 1px; opacity: 0.25;">-->
 
 						<div class="text-block">
-							<h3>
+							<p style="font-size: 14px;">
 								{{auction.currentCommittedCapital | currency: USD}}
-							</h3>
+							</p>
 						</div>
 					</div>
 
-					<div class="col-sm-3">
+					<div class="col-lg-2">
 						<div class="text-block">
-							<h5 style="color: darkgray">
-								Average Bid Amount ($)
-							</h5>
+							<p style="color: darkgray">
+								Avg. Bid Amount ($)
+							</p>
 						</div>
 
 						<!-- <hr class="hr-solid hr-primary" style="border-top:1px solid; opacity: 0.25;"> -->
-						<hr class="hr-solid hr-primary"
-							style="border-top: 1px solid white; border-top-width: 1px; opacity: 0.25;">
+<!--						<hr class="hr-solid hr-primary"-->
+<!--							style="border-top: 1px solid white; border-top-width: 1px; opacity: 0.25;">-->
 
 						<div class="text-block">
-							<h3>
+							<p>
 								{{this.averageBidAmount | currency: USD}}
-							</h3>
+							</p>
 						</div>
 					</div>
 

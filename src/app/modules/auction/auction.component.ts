@@ -73,7 +73,9 @@ export class AuctionComponent implements OnInit, OnDestroy {
 
     while (i < 120) {
       const randomNumShares = Math.floor(Math.random() * 100) + 25;
-      const randomPPS = Math.floor(Math.random() * 45) + 5;
+      // const randomPPS = Math.floor(Math.random() * 75) + 25;
+      const randomPPS = Math.floor(Math.random() * (75 - 25 + 1)) + 25;;
+      console.log('BID PLACED: \t\t PPS: ' + randomPPS );
       setTimeout(() => {
         this.auctionService.placeBid(this.auction._id, this.currentUser._id, randomPPS, randomNumShares);
       }, 900 * (i + 1));

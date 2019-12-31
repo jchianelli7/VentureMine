@@ -75,7 +75,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       yRange = yExtent[1] - yExtent[0];
 
     // Define the axes
-    const xAxis = d3.axisBottom(this.chartProps.x).ticks(40);
+    const xAxis = d3.axisBottom(this.chartProps.x).ticks(55);
     // const yAxis = d3.axisLeft(this.chartProps.y).ticks(10);
     const yAxis2 = d3.axisRight(this.chartProps.y2).ticks(10);
 
@@ -99,7 +99,8 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
 
     // this.chartProps.x.domain(d3.extent(this.auction.bids, function(d){ return d.pps}));
-    this.chartProps.x.domain([xExtent[0] - (xRange * .05), xExtent[1] + (xRange * .05)]);
+
+    this.chartProps.x.domain([xExtent[0] - (xRange * .05) + 1, xExtent[1] + (xRange * .05) - 1]);
     this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
     this.chartProps.y2.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
 
@@ -140,7 +141,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('y', height + 25)
       .style('text-anchor', 'middle')
       // .style('font-weight', 'bold')
-      .style('fill', 'white')
+      .style('fill', 'black')
       .attr('dy', '1em')
       .text('Price Per Share ($)');
 
@@ -149,9 +150,9 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('x', 255)
       .attr('y', -1 * (width + margin.right + 3))
       .style('text-anchor', 'middle')
-      .style('font-weight', 'bold')
+      // .style('font-weight', 'bold')
       .attr('dy', '1em')
-      .style('fill', 'white')
+      .style('fill', 'black')
       .text('Volume');
 
     svg.selectAll('.bar')
@@ -160,7 +161,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('class', 'bar')
       .attr('fill', function(d) {
         console.log(d);
-        return ((d.pps >= me.auction.currentStrikePrice) && (me.auction.reserveMet)) ? '#038C3E' : 'darkgrey';
+        return ((d.pps >= me.auction.currentStrikePrice) && (me.auction.reserveMet)) ? '#3FBF48' : 'darkgrey';
       })
       .attr('x', function(d) {
         return me.chartProps.x(d.pps) - 15 / 2;
