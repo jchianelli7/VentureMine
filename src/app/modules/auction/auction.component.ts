@@ -9,6 +9,7 @@ import {ChartType, ChartOptions, ChartDataSets} from 'chart.js';
 import {Bid} from 'src/app/models/Bid';
 import {User} from 'src/app/models/User';
 import {AuthenticationService} from 'src/app/services/authentication.service';
+import * as JS from 'src/assets/js/startapp-theme.js';
 
 @Component({
   selector: 'app-auction',
