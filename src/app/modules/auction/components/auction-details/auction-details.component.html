@@ -2,39 +2,38 @@
     <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
 </head> -->
 <!-- <div style="back<div class="col-md-12" style="line-height: 300px; height: 300px; margin-top: 30px;">ground-color:lightsteelblue; border: 1px black solid;"> -->
-  <h2 style="text-align: center; color: #038C3E !important;" *ngIf="!timerDone">Auction Ends:</h2>
-  <h2 style="text-align: center; color: #038C3E !important;" *ngIf="timerDone">Auction Ended!</h2>
+  <h2 style="text-align: center; color: black !important;" *ngIf="!timerDone">Auction Ends:</h2>
+  <h2 style="text-align: center; color: black !important;" *ngIf="timerDone">Auction Ended!</h2>
 <!-- </div> -->
-<div #timer id="timer" style="color: white;">
-  <span id="days" class="timer"></span>:
-  <span id="hours" class="timer"></span>:
-  <span id="minutes" class="timer"></span>:
-  <span id="seconds" class="timer"></span>
+<div #timer id="timer" style="color: black; margin:auto !important; text-align: center;">
+  <span id="days" class="timer"></span> Days
+  <span id="hours" class="timer"></span> Hours
+  <span id="minutes" class="timer"></span> Minutes
+  <span id="seconds" class="timer"></span> Seconds
 </div>
-<hr class="hr-solid hr-primary" style="border-top: 1px solid lightgreen; border-top-width: 1px; opacity: 0.25;">
 <div class="row" style="margin-top: 15px !important; ">
 
 
  <div class="col-md-12">
-  <span><h3 style="text-align: center; color: white;">Current Strike Price: <b *ngIf="auction.reserveMet" style="color: lightgreen;">{{auction.currentStrikePrice | currency: 'USD'}}</b> <b #hiddenStrikePrice *ngIf="!auction.reserveMet" (mouseover)="showInfoPopup(strikePricePopup)" (mouseleave)="hideInfoPopup(strikePricePopup)">?</b></h3></span>
+  <span><h3 style="text-align: center;">Current Strike Price: <b *ngIf="auction.reserveMet" style="color: #3FBF48; font-weight:600; opacity: 0.75;">{{auction.currentStrikePrice | currency: 'USD'}}</b> <b #hiddenStrikePrice *ngIf="!auction.reserveMet" (mouseover)="showInfoPopup(strikePricePopup)" (mouseleave)="hideInfoPopup(strikePricePopup)">?</b></h3></span>
 </div>
 <div #strikePricePopup id="strikePricePopup" style="display: none; text-align: center;" class="container">
   You won't see the strike price until the reserve is met!
 </div>
 </div>
-<div class="row" style="margin-top: 10px !important; ">
+<div class="row" style="margin-top: 10px !important;">
 
 
-    <div class="col-md-6">
-     <span style="color: white;"><b style="margin-right: 5px; color:darkgray;">Shares Offered:</b> {{auction.sharesOffered}}</span>
-   </div>
-   <div class="col-md-6" >
-     <!-- <span><b>Reserve Price: </b>
-       {{auction.reserve.pps | currency: USD}}
-     </span> -->
-     <span style="color: white">
-       <b style="color: darkgray;">Unique Bidders: </b>
-       {{auction.uniqueBidders}}
-     </span>
-   </div>
+<!--    <div class="col-md-6">-->
+<!--     <span><b style="margin-right: 5px; color:darkgray;">Shares Offered:</b> {{auction.sharesOffered}}</span>-->
+<!--   </div>-->
+<!--   <div class="col-md-6" >-->
+<!--     &lt;!&ndash; <span><b>Reserve Price: </b>-->
+<!--       {{auction.reserve.pps | currency: USD}}-->
+<!--     </span> &ndash;&gt;-->
+<!--     <span>-->
+<!--       <b style="color: darkgray;">Unique wders: </b>-->
+<!--       {{auction.uniqueBidders}}-->
+<!--     </span>-->
+<!--   </div>-->
    </div>

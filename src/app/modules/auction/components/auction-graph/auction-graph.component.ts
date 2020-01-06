@@ -161,7 +161,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('class', 'bar')
       .attr('fill', function(d) {
         console.log(d);
-        return ((d.pps >= me.auction.currentStrikePrice) && (me.auction.reserveMet)) ? '#3FBF48' : 'darkgrey';
+        return ((d.pps >= me.auction.currentStrikePrice) && (me.auction.reserveMet)) ? '#3FBF48' : 'steelblue';
       })
       .attr('x', function(d) {
         return me.chartProps.x(d.pps) - 15 / 2;
