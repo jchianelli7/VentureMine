@@ -1003,7 +1003,7 @@ a {
 }
 
 a:hover {
-  color: #8CBF3F;
+  color: #8CBF3F !important;
   text-decoration: none;
 }
 

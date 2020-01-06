@@ -16,3 +16,23 @@
 button {
   margin: auto !important;
 }
+
+.nav-tabs>li.active>a{
+  color: #8CBF3F !important;
+}
+
+.nav-tabs>li>a:hover {
+  color: #8CBF3F !important;
+}
+
+.navbar .main-navigation>.menu li.current-menu-item>a{
+  color: #8CBF3F !important;
+}
+
+.navbar-justified .main-navigation>.menu>li.menu-item-has-children>a:hover {
+  color: #8CBF3F !important;
+}
+
+.navbar .main-navigation>.menu>li.menu-item-has-children .sub-menu li>a:hover{
+  color: #8CBF3F !important;
+}
