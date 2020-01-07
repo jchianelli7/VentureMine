@@ -123,12 +123,10 @@
 <!--</div>-->
 
 
-
-
-
 <main>
   <button class="btn btn-primary" (click)="simulateBids(auction._id)"
-          style="margin: 10px !important;">Simulate Bidding</button>
+          style="margin: 10px !important;">Simulate Bidding
+  </button>
   <button class="btn btn-primary" (click)="resetBids(auction._id)">Clear Bids</button>
 
   <article>
@@ -148,7 +146,8 @@
             </app-auction-details>
           </div>
           <div class="col-lg-4">
-            <hr class="hr-solid hr-primary" style="border-top: 3px solid #3FBF48; border-top-width: 5px; opacity: 0.45; width:75%; margin:auto; margin-top:10px; margin-bottom: 20px;">
+            <hr class="hr-solid hr-primary"
+                style="border-top: 3px solid #3FBF48; border-top-width: 5px; opacity: 0.45; width:75%; margin:auto; margin-top:10px; margin-bottom: 20px;">
             <app-auction-bid *ngIf="auction" [auction]="auction" (bidPlaced)="auctionUpdated($event)">
             </app-auction-bid>
 
@@ -157,75 +156,86 @@
         </div>
       </div>
     </section>
-    <hr class="hr-solid hr-primary" style="border-top: 3px solid #3FBF48; border-top-width: 5px; opacity: 0.45; width:75%; margin:auto; margin-top:10px; margin-bottom: 10px;">
+    <hr class="hr-solid hr-primary"
+        style="border-top: 3px solid #3FBF48; border-top-width: 5px; opacity: 0.45; width:75%; margin:auto; margin-top:10px; margin-bottom: 10px;">
 
 
     <!--                  Auction Stats - Boxes                     -->
     <section class="fw-section padding-top-2x" data-aos="fade-up">
       <div class="container">
         <div class="col-lg-12">
-        <h2 class="block-title text-dark text-center">
-         Auction Quick Stats <small class="h4">{{auction.title}}</small>
-        </h2>
+          <h2 class="block-title text-dark text-center">
+            Auction Quick Stats <small class="h4">{{auction.title}}</small>
+          </h2>
 
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="animated-digit-box skin-primary">
-              <div class="animated-digit">
-                <span class="digit" style="font-size:42px;">{{auction.currentBids}}</span><span style="font-size: 31px;"> Total Bids</span>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="animated-digit-box skin-primary">
+                <div class="animated-digit">
+                  <span class="digit" style="font-size:42px;">{{auction.currentBids}}</span><span
+                  style="font-size: 31px;"> Total Bids</span>
+                </div>
+
+                <p class="description" style="font-size: 18px;">
+                  {{auction.currentBids}} Bidders Are Currently Interested In {{auction.title}}
+                </p>
               </div>
-
-              <p class="description" style="font-size: 18px;">
-                {{auction.currentBids}} Bidders Are Currently Interested In {{auction.title}}
-              </p>
             </div>
-          </div>
 
-          <div class="col-sm-3">
-            <div class="animated-digit-box skin-primary">
-              <div class="animated-digit">
-                <span class="digit" style="font-size: 42px;">{{averageBidAmount | currency: 'USD'}}</span>
+            <div class="col-sm-3">
+              <div class="animated-digit-box skin-primary">
+                <div class="animated-digit">
+                  <span class="digit" style="font-size: 42px;">{{averageBidAmount | currency: 'USD'}}</span>
+                </div>
+
+                <p class="description" style="font-size:22px;">
+                  Average Bid Amount (Total)
+                </p>
               </div>
-
-              <p class="description" style="font-size:22px;">
-                Average Bid Amount (Total)
-              </p>
             </div>
-          </div>
 
-          <div class="col-sm-3">
-            <div class="animated-digit-box skin-primary">
-              <div class="animated-digit">
-                <span class="digit" style="font-size: 36px;">{{auction.currentCommittedCapital | currency: 'USD'}}</span>
+            <div class="col-sm-3">
+              <div class="animated-digit-box skin-primary">
+                <div class="animated-digit">
+                  <span class="digit"
+                        style="font-size: 36px;">{{auction.currentCommittedCapital | currency: 'USD'}}</span>
+                </div>
+
+                <p class="description" style="font-size: 22px;">
+                  Total Committed Capital <br> <span
+                  style="font-size:12px;">*This includes bids below the Strike Price*</span>
+                </p>
               </div>
-
-              <p class="description" style="font-size: 22px;">
-                Total Committed Capital <br> <span style="font-size:12px;">*This includes bids below the Strike Price*</span>
-              </p>
             </div>
-          </div>
 
-          <div class="col-sm-3">
-            <div class="animated-digit-box skin-primary">
-              <div class="animated-digit">
-                <span class="digit" style="font-size: 36px;">{{auction.sharesOffered}}</span>
+            <div class="col-sm-3">
+              <div class="animated-digit-box skin-primary">
+                <div class="animated-digit">
+                  <span class="digit" style="font-size: 36px;">{{auction.sharesOffered}}</span>
+                </div>
+
+                <p class="description" style="font-size: 22px;">
+                  Shares Offered
+                </p>
               </div>
-
-              <p class="description" style="font-size: 22px;">
-                Shares Offered
-              </p>
             </div>
           </div>
         </div>
       </div>
-      </div>
     </section>
 
-    <hr class="hr-solid hr-primary" style="border-top: 3px solid #3FBF48; border-top-width: 5px; opacity: 0.45; width:75%; margin:auto; margin-top:10px; margin-bottom: 10px;">
+    <hr class="hr-solid hr-primary"
+        style="border-top: 3px solid #3FBF48; border-top-width: 5px; opacity: 0.45; width:75%; margin:auto; margin-top:10px; margin-bottom: 10px;">
     <article class="page" id="business-info">
+<!--      Header Image For Company Details      -->
       <section class="fw-section section-no-gap">
         <div class="container-fluid">
-          <img alt="" class="single-image attachment-full size-full" data-aos="" src="assets/img/fin-team-4.jpg">
+          <div class="row">
+            <div class="col-md-12">
+              <img alt="" id="company-header" class="single-image attachment-full size-full" data-aos=""
+                   src="assets/img/Logo2.png" style="width: 50%; height: 10%; margin:auto;">
+            </div>
+          </div>
         </div>
       </section>
 
@@ -233,7 +243,7 @@
         <div class="container">
           <div class="text-block">
             <h2>
-              Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante vestibulum convallis. Fusce non orci elementum, egestas enim.
+              VentureMine is an equity-based crowdfunding platform that offers investors a great chance to invest in companies early, while giving people in the beginning stages of their business a fair, consumer decided valuation and acquire partners and revenue at the same time!
             </h2>
           </div>
         </div>
@@ -280,13 +290,16 @@
                           <div class="panel-group panel-group-dark" id="tta-d3ebc823">
                             <div class="panel">
                               <h4 class="panel-title">
-                                <a class="open" data-parent="#tta-d3ebc823" data-toggle="collapse" href="#panel-082e3bc0">What Is {{auction.title}}?</a>
+                                <a class="open" data-parent="#tta-d3ebc823" data-toggle="collapse"
+                                   href="#panel-082e3bc0">What Is {{auction.title}}?</a>
                               </h4>
 
                               <div class="panel-collapse collapse in" id="panel-082e3bc0">
                                 <div class="panel-collapse-inner">
                                   <div class="text-block">
-                                    <p>VentureMine is an equity-based crowd-funding platform that uses a proprietary auction mechanism to give companies/inventors an accurate and fair valuation on their company or product!</p>
+                                    <p>VentureMine is an equity-based crowd-funding platform that uses a proprietary
+                                      auction mechanism to give companies/inventors an accurate and fair valuation on
+                                      their company or product!</p>
                                     <p>VentureMine uses a Dutch-Style auction to find the share value of a comapny</p>
                                   </div>
                                 </div>
@@ -295,14 +308,20 @@
 
                             <div class="panel">
                               <h4 class="panel-title">
-                                <a class="collapsed" data-parent="#tta-d3ebc823" data-toggle="collapse" href="#panel-937b24c3">Strategic advice, creative ideas</a>
+                                <a class="collapsed" data-parent="#tta-d3ebc823" data-toggle="collapse"
+                                   href="#panel-937b24c3">How Does It Work?</a>
                               </h4>
 
                               <div class="panel-collapse collapse out" id="panel-937b24c3">
                                 <div class="panel-collapse-inner">
                                   <div class="text-block">
                                     <p>
-                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante vestibulum convallis. Fusce non orci elementum, egestas enim ut, sodales orci. Cras ligula velit, mattis nec ligula vel, laoreet ullamcorper nisl. In cursus sit amet metus a fermentum. Sed ornare metus ut elit placerat sodales. Donec et mattis lectus. Donec aliquet elit odio.
+                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis
+                                      eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante
+                                      vestibulum convallis. Fusce non orci elementum, egestas enim ut, sodales orci.
+                                      Cras ligula velit, mattis nec ligula vel, laoreet ullamcorper nisl. In cursus sit
+                                      amet metus a fermentum. Sed ornare metus ut elit placerat sodales. Donec et mattis
+                                      lectus. Donec aliquet elit odio.
                                     </p>
                                   </div>
                                 </div>
@@ -311,14 +330,22 @@
 
                             <div class="panel">
                               <h4 class="panel-title">
-                                <a class="collapsed" data-parent="#tta-d3ebc823" data-toggle="collapse" href="#panel-00cc2316">A direct, straightforward style</a>
+                                <a class="collapsed" data-parent="#tta-d3ebc823" data-toggle="collapse"
+                                   href="#panel-00cc2316">Who Will Use VentureMine?</a>
                               </h4>
 
                               <div class="panel-collapse collapse out" id="panel-00cc2316">
                                 <div class="panel-collapse-inner">
                                   <div class="text-block">
                                     <p>
-                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante vestibulum convallis. Fusce non orci elementum, egestas enim ut, sodales orci. Cras ligula velit, mattis nec ligula vel, laoreet ullamcorper nisl. In cursus sit amet metus a fermentum. Sed ornare metus ut elit placerat sodales. Donec et mattis lectus. Donec aliquet elit odio. In aliquet felis vitae nibh gravida ornare. Aenean lobortis sapien massa. Morbi vestibulum aliquam sem id fringilla. Proin sit amet risus est. Sed fermentum in felis feugiat pellentesque.
+                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis
+                                      eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante
+                                      vestibulum convallis. Fusce non orci elementum, egestas enim ut, sodales orci.
+                                      Cras ligula velit, mattis nec ligula vel, laoreet ullamcorper nisl. In cursus sit
+                                      amet metus a fermentum. Sed ornare metus ut elit placerat sodales. Donec et mattis
+                                      lectus. Donec aliquet elit odio. In aliquet felis vitae nibh gravida ornare.
+                                      Aenean lobortis sapien massa. Morbi vestibulum aliquam sem id fringilla. Proin sit
+                                      amet risus est. Sed fermentum in felis feugiat pellentesque.
                                     </p>
                                   </div>
                                 </div>
@@ -341,7 +368,7 @@
                       <div class="row">
                         <div class="col-sm-4">
                           <h2 class="block-title text-dark text-left">
-                            How we work<small class="h4">How we work</small>
+                            For Investors<small class="h4">How we work</small>
                           </h2>
                         </div>
 
@@ -349,18 +376,26 @@
                           <div class="panel-group panel-group-dark" id="tta-0dba3232">
                             <div class="panel">
                               <h4 class="panel-title">
-                                <a class="open" data-parent="#tta-0dba3232" data-toggle="collapse" href="#panel-e7aff9f6">Significant technology or business model innovation</a>
+                                <a class="open" data-parent="#tta-0dba3232" data-toggle="collapse"
+                                   href="#panel-e7aff9f6">What Will My Investment Be Used For?</a>
                               </h4>
 
                               <div class="panel-collapse collapse in" id="panel-e7aff9f6">
                                 <div class="panel-collapse-inner">
                                   <div class="text-block">
                                     <p>
-                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante vestibulum convallis. Fusce non orci elementum, egestas enim ut.
+                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis
+                                      eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante
+                                      vestibulum convallis. Fusce non orci elementum, egestas enim ut.
                                     </p>
 
                                     <p>
-                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante vestibulum convallis. Fusce non orci elementum, egestas enim ut, sodales orci. Cras ligula velit, mattis nec ligula vel, laoreet ullamcorper nisl. In cursus sit amet metus a fermentum. Sed ornare metus ut elit placerat sodales. Donec et mattis lectus. Donec aliquet elit odio.
+                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis
+                                      eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante
+                                      vestibulum convallis. Fusce non orci elementum, egestas enim ut, sodales orci.
+                                      Cras ligula velit, mattis nec ligula vel, laoreet ullamcorper nisl. In cursus sit
+                                      amet metus a fermentum. Sed ornare metus ut elit placerat sodales. Donec et mattis
+                                      lectus. Donec aliquet elit odio.
                                     </p>
                                   </div>
                                 </div>
@@ -369,14 +404,20 @@
 
                             <div class="panel">
                               <h4 class="panel-title">
-                                <a class="collapsed" data-parent="#tta-0dba3232" data-toggle="collapse" href="#panel-63be3fa3">Large markets, either existing or newly enabled by the innovation at hand</a>
+                                <a class="collapsed" data-parent="#tta-0dba3232" data-toggle="collapse"
+                                   href="#panel-63be3fa3">How Do I Make A Return?</a>
                               </h4>
 
                               <div class="panel-collapse collapse out" id="panel-63be3fa3">
                                 <div class="panel-collapse-inner">
                                   <div class="text-block">
                                     <p>
-                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante vestibulum convallis. Fusce non orci elementum, egestas enim ut, sodales orci. Cras ligula velit, mattis nec ligula vel, laoreet ullamcorper nisl. In cursus sit amet metus a fermentum. Sed ornare metus ut elit placerat sodales. Donec et mattis lectus. Donec aliquet elit odio.
+                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis
+                                      eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante
+                                      vestibulum convallis. Fusce non orci elementum, egestas enim ut, sodales orci.
+                                      Cras ligula velit, mattis nec ligula vel, laoreet ullamcorper nisl. In cursus sit
+                                      amet metus a fermentum. Sed ornare metus ut elit placerat sodales. Donec et mattis
+                                      lectus. Donec aliquet elit odio.
                                     </p>
                                   </div>
                                 </div>
@@ -385,14 +426,22 @@
 
                             <div class="panel">
                               <h4 class="panel-title">
-                                <a class="collapsed" data-parent="#tta-0dba3232" data-toggle="collapse" href="#panel-c72c3401">Short innovation cycles</a>
+                                <a class="collapsed" data-parent="#tta-0dba3232" data-toggle="collapse"
+                                   href="#panel-c72c3401">What Comes Next?</a>
                               </h4>
 
                               <div class="panel-collapse collapse out" id="panel-c72c3401">
                                 <div class="panel-collapse-inner">
                                   <div class="text-block">
                                     <p>
-                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante vestibulum convallis. Fusce non orci elementum, egestas enim ut, sodales orci. Cras ligula velit, mattis nec ligula vel, laoreet ullamcorper nisl. In cursus sit amet metus a fermentum. Sed ornare metus ut elit placerat sodales. Donec et mattis lectus. Donec aliquet elit odio. In aliquet felis vitae nibh gravida ornare. Aenean lobortis sapien massa. Morbi vestibulum aliquam sem id fringilla. Proin sit amet risus est. Sed fermentum in felis feugiat pellentesque.
+                                      Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis
+                                      eros, scelerisque ac commodo non, blandit sed elit. Aliquam ac mi et ante
+                                      vestibulum convallis. Fusce non orci elementum, egestas enim ut, sodales orci.
+                                      Cras ligula velit, mattis nec ligula vel, laoreet ullamcorper nisl. In cursus sit
+                                      amet metus a fermentum. Sed ornare metus ut elit placerat sodales. Donec et mattis
+                                      lectus. Donec aliquet elit odio. In aliquet felis vitae nibh gravida ornare.
+                                      Aenean lobortis sapien massa. Morbi vestibulum aliquam sem id fringilla. Proin sit
+                                      amet risus est. Sed fermentum in felis feugiat pellentesque.
                                     </p>
                                   </div>
                                 </div>
@@ -404,7 +453,9 @@
                     </div>
                   </section>
 
-                  <section class="fw-section with-overlay bg-parallax padding-top-6x padding-bottom-6x" data-parallax-speed="0.4" data-parallax-type="scroll" style="background-image: url(assets/img/fin-bg-5.jpg);">
+                  <section class="fw-section with-overlay bg-parallax padding-top-6x padding-bottom-6x"
+                           data-parallax-speed="0.4" data-parallax-type="scroll"
+                           style="background-image: url(assets/img/fin-bg-5.jpg);">
                     <span class="overlay" style="opacity: 0.25; background-color: #000000;"></span>
 
                     <div class="container">
@@ -419,7 +470,8 @@
                       </div>
 
                       <div class="video-popup text-light text-center">
-                        <a class="video-popup-btn" href="https://www.youtube.com/watch?v=wPbAewRib6M"><i class="material-icons play_circle_filled"></i></a>
+                        <a class="video-popup-btn" href="https://www.youtube.com/watch?v=wPbAewRib6M"><i
+                          class="material-icons play_circle_filled"></i></a>
                       </div>
                     </div>
                   </section>
@@ -436,7 +488,7 @@
                 <div class="row">
                   <div class="col-sm-4">
                     <h2 class="block-title text-dark text-left mobile-center">
-                      Life Science<small class="h4">Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis eros, scelerisque ac commodo non, blandit sed elit.</small>
+                      Our Team<small class="h4">VentureMine is FOR inventors/investors, made BY inventors and investors. </small>
                     </h2>
                   </div>
 
@@ -448,9 +500,9 @@
 
                       <div class="teammate-info-wrap">
                         <h3 class="teammate-name">
-                          Ray Singleton
+                          Sully Brooks
                         </h3>
-                        <span class="teammate-info">General Partner</span><span class="teammate-info">Ph.D. in bioengineering. Investor in Collective Health and LendUp.</span>
+                        <span class="teammate-info">President</span><span class="teammate-info">Entrepreneur - B.A. in Computer Science <br><br>Minneapolis, MN</span>
                         <div class="social-bar sb-border sb-rounded sb-dark-skin text-left">
                         </div>
                       </div>
@@ -463,9 +515,9 @@
 
                       <div class="teammate-info-wrap">
                         <h3 class="teammate-name">
-                          Kyle Daniels
+                          Patrick Sullivan
                         </h3>
-                        <span class="teammate-info">General Partner</span><span class="teammate-info">Harvard Medical School and Harvard Business School.</span>
+                        <span class="teammate-info">Co-Founder</span><span class="teammate-info">Managing Investor w/ VolcanAire. 13+ yrs of capital markets, exchanges and trading expertise. <br><br> Chicago, IL</span>
                         <div class="social-bar sb-border sb-rounded sb-dark-skin text-left">
                         </div>
                       </div>
@@ -478,9 +530,9 @@
 
                       <div class="teammate-info-wrap">
                         <h3 class="teammate-name">
-                          Viola McGee
+                          Michael Sullivan
                         </h3>
-                        <span class="teammate-info">Venture Partner</span><span class="teammate-info">Cardiology and medical genetics researcher at Harvard.</span>
+                        <span class="teammate-info">Co-Founder</span><span class="teammate-info">Senior Director, United HealthGroup. 15+ yrs of experience as Advising Executive. <br><br> Minneapolis, MN</span>
                         <div class="social-bar sb-border sb-rounded sb-dark-skin text-left">
                         </div>
                       </div>
@@ -525,93 +577,6 @@
                     <hr class="hr-solid hr-primary" style="border-top-color: ; border-top-width: 1px; opacity: 0.25;">
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="col-sm-4">
-                    <h2 class="block-title text-dark text-left mobile-center">
-                      Life Science<small class="h4">Curabitur lacinia nisl lacus, sit amet placerat tortor ultrices eget. Ut turpis eros, scelerisque ac commodo non, blandit sed elit.</small>
-                    </h2>
-                  </div>
-
-                  <div class="col-sm-4">
-                    <div class="teammate teammate-dark-skin teammate-horizontal teammate-rounded">
-                      <div class="teammate-thumb">
-                        <img alt="" src="assets/img/fin-team-10.jpg">
-                      </div>
-
-                      <div class="teammate-info-wrap">
-                        <h3 class="teammate-name">
-                          Garrett Todd
-                        </h3>
-                        <span class="teammate-info">Design Partner</span><span class="teammate-info">Founded Milk and Silverorange. Led design at Digg.</span>
-                        <div class="social-bar sb-border sb-rounded sb-dark-skin text-left">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="teammate teammate-dark-skin teammate-horizontal teammate-rounded">
-                      <div class="teammate-thumb">
-                        <img alt="" src="assets/img/fin-team-11.jpg">
-                      </div>
-
-                      <div class="teammate-info-wrap">
-                        <h3 class="teammate-name">
-                          Olga Brewer
-                        </h3>
-                        <span class="teammate-info">Design Partner</span><span class="teammate-info">First designer. Led design for Gmail and Google Apps.</span>
-                        <div class="social-bar sb-border sb-rounded sb-dark-skin text-left">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="teammate teammate-dark-skin teammate-horizontal teammate-rounded">
-                      <div class="teammate-thumb">
-                        <img alt="" src="assets/img/fin-team-12.jpg">
-                      </div>
-
-                      <div class="teammate-info-wrap">
-                        <h3 class="teammate-name">
-                          Katie Becker
-                        </h3>
-                        <span class="teammate-info">UX Research Partner</span><span class="teammate-info">Cardiology and medical genetics researcher at Harvard.</span>
-                        <div class="social-bar sb-border sb-rounded sb-dark-skin text-left">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-4">
-                    <div class="teammate teammate-dark-skin teammate-horizontal teammate-rounded">
-                       <div class="teammate-thumb">
-                        <img alt="" src="assets/img/fin-team-13.jpg">
-                      </div>
-
-                      <div class="teammate-info-wrap">
-                        <h3 class="teammate-name">
-                          Louis Mullins
-                        </h3>
-                        <span class="teammate-info">Design Partner</span><span class="teammate-info">Runs design team operations. Previously at Google.</span>
-                        <div class="social-bar sb-border sb-rounded sb-dark-skin text-left">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="teammate teammate-dark-skin teammate-horizontal teammate-rounded">
-                      <div class="teammate-thumb">
-                        <img alt="" src="assets/img/fin-team-14.jpg">
-                      </div>
-
-                      <div class="teammate-info-wrap">
-                        <h3 class="teammate-name">
-                          Juan Alvarado
-                        </h3>
-                        <span class="teammate-info">Design Partner</span><span class="teammate-info">Physician and serial founder. Leads GV’s Life Science team.</span>
-                        <div class="social-bar sb-border sb-rounded sb-dark-skin text-left">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
 
 
@@ -620,7 +585,8 @@
         </div>
       </section>
     </article>
-    <hr class="hr-solid hr-primary" style="border-top: 3px solid #3FBF48; border-top-width: 5px; opacity: 0.45; width:75%; margin:auto; margin-top:10px; margin-bottom: 10px;">
+    <hr class="hr-solid hr-primary"
+        style="border-top: 3px solid #3FBF48; border-top-width: 5px; opacity: 0.45; width:75%; margin:auto; margin-top:10px; margin-bottom: 10px;">
 
     <section class="fw-section padding-top-3x padding-bottom-3x">
       <div class="container">
