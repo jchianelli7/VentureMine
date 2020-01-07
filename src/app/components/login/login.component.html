@@ -4,14 +4,14 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+      <img src="../../../assets/img/logo.png" id="icon" alt="User Icon" style="max-height: 250px; max-width: 150px;" />
     </div>
 
     <!-- Login Form -->
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <input formControlName="username" type="text" id="login" class="fadeIn second" name="login" placeholder="login">
       <input formControlName="password" type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
+      <input type="submit" class="fadeIn fourth" value="Log In" style="margin:auto; text-align: center; background-color: #8CBF3F !important;">
     </form>
 
     <!-- Remind Passowrd -->
