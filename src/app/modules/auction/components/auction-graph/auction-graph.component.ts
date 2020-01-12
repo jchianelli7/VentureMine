@@ -111,7 +111,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
 
 
     // Build Auction Dataset w/ Winner/loser attributes -- Frontend only
-    const auctionData = this.auction.bids;
+    // const auctionData = this.auction.bids;
 
     // Colors for stacked bar charts
     const colors = ['b33040', '#d25c4d', '#f2b447', '#d9d574'];
