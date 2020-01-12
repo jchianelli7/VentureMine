@@ -175,7 +175,7 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
       });
 
     // Add the valueline path.
-    if (this.auction.reserveMet) {
+    if (this.auction.reserveMet)  {
       svg.append('line')
         .attr('class', 'line strikePriceLine')
         .style('stroke', 'red')
