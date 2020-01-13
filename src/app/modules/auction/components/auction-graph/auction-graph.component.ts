@@ -67,11 +67,19 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.y = d3.scaleLinear().range([height, 0]);
     this.chartProps.y2 = d3.scaleLinear().range([height, 0]);        // TODO: Manipulate this to look good AND COLOR CODE AXIS & DATA POINTS/LINES TO MATCH
 
-    var xExtent = d3.extent(this.auction.volumeData, function (d) {
+// <<<<<<< master
+//     var xExtent = d3.extent(this.auction.volumeData, function (d) {
+//         return d.pps;
+//       }),
+//       xRange = xExtent[1] - xExtent[0],
+//       yExtent = d3.extent(this.auction.volumeData, function (d) {
+// =======
+    const xExtent = d3.extent(this.auction.volumeData, function(d) {
         return d.pps;
       }),
       xRange = xExtent[1] - xExtent[0],
-      yExtent = d3.extent(this.auction.volumeData, function (d) {
+      yExtent = d3.extent(this.auction.volumeData, function(d) {
+// >>>>>>> stacked-bar
         return d.shareCount;
       }),
       yRange = yExtent[1] - yExtent[0];
@@ -106,7 +114,54 @@ export class AuctionGraphComponent implements OnInit, OnChanges, AfterViewInit {
     this.chartProps.y.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
     this.chartProps.y2.domain([yExtent[0] - (yRange * .05), yExtent[1] + (yRange * .05)]);
 
-    var data = this.parseVolumeData()
+// <<<<<<< master
+//     var data = this.parseVolumeData()
+// =======
+
+
+//     // Build Auction Dataset w/ Winner/loser attributes -- Frontend only
+//     // const auctionData = this.auction.bids;
+
+//     // Colors for stacked bar charts
+//     const colors = ['b33040', '#d25c4d', '#f2b447', '#d9d574'];
+
+
+//     // TODO: MAKE GRAPH LEGEND
+//     // Draw legend
+//     // let legend = svg.selectAll('.legend')
+//     //   .data(colors)s
+//     //   .enter().append('g')
+//     //   .attr('class', 'legend')
+//     //   .attr('transform', function(d, i) {
+//     //     return 'translate(30,' + i * 19 + ')';
+//     //   });
+//     //
+//     // legend.append('rect')
+//     //   .attr('x', width - 18)
+//     //   .attr('width', 18)
+//     //   .attr('height', 18)
+//     //   .style('fill', function(d, i) {
+//     //     return colors.slice().reverse()[i];
+//     //   });
+//     //
+//     // legend.append('text')
+//     //   .attr('x', width + 5)
+//     //   .attr('y', 9)
+//     //   .attr('dy', '.35em')
+//     //   .style('text-anchor', 'start')
+//     //   .text(function(d, i) {
+//     //     switch (i) {
+//     //       case 0:
+//     //         return 'Anjou pears';
+//     //       case 1:
+//     //         return 'Naval oranges';
+//     //       case 2:
+//     //         return 'McIntosh apples';
+//     //       case 3:
+//     //         return 'Red Delicious apples';
+//     //     }
+//     //   });
+// >>>>>>> stacked-bar
 
     // List of subgroups = header of the csv files = soil condition here
     var subgroups = data.columns.slice(1)
